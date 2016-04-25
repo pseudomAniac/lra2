@@ -1,0 +1,19 @@
+<div class="container" id="top">
+	<section class="row text-center" ng-controller="articlesController">
+		<div id="content-header" class="row">
+			<div class="col-md-6 text-center pull-right" id="count">
+				<h1>{{articles.length}}</h1>
+				<span class="text-uppercase" style="color: black; font-size: 1.25em;">total</span>
+			</div>
+			<div class="col-md-6 text-center">
+				<h1 class="text-primary">Published {{pageTitle}} Articles</h1>
+				<div class="col-xs-6"><% include datepicker %></div>		
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-center pull-right h1" id="graph"></div>
+			</div>
+		</div>
+		<!-- <div href="#" data-toggle="tooltip" title="Some tooltip text!">Hover over me</div> -->
+		<div class="row"><% include datatable %></div>
+	</section>
+</div>

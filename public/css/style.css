@@ -1,0 +1,66 @@
+body{
+  padding-top: 40px;
+}
+.pull-center{
+	position: absolute;
+  left: 50%;
+  bottom: 75%;
+  color: black !important;
+  opacity: 1 !important;
+  fill: black;
+}
+.text-white {
+	color: white;
+}
+.text-black {
+	color: black;
+}
+span.btn.btn-info {
+	border-radius: 2em;
+}
+.box-shadow.well-lg {
+    box-shadow: 0px 5px 15px black;
+}
+.well-lg:nth-child(1) {
+    margin-top: 1em;
+}
+.box-shadow.well-lg {
+    background-image: linear-gradient(165deg,dimgray,transparent 80%,black,transparent 30%),linear-gradient(gold 21%,red 120%) !important;
+}
+section h1, .site-title {
+	font-family: Lobster;
+}
+div#content-header {
+  padding-bottom: 1em;
+  background: url("/public/img/graph_background.png") 150% 60%;
+  background-image: linear-gradient(45deg, #cc0000 9%, #f2dede 8%, transparent 50%), linear-gradient(180deg, #772953 25%, transparent 100%)
+  /*background: url("http://www.twitrcovers.com/wp-content/uploads/2014/09/Abstract-Art-l.jpg") 150% 60%;*/
+}
+#count {
+  display: block;
+  color: whitesmoke;
+}
+#count h1 {
+  background: black;
+  border-radius: 50%;
+  line-height: 2em;
+  width: 2em;
+  height: 2em;
+  display: inline-block;
+}
+/*d3 graph style*/
+g.tick>line {
+  stroke: black;
+}
+path.domain {
+  fill: none;
+  stroke: black;
+}
+.affix {
+  top: 4em;
+  padding: 0 2em;
+  width: 90%;
+}
+svg {
+  background: linear-gradient(rgba(58,135,173,0.5) 25%, transparent 1%,dimgray 210%, transparent 50%) !important;
+}

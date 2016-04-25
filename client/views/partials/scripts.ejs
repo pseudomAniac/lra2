@@ -1,0 +1,20 @@
+<script src="/js/jquery.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/d3.js"></script>
+<script src="/js/angular.js"></script>
+<script src="/js/angular-resource.js"></script>
+<script src="/client/js/app.js"></script>
+<script type="typext/javascript">
+	$(document).ready(function() {
+	  $('li.dropdown:last').attr('style','margin-right:50px');
+  	$('#date-picker').datepicker(
+		{
+			dateFormat: 'MM d yy',
+			showAnim: 'fade'
+		});
+		$('[data-toggle="popover"]').popover(); 
+		$('[data-toggle="tooltip"]').tooltip(); 
+		$('circle.tooltip').tooltip();
+	});
+</script>

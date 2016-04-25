@@ -1,0 +1,19 @@
+<table class="table table-hover table-striped">
+	<thead class="text-left bg-primary text-uppercase alert" data-spy="affix" data-offset-top="550">
+		<td><strong>Article Title</strong></td>
+		<td><strong>Author</strong></td>
+		<td class="text-center"><strong>Views</strong></td>
+		<td><strong>Pub</strong></td>
+		<td><strong>Pub. Date</strong></td>
+	</thead>
+	<tr class="text-left" ng-repeat="article in articles|orderBy:'_id':'descending'|filter:searchStringName" id="{{article._id}}">
+		<td><!-- <a href="#" data-toggle="tooltip" title="{{article.title}}" class="reset clearfix article-title"> -->{{ article.title }}<!-- </a> --></td>
+		<td ng-if="article.author === NULL && article.source === NULL">Unspecified</td>
+		<td ng-if="article.author === NULL && article.source != NULL">{{article.source}}</td>
+		<td ng-if="article.source === NULL && article.author != NULL">{{article.author}}</td>
+		<td ng-if="article.source != NULL && article.author != NULL">{{ article.source }}</td>
+		<td>{{ article.views }}</td>
+		<td>{{ article.publisher }}</td>
+		<td class="td-last">{{ article.pubdate }}</td>
+	</tr>
+</table>

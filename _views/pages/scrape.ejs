@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Webscraper | Loop PNG App</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+<div class="container">
+	<div class="row text-center">
+		<div class="col-xs-12">
+			<h1 class="text-primary">Loop PNG Website Scraper</h1>
+			<p class="" style="font-family: Lato Thin">This is simple application can be used to get stories that are published on the Loop PNG website. It is a simple logging system that scrapes the website for data.</p>
+		</div>
+	</div>
+	<div class="well-lg text-default bg-primary">
+			<% if(articles === null) {%><li>data to be displayed in a list here</li><% } %>
+			<table>
+				<thead>
+					<td>Nbr.</td>
+					<td>Article Title</td>
+					<td>Author</td>
+					<td>Views</td>
+					<td>Comments</td>
+					<td>Publisher</td>
+					<td>Publication Date</td>
+				</thead>
+			<% for (var i=0; i<articles.title.length; i++) { %>
+				<tr>
+					<td><%= i+1 %></td>
+					<td><a class="text-white" href="<%= articles.link[i] %>"><%= articles.title[i] %></a></td>
+					<td><%= details.author[i] %></td>
+					<td><%= articles.views[i] %></td>
+					<td><%= details.comments[i] %></td>
+					<td><%= details.publisher[i] %></td>
+					<td><%= details.pubdate[i] %></td>
+				</tr>
+			<% } %>
+			</table>
+	</div>
+</div>
+</body>
+</html>

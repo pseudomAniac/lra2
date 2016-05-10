@@ -26,10 +26,10 @@
 						<form class="form-inline" ng-submit="createAuthor()" style="position: relative; left: 2em">
 							<input class="col-xs-8 form-control-static input input-sm text-center" type="text" placeholder="New author name" name="authorName" ng-model="authorName" />
 							<label for="authorType">Type:</label>
-						  <select class="form-control" id="authorType" name="authorType" ng-model="authorType">
-						    <option>Correspondent</option>
-						    <option>Fulltime</option>
-						    <option>Publisher</option>
+						  <select class="form-control" id="authorType" name="authorType">
+						    <option value="Correspondent" selected>Correspondent</option>
+						    <option value="Fulltime">Fulltime</option>
+						    <option value="Publisher">Publisher</option>
 						  </select>
 							<button class="col-xs-8 btn btn-success btn-sm" type="submit">Add Author</button>
 						</form>

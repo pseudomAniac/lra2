@@ -30,7 +30,9 @@ postmeta_extract =
 	title: 'h1.page-header',
 	link: 'link[rel=canonical]@href',
 	author: '.field-name-field-author .field-item.even',
+	category: 'body@class',
 	views: '.num-views',
+	comments: '.comment-count',
 	publisher: '.username',
 	source: '.field-name-field-source-url .field-item.even',
 	pubdate: '.by-line .submitted'
@@ -46,6 +48,7 @@ var insertNauruArticle		= Q.nfbind(naurucollection.insert.bind(naurucollection))
 		insertSamoaArticle		= Q.nbind(samoacollection.insert.bind(samoacollection)),
 		insertTongaArticle		= Q.nbind(tongacollection.insert.bind(tongacollection)),
 		insertVanuatuArticle	= Q.nbind(vanuatucollection.insert.bind(vanuatucollection));
+
 // // var findNauruArticle		= Q.nbind(Article.nauruArticlesModel.find, Article.nauruArticlesModel);
 // app.get('/pacific', function (req, res)
 // {
@@ -124,7 +127,7 @@ app.get('/write/nauru', function (req, res)
 		lurl = 'http://www.loopnauru.com/section/all?page='+i;
 		xray(lurl,
 		{
-			links: xray('.news-title>a',[{ link: '@href' }])
+			links: xray('.news-title>a',[{ link: '@href' }]) // get the links to crawl to
 		})(function (err, obj)
 		{ // function passing links
 			if(!err) {
@@ -135,6 +138,9 @@ app.get('/write/nauru', function (req, res)
 					{
 						if(!err)
 						{
+							// clean before saving: category
+							var tmpCat = data.category.split(" ");
+							data.category = tmpCat[tmpCat.length-1].replace("taxonomy-","");
 							// clean before saving: date published
 							var tmpPubDate = data.pubdate.slice(data.pubdate.search(",")+2,100),
 							cleaned = tmpPubDate.slice(0,tmpPubDate.search(",")+6);
@@ -171,6 +177,9 @@ app.get('/write/samoa', function (req, res)
 					{
 						if(!err)
 						{
+							// clean before saving: category
+							var tmpCat = data.category.split(" ");
+							data.category = tmpCat[tmpCat.length-1].replace("taxonomy-","");
 							// clean before saving: date published
 							var tmpPubDate = data.pubdate.slice(data.pubdate.search(",")+2,100),
 							cleaned = tmpPubDate.slice(0,tmpPubDate.search(",")+6);
@@ -207,6 +216,9 @@ app.get('/write/tonga', function (req, res)
 					{
 						if(!err)
 						{
+							// clean before saving: category
+							var tmpCat = data.category.split(" ");
+							data.category = tmpCat[tmpCat.length-1].replace("taxonomy-","");
 							// clean before saving: date published
 							var tmpPubDate = data.pubdate.slice(data.pubdate.search(",")+2,100),
 							cleaned = tmpPubDate.slice(0,tmpPubDate.search(",")+6);
@@ -243,6 +255,9 @@ app.get('/write/vanuatu', function (req, res)
 					{
 						if(!err)
 						{
+							// clean before saving: category
+							var tmpCat = data.category.split(" ");
+							data.category = tmpCat[tmpCat.length-1].replace("taxonomy-","");
 							// clean before saving: date published
 							var tmpPubDate = data.pubdate.slice(data.pubdate.search(",")+2,100),
 							cleaned = tmpPubDate.slice(0,tmpPubDate.search(",")+6);
@@ -262,7 +277,7 @@ app.get('/write/vanuatu', function (req, res)
 
 app.get('/write/png', function (req, res)
 {
-	counter = 36;
+	// counter = 24;
 	var lurl = 'http://www.looppng.com/section/all?page=0';
 	// generate links to source publication data from
 	for (var i=counter; i<counter+12; i++) {
@@ -280,6 +295,9 @@ app.get('/write/png', function (req, res)
 					{
 						if(!err)
 						{
+							// clean before saving: category
+							var tmpCat = data.category.split(" ");
+							data.category = tmpCat[tmpCat.length-1].replace("taxonomy-","");
 							// clean before saving: date published
 							var tmpPubDate = data.pubdate.slice(data.pubdate.search(",")+2,100),
 							cleaned = tmpPubDate.slice(0,tmpPubDate.search(",")+6);

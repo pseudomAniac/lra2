@@ -72,18 +72,18 @@
 				.enter()
 					.append('h1')
 					.text(function (d) { return d.values; })
-					.attr({ class: 'inline', style: 'color:skyblue; display: inline; float: left;', "ng-model":"searchStringName", fill: function(d) { return colorScale(d.values)} });
-			baseClassCounterDisplay.append('span').text(function (d) { return d.key; }).attr({class:'hide date'});
+					.attr({ class: 'inline-count', "ng-model":"searchStringName", fill: function(d) { return colorScale(d.values)} });
+			baseClassCounterDisplay.append('span').text(function (d) { return d.key; }).attr({class:'date'});
 			// baseClassCounterDisplay.sort();
-			baseClassCounterDisplay.on('mouseover', function (d) {
-				d3.select(this).select('span').attr('class', 'show date');
-			});
-			baseClassCounterDisplay.on('mouseout', function () {
-				d3.select(this).select('span').attr('class', 'hidden date');
-			});
-			baseClassCounterDisplay.on('click', function (d) {
-				console.log(d3.select(this).select('span').text());
-			});
+			// baseClassCounterDisplay.on('mouseover', function (d) {
+			// 	d3.select(this).select('span').attr('class', 'show date');
+			// });
+			// baseClassCounterDisplay.on('mouseout', function () {
+			// 	d3.select(this).select('span').attr('class', 'hidden date');
+			// });
+			// baseClassCounterDisplay.on('click', function (d) {
+			// 	console.log(d3.select(this).select('span').text());
+			// });
 
 			// line chart
 			var circles = d3.select('svg').append('g').attr('class','circle')

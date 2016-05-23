@@ -277,18 +277,18 @@ app.get('/write/vanuatu', function (req, res)
 
 app.get('/write/png', function (req, res)
 {
-	// counter = 24;
+	counter = 96;
 	var lurl = 'http://www.looppng.com/section/all?page=0';
 	// generate links to source publication data from
 	for (var i=counter; i<counter+12; i++) {
 		lurl = 'http://www.looppng.com/section/all?page='+i;
+		console.log("Collecting Info: Page ",i);
 		xray(lurl,
 		{
 			links: xray('.news-title>a',[{ link: '@href' }])
 		})(function (err, obj)
 		{ // function passing links
 			if(!err) {
-				console.log("Collecting Info: Page ",i);
 				obj.links.forEach(function (link)
 				{
 					xray(link.link, postmeta_extract)(function (err,data)

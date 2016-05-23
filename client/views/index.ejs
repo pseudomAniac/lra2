@@ -13,8 +13,14 @@
 	</style>
 </head>
 <body class="container-fluid">
+	<% include partials/fb-appconfig %>
 	<% include partials/mainNavigation %>
 <div class="container">
+<div class="row">
+	<div class="col-xs-12">
+		<h1 id="fb-welcome"></h1>
+	</div>
+</div>
 	<div class="" ng-app="authorsListing">
 		<div class="bg-default text-center">
 			<section ng-controller="authorsController">
@@ -23,10 +29,10 @@
 				<div>
 					<p>There are {{authors.length}} authors of this module</p>
 					<div class="clearfix row">
-						<form class="form-inline" ng-submit="createAuthor()" style="position: relative; left: 2em">
+						<form class="form-inline" ng-submit="createAuthor()" style="">
 							<input class="col-xs-8 form-control-static input input-sm text-center" type="text" placeholder="New author name" name="authorName" ng-model="authorName" />
-							<label for="authorType">Type:</label>
-						  <select class="form-control" id="authorType" name="authorType">
+							<label for="author-type">Type:</label>
+						  <select class="form-control" id="author-type" name="authorType" ng-model="authorType">
 						    <option value="Correspondent" selected>Correspondent</option>
 						    <option value="Fulltime">Fulltime</option>
 						    <option value="Publisher">Publisher</option>

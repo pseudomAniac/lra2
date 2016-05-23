@@ -5,18 +5,20 @@
 		<td><strong>Author</strong></td>
 		<td><strong>Category</strong></td>
 		<td class="text-center"><strong>Views</strong></td>
-		<td><strong>Pub</strong></td>
+		<td><strong>Publisher</strong></td>
 	</thead>
-	<tr class="text-left" ng-repeat="article in articles|orderBy:'views':'descending'|filter:searchStringName" id="{{article._id}}">
-		<td class="td-last">{{ article.pubdate }}</td>
-		<!-- <td><a href="{{article.link}}" target="_blank" data-toggle="tooltip" title="{{article.title}}" class="reset clearfix article-title">{{ article.title }}</a></td> -->
-		<td>{{ article.title }}</td>
-		<td ng-if="article.author === NULL && article.source === NULL">Unspecified</td>
-		<td ng-if="article.author === NULL && article.source != NULL">{{article.source}}</td>
-		<td ng-if="article.source === NULL && article.author != NULL">{{article.author}}</td>
-		<td ng-if="article.source != NULL && article.author != NULL">{{ article.source }}</td>
-		<td>{{ article.category }}</td>
-		<td>{{ article.views }}</td>
-		<td>{{ article.publisher }}</td>
-	</tr>
+	<tbody>
+		<tr class="text-left" ng-repeat="article in articles|orderBy:'pubdate':'descending'|filter:searchStringName" id="{{article._id}}">
+			<td>{{ article.pubdate }}</td>
+			<!-- <td><a href="{{article.link}}" target="_blank" data-toggle="tooltip" title="{{article.title}}" class="reset clearfix article-title">{{ article.title }}</a></td> -->
+			<td>{{ article.title }}</td>
+			<td ng-if="article.author === NULL && article.source === NULL || article.source === ' ' ">Unspecified</td>
+			<td ng-if="article.author === NULL && article.source != NULL">{{article.source}}</td>
+			<td ng-if="article.source === NULL && article.author != NULL">{{article.author}}</td>
+			<td ng-if="article.source != NULL && article.author != NULL">{{ article.source }}</td>
+			<td>{{ article.category }}</td>
+			<td>{{ article.views }}</td>
+			<td class="td-last">{{ article.publisher }}</td>
+		</tr>
+	</tbody>
 </table>

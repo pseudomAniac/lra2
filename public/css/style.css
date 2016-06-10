@@ -33,7 +33,7 @@ section h1, .site-title {
 div#content-header {
   padding-bottom: 1em;
   background: url("/public/img/graph_background.png") 150% 60%;
-  background-image: linear-gradient(45deg, #cc0000 9%, #f2dede 8%, transparent 50%), linear-gradient(180deg, #772953 25%, transparent 100%)
+  background-image: linear-gradient(90deg, transparent 70%, white 70%, white 72.5%, gold 72.5%, goldenrod 95%), linear-gradient(maroon, black);
   /*background: url("http://www.twitrcovers.com/wp-content/uploads/2014/09/Abstract-Art-l.jpg") 150% 60%;*/
 }
 #count {
@@ -62,7 +62,7 @@ path.domain {
   width: 90%;
 }
 svg {
-  background: linear-gradient(rgba(58,135,173,0.5) 25%, transparent 1%,dimgray 210%, transparent 50%) !important;
+  background: linear-gradient(crimson, maroon) !important;
 }
 
 .date {

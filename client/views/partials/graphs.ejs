@@ -9,6 +9,10 @@
 }
 </style>
 <script type="text/javascript">
+
+	var today = new Date();
+	var yesterday = 'June ' + (today.getDate() - 1) + ' ' + today.getFullYear();
+
 	$(document).ready(function() {
 		var country = $('html').attr('data-country');
 		var margin = { top: 10, right: 10, bottom: 10, left: 10 },
@@ -22,7 +26,7 @@
 		var bargraph = { width: width-350, height: height};
 		//import data here
 		d3.json('/articles/'+country, function(err, data) {
-			console.log(data);
+			// console.log(data);
 			// scales
 			var xScale = d3.scale.linear()
 				.range([0,width])
@@ -50,6 +54,7 @@
 					// })
 				})
 				.entries(data);
+
 			groupedByDate.sort(function (a,b){
 				if (a.key > b.key) return 1
 				else return -1
@@ -59,10 +64,9 @@
 			groupedByDate.forEach(function (d,i) {
 				console.log(groupedByDate[i]);
 			})
-
 			var newData = [];
-			data.forEach(function(d){ if ( d.pubdate === groupedByDate[0] ) { newData.push(d); } });
 
+			data.forEach(function(d,i){ if ( groupedByDate[0].key === yesterday ) { newData.push(d); } });
 			console.log(newData);
 
 			var counterDisplay = d3.select('#count');
@@ -72,8 +76,12 @@
 				.enter()
 					.append('h1')
 					.text(function (d) { return d.values; })
-					.attr({ class: 'inline-count', "ng-model":"searchStringName", fill: function(d) { return colorScale(d.values)} });
-			baseClassCounterDisplay.append('span').text(function (d) { return d.key; }).attr({class:'date'});
+					.attr({ class: 'inline-count', fill: function(d) { return colorScale(d.values)} });
+
+			baseClassCounterDisplay.append('span').attr('class','date')
+				.append('a')
+					.text(function (d) { return d.key; })
+					.attr('href',function(d) { return '/export/'+country+'/'+d.key;});
 			// baseClassCounterDisplay.sort();
 			// baseClassCounterDisplay.on('mouseover', function (d) {
 			// 	d3.select(this).select('span').attr('class', 'show date');

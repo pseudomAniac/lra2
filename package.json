@@ -11,6 +11,7 @@
     "cheers2": "^0.4.2",
     "ejs": "^2.3.4",
     "express": "latest",
+    "express-csv": "^0.6.0",
     "gulp": "^3.9.1",
     "mongodb": "^2.1.4",
     "mongoose": "^4.4.3",

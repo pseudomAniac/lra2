@@ -1,5 +1,6 @@
 var express 						= require('express'),
-		// fs 									= require('fs'),
+		csv									=	require('express-csv'),
+		fs 									= require('fs'),
 		// request 						= require('request'),
 		// cheers	 						= require('cheers2'),
 		// xphantom						= require('x-ray-phantom'),
@@ -13,30 +14,10 @@ var express 						= require('express'),
 		Q 									= require('q'),
 		app 								= express();
 
-var dbUri = 'mongodb://127.0.0.1:27017/loopscraper', counter=0;
+var dbUri = 'mongodb://127.0.0.1:27017/loopscraper';
 // mongoose configurations
 mongoose.connect(dbUri);
 var conn = mongoose.connection;
-var sampleArticle =
-{
-	title: "Article Title",
-	author: "Sample Article Author",
-	views: 284,
-	publisher: "Sample Article Publisher",
-	pubdate: "March 22 2016"
-},
-postmeta_extract =
-{
-	title: 'h1.page-header',
-	link: 'link[rel=canonical]@href',
-	author: '.field-name-field-author .field-item.even',
-	category: 'body@class',
-	views: '.num-views',
-	comments: '.comment-count',
-	publisher: '.username',
-	source: '.field-name-field-source-url .field-item.even',
-	pubdate: '.by-line .submitted'
-};
 // // // connect to respective collections
 var naurucollection 	= conn.collection('nauruarticles'),
 		pngcollection 		= conn.collection('pngarticles'),
@@ -48,6 +29,28 @@ var insertNauruArticle		= Q.nfbind(naurucollection.insert.bind(naurucollection))
 		insertSamoaArticle		= Q.nbind(samoacollection.insert.bind(samoacollection)),
 		insertTongaArticle		= Q.nbind(tongacollection.insert.bind(tongacollection)),
 		insertVanuatuArticle	= Q.nbind(vanuatucollection.insert.bind(vanuatucollection));
+
+var counter						=0,
+		sampleArticle 		=
+			{
+				title: "Article Title",
+				author: "Sample Article Author",
+				views: 284,
+				publisher: "Sample Article Publisher",
+				pubdate: "March 22 2016"
+			},
+		postmeta_extract 	=
+			{
+				title: 'h1.page-header',
+				link: 'link[rel=canonical]@href',
+				author: '.field-name-field-author .field-item.even',
+				category: 'body@class',
+				views: '.num-views',
+				comments: '.comment-count',
+				publisher: '.username',
+				source: '.field-name-field-source-url .field-item.even',
+				pubdate: '.by-line .submitted'
+			};
 
 // // var findNauruArticle		= Q.nbind(Article.nauruArticlesModel.find, Article.nauruArticlesModel);
 // app.get('/pacific', function (req, res)
@@ -199,10 +202,10 @@ app.get('/write/samoa', function (req, res)
 
 app.get('/write/tonga', function (req, res)
 {
-	var lurl = 'http://www.looptonga.com/section/all?page=0';
+	var lurl = 'http://www.loopjamaica.com/section/all?page=0';
 	// generate links to source publication data from
 	for (var i=counter; i<counter+12; i++) {
-		lurl = 'http://www.looptonga.com/section/all?page='+i;
+		lurl = 'http://www.loopsamoa.com/section/all?page='+i;
 		xray(lurl,
 		{
 			links: xray('.news-title>a',[{ link: '@href' }])
@@ -212,7 +215,7 @@ app.get('/write/tonga', function (req, res)
 				console.log("Collecting Info: Page ",i);
 				obj.links.forEach(function (link)
 				{
-					xray(link.link,postmeta_extract)(function (err,data)
+					xray(link.link, postmeta_extract)(function (err,data)
 					{
 						if(!err)
 						{
@@ -226,14 +229,14 @@ app.get('/write/tonga', function (req, res)
 							// clean before saving: views
 							var rawViews = data.views.replace("\n","");
 							data.views = rawViews.split(" ")[6];
-							insertTongaArticle(data); // inserts data into the database
+							insertSamoaArticle(data); // inserts data into the database
 						}
 					})
 				});
 			}
 		})
 	}
-	res.redirect('/page/tonga');
+	res.redirect('/page/samoa');
 });
 
 app.get('/write/vanuatu', function (req, res)
@@ -277,7 +280,7 @@ app.get('/write/vanuatu', function (req, res)
 
 app.get('/write/png', function (req, res)
 {
-	counter = 96;
+	counter = 12;
 	var lurl = 'http://www.looppng.com/section/all?page=0';
 	// generate links to source publication data from
 	for (var i=counter; i<counter+12; i++) {
@@ -330,6 +333,12 @@ app.get('/', function (req, res)
 
 // api call to get stories
 app.get('/articles/:country', articlesController.listArticles);
+
+// api call to export stories
+app.get('/export/:country?:startDate&endDate', articlesController.exportArticles);
+app.get('/export/:country/:startDate', articlesController.exportArticles);
+// app.get('/export/png/:startDate', articlesController.exportArticles);
+app.get('/export/:country', articlesController.exportArticles);
 
 // uri call to render pages
 app.get('/page/:country', function (req, res){ res.render(__dirname + '/client/views/'+req.params.country); });

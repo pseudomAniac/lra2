@@ -8,4 +8,7 @@ $(document).ready(function() {
 	// $('[data-toggle="popover"]').popover(); 
 	$('[data-toggle="tooltip"]').tooltip(); 
 	$('circle.tooltip').tooltip();
+	$("#export-btn").click(function(){
+	  $("table").tableToCSV();
+	});
 });

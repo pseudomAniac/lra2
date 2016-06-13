@@ -30,7 +30,7 @@ var insertNauruArticle		= Q.nfbind(naurucollection.insert.bind(naurucollection))
 		insertTongaArticle		= Q.nbind(tongacollection.insert.bind(tongacollection)),
 		insertVanuatuArticle	= Q.nbind(vanuatucollection.insert.bind(vanuatucollection));
 
-var counter						=0,
+var counter						=12,
 		sampleArticle 		=
 			{
 				title: "Article Title",
@@ -229,14 +229,14 @@ app.get('/write/tonga', function (req, res)
 							// clean before saving: views
 							var rawViews = data.views.replace("\n","");
 							data.views = rawViews.split(" ")[6];
-							insertSamoaArticle(data); // inserts data into the database
+							insertTongaArticle(data); // inserts data into the database
 						}
 					})
 				});
 			}
 		})
 	}
-	res.redirect('/page/samoa');
+	res.redirect('/page/tonga');
 });
 
 app.get('/write/vanuatu', function (req, res)
@@ -280,7 +280,7 @@ app.get('/write/vanuatu', function (req, res)
 
 app.get('/write/png', function (req, res)
 {
-	counter = 12;
+	// counter = 36;
 	var lurl = 'http://www.looppng.com/section/all?page=0';
 	// generate links to source publication data from
 	for (var i=counter; i<counter+12; i++) {

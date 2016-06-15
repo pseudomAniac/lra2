@@ -30,7 +30,7 @@ var insertNauruArticle		= Q.nfbind(naurucollection.insert.bind(naurucollection))
 		insertTongaArticle		= Q.nbind(tongacollection.insert.bind(tongacollection)),
 		insertVanuatuArticle	= Q.nbind(vanuatucollection.insert.bind(vanuatucollection));
 
-var counter						=12,
+var counter						=0,
 		sampleArticle 		=
 			{
 				title: "Article Title",
@@ -128,13 +128,13 @@ app.get('/write/nauru', function (req, res)
 	// generate links to source publication data from
 	for (var i=counter; i<counter+12; i++) {
 		lurl = 'http://www.loopnauru.com/section/all?page='+i;
+		console.log("Collecting Info: Page ",i);
 		xray(lurl,
 		{
 			links: xray('.news-title>a',[{ link: '@href' }]) // get the links to crawl to
 		})(function (err, obj)
 		{ // function passing links
 			if(!err) {
-				console.log("Collecting Info: Page ",i);
 				obj.links.forEach(function (link)
 				{
 					xray(link.link, postmeta_extract)(function (err,data)
@@ -167,13 +167,13 @@ app.get('/write/samoa', function (req, res)
 	// generate links to source publication data from
 	for (var i=counter; i<counter+12; i++) {
 		lurl = 'http://www.loopsamoa.com/section/all?page='+i;
+		console.log("Collecting Info: Page ",i);
 		xray(lurl,
 		{
 			links: xray('.news-title>a',[{ link: '@href' }])
 		})(function (err, obj)
 		{ // function passing links
 			if(!err) {
-				console.log("Collecting Info: Page ",i);
 				obj.links.forEach(function (link)
 				{
 					xray(link.link, postmeta_extract)(function (err,data)
@@ -206,13 +206,13 @@ app.get('/write/tonga', function (req, res)
 	// generate links to source publication data from
 	for (var i=counter; i<counter+12; i++) {
 		lurl = 'http://www.loopsamoa.com/section/all?page='+i;
+		console.log("Collecting Info: Page ",i);
 		xray(lurl,
 		{
 			links: xray('.news-title>a',[{ link: '@href' }])
 		})(function (err, obj)
 		{ // function passing links
 			if(!err) {
-				console.log("Collecting Info: Page ",i);
 				obj.links.forEach(function (link)
 				{
 					xray(link.link, postmeta_extract)(function (err,data)
@@ -245,13 +245,13 @@ app.get('/write/vanuatu', function (req, res)
 	// generate links to source publication data from
 	for (var i=counter; i<counter+12; i++) {
 		lurl = 'http://www.loopvanuatu.com/section/all?page='+i;
+		console.log("Collecting Info: Page ",i);
 		xray(lurl,
 		{
 			links: xray('.news-title>a',[{ link: '@href' }])
 		})(function (err, obj)
 		{ // function passing links
 			if(!err) {
-				console.log("Collecting Info: Page ",i);
 				obj.links.forEach(function (link)
 				{
 					xray(link.link,postmeta_extract)(function (err,data)

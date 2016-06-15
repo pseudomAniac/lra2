@@ -10,9 +10,12 @@
 <% include partials/mainNavigation %>
 <main class="container">
 	<div class="row">
-		<table class="table">
-			<caption>Caption: This table is the data exported from the database.</caption>
+		<div class="col-md-3"></div>
+		<div class="col-md-6 pull-right">
 			<button id="export-btn" class="btn btn-success btn-block" data-export="export">Export Table</button>
+		</div>
+		<div class="col-md-3"></div>
+		<table class="table">
 			<thead class="text-uppercase">
 				<tr><th>Title</th><th>Author</th><th>Freelance</th><th>Views</th></tr>
 			</thead>
@@ -25,18 +28,7 @@
 	</div>
 </main><hr />
 <footer class="container-fluid well bg-default">
-	<div class="col-md-4">
-		<h1 class="text-uppercase">widget area</h1>
-		<p class="text-lowercase">widget area description</p>
-	</div>
-	<div class="col-md-4">
-		<h1 class="text-uppercase">widget area</h1>
-		<p class="text-lowercase">widget area description</p>
-	</div>
-	<div class="col-md-4">
-		<h1 class="text-uppercase">widget area</h1>
-		<p class="text-lowercase">widget area description</p>
-	</div>
+<% include partials/footer %>
 </footer>
 <!-- scripts inclusion from .ejs file -->
 <% include partials/scripts %>

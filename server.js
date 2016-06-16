@@ -52,6 +52,120 @@ var counter						=0,
 				pubdate: '.by-line .submitted'
 			};
 
+app.get('/write/:country', function (req, res)
+{
+    var country = req.params.country, lurl = 'http://www.looppng.com/section/all?page=', nurl = '';
+
+    switch (country) {
+        case 'nauru':
+        case 'png':
+        case 'samoa':
+        case 'tonga':
+        case 'vanuatu':
+            lurl = 'http://www.loop' + country + '.com/section/all?page=';
+            break;
+        default:
+            lurl = 'http://www.looppng.com/section/all?page=';
+    }
+	// generate links to source publication data from
+	for (var i=counter; i<counter+12; i++) {
+		nurl = lurl+i;
+		console.log("Collecting Info: Page ",i);
+		xray(nurl,
+		{
+		    links: xray('.news-title>a', [{ link: '@href' }]) // get the links to crawl to
+		})(function (err, obj) { // function passing links
+		    if (!err) {
+		        obj.links.forEach(function (link) {
+		            xray(link.link, postmeta_extract)(function (err, data) {
+		                if (!err) {
+		                    // clean before saving: category
+		                    var tmpCat = data.category.split(" ");
+		                    data.category = tmpCat[tmpCat.length - 1].replace("taxonomy-", "");
+		                    // clean before saving: date published
+		                    var tmpPubDate = data.pubdate.slice(data.pubdate.search(",") + 2, 100),
+							cleaned = tmpPubDate.slice(0, tmpPubDate.search(",") + 6);
+		                    data.pubdate = cleaned.replace(",", "");
+		                    // clean before saving: views
+		                    var rawViews = data.views.replace("\n", "");
+		                    data.views = rawViews.split(" ")[6];
+		                    switch (country) {
+		                        case 'nauru':
+		                            insertNauruArticle(data);
+		                            break;
+		                        case 'png':
+		                            insertPNGArticle(data);
+		                            break;
+		                        case 'samoa':
+		                            insertSamoaArticle(data);
+		                            break;
+		                        case 'tonga':
+		                            insertTongaArticle(data);
+		                            break;
+		                        default:
+		                            insertVanuatuArticle(data);
+		                            break;
+		                    }
+		                }
+		            });
+		        });
+		    }
+		});
+	}
+	res.redirect('/page/'+country);
+});
+
+app.get('/summary/list', function (req, res) {
+	// res.send(list);
+})
+
+app.get('/', function (req, res)
+{
+	res.render(__dirname + '/client/views/index');
+	var today = new Date();
+	var dateString = today.toDateString();
+	console.log(dateString);
+});
+
+// api call to get stories
+app.get('/articles/:country', articlesController.listArticles);
+
+// api call to export stories
+// app.get('/export/:country?:startDate&endDate', articlesController.exportArticles);
+app.get('/export/:country/:startDate', articlesController.exportArticles);
+app.get('/export/:country', articlesController.exportArticles);
+
+// uri call to render pages
+app.get('/page/:country', function (req, res){ res.render(__dirname + '/client/views/'+req.params.country); });
+
+app.get('/delete/:country', function (req, res)
+{
+	mongodb.MongoClient.connect(dbUri, function (err, db)
+	{
+		if(!err)
+		{
+			var country = req.params.country;
+			if (country !== 'all')
+				db.collection(country+'articles').drop();
+			else {
+				db.collection("pngarticles").drop();
+				db.collection("nauruarticles").drop();
+				db.collection("samoaarticles").drop();
+				db.collection("tongaarticles").drop();
+				db.collection("vanuatuarticles").drop();
+			}
+			res.redirect('/');
+		} 
+	});
+});
+
+app.get('/home', function (req,res) {
+	res.render(__dirname + '/client/views/home');
+})
+
+
+
+// depreciated ......... needs to be reviewed and removed
 // // var findNauruArticle		= Q.nbind(Article.nauruArticlesModel.find, Article.nauruArticlesModel);
 // app.get('/pacific', function (req, res)
 // {
@@ -122,252 +236,9 @@ var counter						=0,
 // 		res.redirect('/page/nauru');
 // });
 
-app.get('/write/nauru', function (req, res)
-{
-	var lurl = 'http://www.loopnauru.com/section/all?page=0';
-	// generate links to source publication data from
-	for (var i=counter; i<counter+12; i++) {
-		lurl = 'http://www.loopnauru.com/section/all?page='+i;
-		console.log("Collecting Info: Page ",i);
-		xray(lurl,
-		{
-			links: xray('.news-title>a',[{ link: '@href' }]) // get the links to crawl to
-		})(function (err, obj)
-		{ // function passing links
-			if(!err) {
-				obj.links.forEach(function (link)
-				{
-					xray(link.link, postmeta_extract)(function (err,data)
-					{
-						if(!err)
-						{
-							// clean before saving: category
-							var tmpCat = data.category.split(" ");
-							data.category = tmpCat[tmpCat.length-1].replace("taxonomy-","");
-							// clean before saving: date published
-							var tmpPubDate = data.pubdate.slice(data.pubdate.search(",")+2,100),
-							cleaned = tmpPubDate.slice(0,tmpPubDate.search(",")+6);
-							data.pubdate = cleaned.replace(",","");
-							// clean before saving: views
-							var rawViews = data.views.replace("\n","");
-							data.views = rawViews.split(" ")[6];
-							insertNauruArticle(data);
-						}
-					})
-				});
-			}
-		})
-	}
-	res.redirect('/page/nauru');
-});
 
-app.get('/write/samoa', function (req, res)
-{
-	var lurl = 'http://www.loopjamaica.com/section/all?page=0';
-	// generate links to source publication data from
-	for (var i=counter; i<counter+12; i++) {
-		lurl = 'http://www.loopsamoa.com/section/all?page='+i;
-		console.log("Collecting Info: Page ",i);
-		xray(lurl,
-		{
-			links: xray('.news-title>a',[{ link: '@href' }])
-		})(function (err, obj)
-		{ // function passing links
-			if(!err) {
-				obj.links.forEach(function (link)
-				{
-					xray(link.link, postmeta_extract)(function (err,data)
-					{
-						if(!err)
-						{
-							// clean before saving: category
-							var tmpCat = data.category.split(" ");
-							data.category = tmpCat[tmpCat.length-1].replace("taxonomy-","");
-							// clean before saving: date published
-							var tmpPubDate = data.pubdate.slice(data.pubdate.search(",")+2,100),
-							cleaned = tmpPubDate.slice(0,tmpPubDate.search(",")+6);
-							data.pubdate = cleaned.replace(",","");
-							// clean before saving: views
-							var rawViews = data.views.replace("\n","");
-							data.views = rawViews.split(" ")[6];
-							insertSamoaArticle(data); // inserts data into the database
-						}
-					})
-				});
-			}
-		})
-	}
-	res.redirect('/page/samoa');
-});
 
-app.get('/write/tonga', function (req, res)
-{
-	var lurl = 'http://www.loopjamaica.com/section/all?page=0';
-	// generate links to source publication data from
-	for (var i=counter; i<counter+12; i++) {
-		lurl = 'http://www.loopsamoa.com/section/all?page='+i;
-		console.log("Collecting Info: Page ",i);
-		xray(lurl,
-		{
-			links: xray('.news-title>a',[{ link: '@href' }])
-		})(function (err, obj)
-		{ // function passing links
-			if(!err) {
-				obj.links.forEach(function (link)
-				{
-					xray(link.link, postmeta_extract)(function (err,data)
-					{
-						if(!err)
-						{
-							// clean before saving: category
-							var tmpCat = data.category.split(" ");
-							data.category = tmpCat[tmpCat.length-1].replace("taxonomy-","");
-							// clean before saving: date published
-							var tmpPubDate = data.pubdate.slice(data.pubdate.search(",")+2,100),
-							cleaned = tmpPubDate.slice(0,tmpPubDate.search(",")+6);
-							data.pubdate = cleaned.replace(",","");
-							// clean before saving: views
-							var rawViews = data.views.replace("\n","");
-							data.views = rawViews.split(" ")[6];
-							insertTongaArticle(data); // inserts data into the database
-						}
-					})
-				});
-			}
-		})
-	}
-	res.redirect('/page/tonga');
-});
-
-app.get('/write/vanuatu', function (req, res)
-{
-	var lurl = 'http://www.loopvanuatu.com/section/all?page=0';
-	// generate links to source publication data from
-	for (var i=counter; i<counter+12; i++) {
-		lurl = 'http://www.loopvanuatu.com/section/all?page='+i;
-		console.log("Collecting Info: Page ",i);
-		xray(lurl,
-		{
-			links: xray('.news-title>a',[{ link: '@href' }])
-		})(function (err, obj)
-		{ // function passing links
-			if(!err) {
-				obj.links.forEach(function (link)
-				{
-					xray(link.link,postmeta_extract)(function (err,data)
-					{
-						if(!err)
-						{
-							// clean before saving: category
-							var tmpCat = data.category.split(" ");
-							data.category = tmpCat[tmpCat.length-1].replace("taxonomy-","");
-							// clean before saving: date published
-							var tmpPubDate = data.pubdate.slice(data.pubdate.search(",")+2,100),
-							cleaned = tmpPubDate.slice(0,tmpPubDate.search(",")+6);
-							data.pubdate = cleaned.replace(",","");
-							// clean before saving: views
-							var rawViews = data.views.replace("\n","");
-							data.views = rawViews.split(" ")[6];
-							insertVanuatuArticle(data); // inserts data into the database
-						}
-					})
-				});
-			}
-		})
-	}
-	res.redirect('/page/vanuatu');
-});
-
-app.get('/write/png', function (req, res)
-{
-	// counter = 36;
-	var lurl = 'http://www.looppng.com/section/all?page=0';
-	// generate links to source publication data from
-	for (var i=counter; i<counter+12; i++) {
-		lurl = 'http://www.looppng.com/section/all?page='+i;
-		console.log("Collecting Info: Page ",i);
-		xray(lurl,
-		{
-			links: xray('.news-title>a',[{ link: '@href' }])
-		})(function (err, obj)
-		{ // function passing links
-			if(!err) {
-				obj.links.forEach(function (link)
-				{
-					xray(link.link, postmeta_extract)(function (err,data)
-					{
-						if(!err)
-						{
-							// clean before saving: category
-							var tmpCat = data.category.split(" ");
-							data.category = tmpCat[tmpCat.length-1].replace("taxonomy-","");
-							// clean before saving: date published
-							var tmpPubDate = data.pubdate.slice(data.pubdate.search(",")+2,100),
-							cleaned = tmpPubDate.slice(0,tmpPubDate.search(",")+6);
-							data.pubdate = cleaned.replace(",","");
-							// clean before saving: views
-							var rawViews = data.views.replace("\n","");
-							data.views = rawViews.split(" ")[6];
-							insertPNGArticle(data); // inserts data into the database
-						}
-					})
-				});
-			}
-		})
-	}
-	res.redirect('/page/png');
-});
-
-app.get('/summary/list', function (req, res) {
-	// res.send(list);
-})
-
-app.get('/', function (req, res)
-{
-	// res.render(__dirname + '/page/png');
-	res.render(__dirname + '/client/views/index');
-	var today = new Date();
-	var dateString = today.toDateString();
-	console.log(dateString);
-});
-
-// api call to get stories
-app.get('/articles/:country', articlesController.listArticles);
-
-// api call to export stories
-app.get('/export/:country?:startDate&endDate', articlesController.exportArticles);
-app.get('/export/:country/:startDate', articlesController.exportArticles);
-// app.get('/export/png/:startDate', articlesController.exportArticles);
-app.get('/export/:country', articlesController.exportArticles);
-
-// uri call to render pages
-app.get('/page/:country', function (req, res){ res.render(__dirname + '/client/views/'+req.params.country); });
-
-app.get('/delete/:country', function (req, res)
-{
-	mongodb.MongoClient.connect(dbUri, function (err, db)
-	{
-		if(!err)
-		{
-			var country = req.params.country;
-			if (country !== 'all')
-				db.collection(country+'articles').drop();
-			else {
-				db.collection("pngarticles").drop();
-				db.collection("nauruarticles").drop();
-				db.collection("samoaarticles").drop();
-				db.collection("tongaarticles").drop();
-				db.collection("vanuatuarticles").drop();
-			}
-			res.redirect('/');
-		} 
-	});
-});
-
-app.get('/home', function (req,res) {
-	res.render(__dirname + '/client/views/home');
-})
-
+// api calls
 app.get('/api/authors/list', authorsController.listAuthors );
 app.post('/api/authors/new', authorsController.createAuthor ); // calls createAuthor on the server controller
 app.post('/api/add/:author', authorsController.createAuthor ); // calls createAuthor on the server controller

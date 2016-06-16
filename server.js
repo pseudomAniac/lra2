@@ -381,7 +381,7 @@ app.use('/js', express.static(__dirname + '/public/js'))
 app.use('/client/js', express.static(__dirname + '/client/js'));
 app.use('/server/js', express.static(__dirname + '/server/js'));
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
-app.use(bodyParser());
+app.use(bodyParser.json());
 
 app.listen('3000');
 console.log("go to localhost:3000");

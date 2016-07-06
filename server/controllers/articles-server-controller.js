@@ -32,12 +32,12 @@ module.exports.exportArticles = function (req, res) {
 	var country 		= req.params.country,
 			startDate 	= req.params.startDate,
 			endDate			=	req.params.endDate;
+	console.log(startDate + " - " + country);
 	switch (country) 
 	{
 		case 'png':
 			// Export PNG Articles from DB using 'PNG Articles Model' defined in 'article-model.js'
 			if (typeof(startDate) != undefined) {
-					console.log(startDate + "\n" + req.params);
 					Article.pngArticlesModel.find({"pubdate":startDate},
 						function (err, result) { res.render('export', {"result":result}); }
 					).sort({"views":"-1"});//.limit(20);

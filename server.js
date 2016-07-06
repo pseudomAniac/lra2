@@ -30,7 +30,7 @@ var insertNauruArticle		= Q.nfbind(naurucollection.insert.bind(naurucollection))
 		insertTongaArticle		= Q.nbind(tongacollection.insert.bind(tongacollection)),
 		insertVanuatuArticle	= Q.nbind(vanuatucollection.insert.bind(vanuatucollection));
 
-var counter						=0,
+var counter						=12,
 		sampleArticle 		=
 			{
 				title: "Article Title",
@@ -68,7 +68,7 @@ app.get('/write/:country', function (req, res)
             lurl = 'http://www.looppng.com/section/all?page=';
     }
 	// generate links to source publication data from
-	for (var i=counter; i<counter+12; i++) {
+	for (var i=counter; i<counter+6; i++) {
 		nurl = lurl+i;
 		console.log("Collecting Info: Page ",i);
 		xray(nurl,
@@ -84,7 +84,7 @@ app.get('/write/:country', function (req, res)
 		                    data.category = tmpCat[tmpCat.length - 1].replace("taxonomy-", "");
 		                    // clean before saving: date published
 		                    var tmpPubDate = data.pubdate.slice(data.pubdate.search(",") + 2, 100),
-							cleaned = tmpPubDate.slice(0, tmpPubDate.search(",") + 6);
+														cleaned = tmpPubDate.slice(0, tmpPubDate.search(",") + 6);
 		                    data.pubdate = cleaned.replace(",", "");
 		                    // clean before saving: views
 		                    var rawViews = data.views.replace("\n", "");
@@ -159,11 +159,25 @@ app.get('/delete/:country', function (req, res)
 	});
 });
 
-app.get('/home', function (req,res) {
-	res.render(__dirname + '/client/views/home');
-})
+// api calls
+app.get('/api/authors/list', authorsController.listAuthors );
+app.post('/api/authors/new', authorsController.createAuthor ); // calls createAuthor on the server controller
+app.post('/api/add/:author', authorsController.createAuthor ); // calls createAuthor on the server controller
+// app.get('/api/authors/json', authorsController.jsonAuthor );
+app.post('/api/authors/remove', authorsController.deleteAuthor );
 
+app.set('views',__dirname + '/client/views');
+app.set("view engine",'ejs');
+app.use('/css', express.static(__dirname + '/public/css'))
+app.use('/js', express.static(__dirname + '/public/js'))
+app.use('/client/js', express.static(__dirname + '/client/js'));
+app.use('/server/js', express.static(__dirname + '/server/js'));
+app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
+app.use(bodyParser.json());
 
+app.listen('3000');
+console.log("go to localhost:3000");
+exports = module.exports = app;
 
 // depreciated ......... needs to be reviewed and removed
 // // var findNauruArticle		= Q.nbind(Article.nauruArticlesModel.find, Article.nauruArticlesModel);
@@ -235,25 +249,3 @@ app.get('/home', function (req,res) {
 // 		// .limit(3)
 // 		res.redirect('/page/nauru');
 // });
-
-
-
-// api calls
-app.get('/api/authors/list', authorsController.listAuthors );
-app.post('/api/authors/new', authorsController.createAuthor ); // calls createAuthor on the server controller
-app.post('/api/add/:author', authorsController.createAuthor ); // calls createAuthor on the server controller
-// app.get('/api/authors/json', authorsController.jsonAuthor );
-app.post('/api/authors/remove', authorsController.deleteAuthor );
-
-app.set('views',__dirname + '/client/views');
-app.set("view engine",'ejs');
-app.use('/css', express.static(__dirname + '/public/css'))
-app.use('/js', express.static(__dirname + '/public/js'))
-app.use('/client/js', express.static(__dirname + '/client/js'));
-app.use('/server/js', express.static(__dirname + '/server/js'));
-app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
-app.use(bodyParser.json());
-
-app.listen('3000');
-console.log("go to localhost:3000");
-exports = module.exports = app;

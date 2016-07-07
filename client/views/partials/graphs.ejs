@@ -1,15 +1,4 @@
-<style type="text/css">
-	span.date {
-    font-size: 12pt;
-    position: inherit;
-    display: inherit;
-    line-height: 1;
-    margin-top: -1em;
-    color: white;
-}
-</style>
 <script type="text/javascript">
-
 	var today = new Date();
 	var yesterday = 'June ' + (today.getDate() - 1) + ' ' + today.getFullYear();
 
@@ -54,34 +43,25 @@
 					// })
 				})
 				.entries(data);
-
-			groupedByDate.sort(function (a,b){
-				if (a.key > b.key) return 1
-				else return -1
-				return 0
-			});
-
-			groupedByDate.forEach(function (d,i) {
-				console.log(groupedByDate[i]);
-			})
+				
 			var newData = [];
 
 			data.forEach(function(d,i){ if ( groupedByDate[0].key === yesterday ) { newData.push(d); } });
 			console.log(newData);
 
-			var counterDisplay = d3.select('#count');
+			var counterDisplay = d3.select('#count').append('div').attr('id','sub-count');
 
-			var baseClassCounterDisplay = counterDisplay.selectAll('h1')
+			var baseClassCounterDisplay = counterDisplay.selectAll('h4')
 				.data(groupedByDate)
 				.enter()
-					.append('h1')
+					.append('h4')
 					.text(function (d) { return d.values; })
-					.attr({ class: 'inline-count', fill: function(d) { return colorScale(d.values)} });
+					.attr({ class: 'inline-count circle', title: function(d) {return d.key;} });
 
-			baseClassCounterDisplay.append('span').attr('class','date')
-				.append('a')
-					.text(function (d) { return d.key; })
-					.attr('href',function(d) { return '/export/'+country+'/'+d.key;});
+			// baseClassCounterDisplay.append('span').attr('class','date')
+			// 	.append('a')
+			// 		.text(function (d) { return d.key; })
+			// 		.attr('href',function(d) { return '/export/'+country+'/'+d.key;});
 			// baseClassCounterDisplay.sort();
 			// baseClassCounterDisplay.on('mouseover', function (d) {
 			// 	d3.select(this).select('span').attr('class', 'show date');

@@ -10,10 +10,10 @@ gulp.task('server', function() {
 	})
 });
 
-gulp.task('default', ['watch'], function() {
+gulp.task('default', function() {
 	gulp.run('server')
 
-	gulp.watch(['./server.js'], function() {
+	gulp.watch(['./server.js','./server/*/*.js'], function() {
 		gulp.run('server');
 	})
 });

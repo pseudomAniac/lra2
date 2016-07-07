@@ -1,0 +1,78 @@
+<aside class="text-uppercase">
+  <div id="pageview-country">
+    <label for="populate-content" class="text-muted">View</label>
+    <ul class="nav nav-pills bg-default text-uppercase" id="populate-content">
+      <li class="nav-item">
+        <a href="/page/nauru" class="nav-link">nau</a>
+      </li>
+      <li class="nav-item">
+        <a href="/page/png" class="nav-link">png</a>
+      </li>
+      <li class="nav-item">
+        <a href="/page/samoa" class="nav-link">sam</a>
+      </li>
+      <li class="nav-item">
+        <a href="/page/tonga" class="nav-link">ton</a>
+      </li>
+      <li class="nav-item">
+        <a href="/page/vanuatu" class="nav-link">van</a>
+      </li>
+    </ul>
+  </div>
+  <hr />
+  <div id="populate-country">
+    <label for="populate-content" class="text-muted">Populate</label>
+    <ul class="nav nav-pills bg-default text-uppercase" id="populate-content">
+      <li class="nav-item">
+        <a href="/write/nauru" class="nav-link">nau</a>
+      </li>
+      <li class="nav-item">
+        <a href="/write/png" class="nav-link">png</a>
+      </li>
+      <li class="nav-item">
+        <a href="/write/samoa" class="nav-link">sam</a>
+      </li>
+      <li class="nav-item">
+        <a href="/write/tonga" class="nav-link">ton</a>
+      </li>
+      <li class="nav-item">
+        <a href="/write/vanuatu" class="nav-link">van</a>
+      </li>
+    </ul>
+  </div>
+  <hr />
+  <div id="delete-country">
+    <label for="delete-content" class="text-muted">Delete</label>
+    <ul class="nav nav-pills bg-default text-uppercase" id="delete-content">
+      <li class="nav-item">
+        <a href="/delete/nauru" class="nav-link">nau</a>
+      </li>
+      <li class="nav-item">
+        <a href="/delete/png" class="nav-link">png</a>
+      </li>
+      <li class="nav-item">
+        <a href="/delete/samoa" class="nav-link">sam</a>
+      </li>
+      <li class="nav-item">
+        <a href="/delete/tonga" class="nav-link">ton</a>
+      </li>
+      <li class="nav-item">
+        <a href="/delete/vanuatu" class="nav-link">van</a>
+      </li>
+      <li class="nav-item">
+        <a href="/delete/all" class="nav-link">all</a>
+      </li>
+    </ul>
+  </div>
+  <hr />
+  <div class="full-width gutter-narrow text-center">
+    <div class="col-xs-9"><% include datepicker %></div>
+    <div class="col-xs-3"><button id="export-btn" class="btn btn-success btn-block" data-export="export"><i class="glyphicon glyphicon-send"></i></button></div>
+  </div>
+  <hr />
+  <div class="clearfix col-md-12 text-center" id="count">
+    <h1 class="circle">{{articles.length}}</h1>
+    <p class="text-uppercase" style="color: black; font-size: 1.25em;">total</p>
+  </div>
+  <hr />
+</aside>

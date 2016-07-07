@@ -30,7 +30,7 @@ var insertNauruArticle		= Q.nfbind(naurucollection.insert.bind(naurucollection))
 		insertTongaArticle		= Q.nbind(tongacollection.insert.bind(tongacollection)),
 		insertVanuatuArticle	= Q.nbind(vanuatucollection.insert.bind(vanuatucollection));
 
-var counter						=12,
+var counter						=0,
 		sampleArticle 		=
 			{
 				title: "Article Title",
@@ -68,9 +68,9 @@ app.get('/write/:country', function (req, res)
             lurl = 'http://www.looppng.com/section/all?page=';
     }
 	// generate links to source publication data from
-	for (var i=counter; i<counter+6; i++) {
+	for (var i=counter; i<counter+12; i++) {
 		nurl = lurl+i;
-		console.log("Collecting Info: Page ",i);
+		console.log(country,'info collection',i);
 		xray(nurl,
 		{
 		    links: xray('.news-title>a', [{ link: '@href' }]) // get the links to crawl to
@@ -121,7 +121,7 @@ app.get('/summary/list', function (req, res) {
 
 app.get('/', function (req, res)
 {
-	res.render(__dirname + '/client/views/index');
+	res.render(__dirname + '/client/views/png');
 	var today = new Date();
 	var dateString = today.toDateString();
 	console.log(dateString);

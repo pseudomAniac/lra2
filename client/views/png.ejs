@@ -4,10 +4,12 @@
 	<title>Loop Reporting App</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<% include partials/stylesheets %>
+	<style type="text/css" media="screen">
+	</style>
 </head>
-<body>
-<!-- main navigation inclusion from .ejs file -->
-<% include partials/mainNavigation %>
+<body ng-controller="articlesController">
+<!-- sidebar navigation inclusion from .ejs file -->
+<% include partials/lsb %>
 <!-- main container inclusion from .ejs file -->
 <% include partials/mainContainer %>
 <!-- scripts inclusion from .ejs file -->

@@ -1,5 +1,32 @@
 body{
-  padding-top: 40px;
+}
+main.container {
+  display: flex;
+  position: relative;
+  float: right;
+  margin-right: 2.5%;
+  width: 75%;
+}
+aside {
+  width: 21.5%;
+  display: block;
+  float: left;
+  border-radius: 0;
+}
+.full-width {
+  width: 100%;
+}
+.gutter-narrow, .gutter-narrow > .col-xs-9, .gutter-narrow > .col-xs-3 {
+  padding: 0 2px;
+} 
+#navbar-country > ul:nth-child(1){
+  font-size: 2.5em;
+}
+#populate-content, #delete-content {
+  font-size: 0.91em;
+}
+small.h4 {
+  vertical-align: super;
 }
 .pull-center{
 	position: absolute;
@@ -39,14 +66,32 @@ div#content-header {
 #count {
   display: block;
   color: whitesmoke;
+  max-width: 100%;
 }
 #count h1 {
   background: black;
-  border-radius: 50%;
-  line-height: 2em;
+  display: inline-block;
+}
+.circle {
   width: 2em;
   height: 2em;
-  display: inline-block;
+  border-radius: 50%;
+  line-height: 2em;
+  text-anchor: middle;
+  vertical-align: middle;
+}
+#sub-count {
+  display: inline-grid;
+}
+#sub-count h4 {
+  background: darkorange;
+  color: white;
+  float: left;
+  position: relative;
+  padding: 0;
+  margin: 4px 3px;
+  line-height: 1.75em;
+  box-shadow: 1px 2px 4px black;
 }
 /*d3 graph style*/
 g.tick>line {
@@ -64,12 +109,10 @@ path.domain {
 svg {
   background: linear-gradient(crimson, maroon) !important;
 }
-
 .date {
   background: orange;
   border: 2px solid;
 }
-
 .inline-count {
   color:skyblue;
   display: inline;

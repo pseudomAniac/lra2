@@ -46,7 +46,7 @@ var counter						=36,
 				author: '.field-name-field-author .field-item.even',
 				category: 'body@class',
 				views: '.num-views',
-				comments: '.comment-count',
+				comments: '.comment-count', 
 				publisher: '.username',
 				source: '.field-name-field-source-url .field-item.even',
 				pubdate: '.by-line .submitted'

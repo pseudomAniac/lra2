@@ -30,7 +30,7 @@ var insertNauruArticle		= Q.nfbind(naurucollection.insert.bind(naurucollection))
 		insertTongaArticle		= Q.nbind(tongacollection.insert.bind(tongacollection)),
 		insertVanuatuArticle	= Q.nbind(vanuatucollection.insert.bind(vanuatucollection));
 
-var counter						=36,
+var counter						=0,
 		sampleArticle 		=
 			{
 				title: "Article Title",
@@ -68,7 +68,7 @@ app.get('/write/:country', function (req, res)
             lurl = 'http://www.looppng.com/section/all?page=';
     }
 	// generate links to source publication data from
-	for (var i=counter; i<counter+1; i++) {
+	for (var i=counter; i<counter+12; i++) {
 		nurl = lurl+i;
 		console.log(country,'info collection',i);
 		xray(nurl,
@@ -140,23 +140,33 @@ app.get('/page/:country', function (req, res){ res.render(__dirname + '/client/v
 
 app.get('/delete/:country', function (req, res)
 {
-	mongodb.MongoClient.connect(dbUri, function (err, db)
-	{
-		if(!err)
-		{
-			var country = req.params.country;
-			if (country !== 'all')
-				db.collection(country+'articles').drop();
-			else {
-				db.collection("pngarticles").drop();
-				db.collection("nauruarticles").drop();
-				db.collection("samoaarticles").drop();
-				db.collection("tongaarticles").drop();
-				db.collection("vanuatuarticles").drop();
-			}
-			res.redirect('/');
-		} 
-	});
+	var country = req.params.country;
+	switch (country) {
+		case 'nauru':
+			naurucollection.drop();
+			break;
+		case 'png':
+			pngcollection.drop();
+			break;
+		case 'samoa':
+			samoacollection.drop();
+			break;
+		case 'tonga':
+			tongacollection.drop();
+			break;
+		case 'vanuatu':
+			vanuatucollection.drop();
+			break;
+		case 'all':
+			naurucollection.drop();
+			pngcollection.drop();
+			samoacollection.drop();
+			tongacollection.drop();
+			vanuatucollection.drop();
+		default:
+			break;
+	}
+	res.redirect('/');
 });
 
 // api calls

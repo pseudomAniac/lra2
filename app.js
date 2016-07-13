@@ -10,7 +10,8 @@ var express 						= require('express'),
 		app 								= express();
 
 // var dbUri = 'mongodb://127.0.0.1:27017/lra'; // local - dev
-var dbUri = 'mongodb://heroku_mlab_sylvery_looppacificcount:R!c0h23051991@ds019980.mlab.com:19980/heroku_gt6n53cm'; // production
+var dbUri = 'mongodb://editor_looppacificcount_db:loopdbuser001@ds019980.mlab.com:19980/heroku_gt6n53cm'; // production
+
 // mongoose configurations
 mongoose.connect(dbUri);
 var conn = mongoose.connection;
@@ -117,7 +118,7 @@ app.get('/summary/list', function (req, res) {
 
 app.get('/', function (req, res)
 {
-	res.render(__dirname + '/client/views/index');
+	res.render(__dirname + '/client/views/png');
 	var today = new Date();
 	var dateString = today.toDateString();
 	console.log(dateString);

@@ -1,20 +1,32 @@
 body{
+  width: 90%
+}
+.container {
+  margin: 0 1%;
 }
 main.container {
-  display: flex;
-  position: relative;
-  float: right;
-  margin-right: 2.5%;
-  width: 75%;
-}
-aside {
-  width: 21.5%;
   display: block;
-  float: left;
-  border-radius: 0;
+  position: relative;
+  left: 17.5%;
+  width: 82%;
+  box-sizing: content-box;
+}
+aside .site-title{
+  color: white;
+}
+#sidebar-navigation {
+  display: block;
+  position: fixed;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+  overflow-x: auto;
+  background: #902A07;
+  height: 100%;
+  z-index: 1000;
 }
 .full-width {
-  width: 100%;
+  width: 99%;
 }
 .gutter-narrow, .gutter-narrow > .col-xs-9, .gutter-narrow > .col-xs-3 {
   padding: 0 2px;
@@ -118,4 +130,10 @@ svg {
   display: inline;
   float: left;
   border: 2px solid white;
+}
+#ui-datepicker-div {
+  z-index: 1001 !important;
+}
+form.add-author {
+  padding-bottom: 2em;
 }

@@ -1,5 +1,5 @@
 <table class="table table-striped">
-	<thead class="text-left bg-primary text-uppercase alert" data-spy="affix" data-offset-top="550">
+	<thead class="text-left bg-primary text-uppercase alert">
 		<td><strong>DATE</strong></td>
 		<td><strong>TITLE</strong></td>
 		<!-- <td><strong>LINK</strong></td> -->
@@ -10,7 +10,7 @@
 		<td><strong>PUBLISHER</strong></td>
 	</thead>
 	<tbody>
-		<tr class="text-left" ng-repeat="article in articles|orderBy:'pubdate':'descending'|filter:searchStringName" id="{{article._id}}">
+		<tr class="text-left" ng-repeat="article in articles|orderBy:'title':'descending'|filter:searchStringName" id="{{article._id}}">
 			<td>{{ article.pubdate }}</td>
 			<!-- <td><a href="{{article.link}}" target="_blank" data-toggle="tooltip" title="{{article.title}}" class="reset clearfix article-title">{{ article.title }}</a></td> -->
 			<td>{{ article.title }}</td>

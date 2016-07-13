@@ -30,7 +30,7 @@ var insertNauruArticle		= Q.nfbind(naurucollection.insert.bind(naurucollection))
 		insertTongaArticle		= Q.nbind(tongacollection.insert.bind(tongacollection)),
 		insertVanuatuArticle	= Q.nbind(vanuatucollection.insert.bind(vanuatucollection));
 
-var counter						=0,
+var counter						=36,
 		sampleArticle 		=
 			{
 				title: "Article Title",
@@ -68,7 +68,7 @@ app.get('/write/:country', function (req, res)
             lurl = 'http://www.looppng.com/section/all?page=';
     }
 	// generate links to source publication data from
-	for (var i=counter; i<counter+12; i++) {
+	for (var i=counter; i<counter+1; i++) {
 		nurl = lurl+i;
 		console.log(country,'info collection',i);
 		xray(nurl,
@@ -121,7 +121,7 @@ app.get('/summary/list', function (req, res) {
 
 app.get('/', function (req, res)
 {
-	res.render(__dirname + '/client/views/png');
+	res.render(__dirname + '/client/views/index');
 	var today = new Date();
 	var dateString = today.toDateString();
 	console.log(dateString);
@@ -170,6 +170,7 @@ app.set('views',__dirname + '/client/views');
 app.set("view engine",'ejs');
 app.use('/css', express.static(__dirname + '/public/css'))
 app.use('/js', express.static(__dirname + '/public/js'))
+app.use('/img', express.static(__dirname + '/public/img'))
 app.use('/client/js', express.static(__dirname + '/client/js'));
 app.use('/server/js', express.static(__dirname + '/server/js'));
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));

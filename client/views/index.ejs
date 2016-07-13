@@ -1,62 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html data-country="home">
 <head>
 	<title>Webscraper | Loop PNG App</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/glyphicons-halflings-regular.ttf">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<style type="text/css">
-	.list-group {
-		padding-top: 2em;
-	}
-	</style>
 </head>
-<body class="container-fluid">
+<body class="">
 	<% include partials/fb-appconfig %>
-	<% include partials/mainNavigation %>
-<div class="container">
-<div class="row">
-	<div class="col-xs-12">
-		<h1 id="fb-welcome"></h1>
-	</div>
-</div>
-	<div class="" ng-app="authorsListing">
-		<div class="bg-default text-center">
-			<section ng-controller="authorsController">
-				<h1 class="text-primary">author Listings</h1>
-				<p class="text-primary well">This is a sample application that adds your custom author to the database and then displays it in the list below after it has been added.</p>
-				<div>
-					<p>There are {{authors.length}} authors of this module</p>
-					<div class="clearfix row">
-						<form class="form-inline" ng-submit="createAuthor()" style="">
-							<input class="col-xs-8 form-control-static input input-sm text-center" type="text" placeholder="New author name" name="authorName" ng-model="authorName" />
-							<label for="author-type">Type:</label>
-						  <select class="form-control" id="author-type" name="authorType" ng-model="authorType">
-						    <option value="Correspondent" selected>Correspondent</option>
-						    <option value="Fulltime">Fulltime</option>
-						    <option value="Publisher">Publisher</option>
-						  </select>
-							<button class="col-xs-8 btn btn-success btn-sm" type="submit">Add Author</button>
-						</form>
-					</div>
-					<ul class="list-unstyled list-group">
-						<li id="author-{{author._id}}" class="container-fluid text-left list-group-item" ng-repeat="author in authors | orderBy: '_id': 'reverse'"><i class="col-xs-1 glyphicon glyphicon-chevron-right" style="line-height: 3;"></i>
-							<div class="col-xs-10" style="line-height: 3;"><span class="italics">Author: </span>{{author.name}} |<span> Type: </span>{{author.type}}</div>
-							<i class="col-xs-1 text-danger pull-right fade-in glyphicon glyphicon-trash btn btn-danger small" ng-click="removeAuthor()"></i>
-						</li>
-					</ul>
-				</div>
-			</section>
-<!--
- 			<section ng-controller="reportingApplicationController">
-				
-			</section>
--->
-
+	<% include partials/lsb %>
+	<main class="col-xs-12 col-md-9 col-md-offset-4" id="top">
+		<div class="row">
+			<div class="col-xs-12">
+				<h1 id="fb-welcome"></h1>
+			</div>
 		</div>
-	</div>
-</div>
+		<div class="" ng-app="authorsListing">
+			<div class="text-center">
+				<section ng-controller="authorsController">
+					<h1 class="text-primary">author Listings</h1>
+					<p class="text-primary well">This is a sample application that adds your custom author to the database and then displays it in the list below after it has been added.</p>
+					<div>
+						<p>There are {{authors.length}} authors of this module</p>
+						<div class="well text-right">
+							<form class="form-inline" ng-submit="createAuthor()" id="add-author">
+								<fieldset class="form-group">
+									<label for="author-type">Type:</label>
+								  <select class="form-control" id="author-type" name="authorType" ng-model="authorType">
+								    <option value="Correspondent" selected="true">Correspondent</option>
+								    <option value="Fulltime">Fulltime</option>
+								    <option value="Publisher">Publisher</option>
+								  </select>
+								</fieldset>
+								<fieldset class="form-group">
+									<label for="authorFullName">Full Name</label>
+									<input id="authorFullName" class="form-control" type="text" placeholder="New author name" name="authorName" ng-model="authorName" />
+								</fieldset>
+								<fieldset class="form-group">
+									<button class="col-xs-8 form-control btn btn-success btn-sm" type="submit">Add Author</button>
+								</fieldset>
+							</form>
+						</div>
+						<ul class="list-unstyled list-group">
+							<li id="author-{{author._id}}" class="container-fluid text-left list-group-item" ng-repeat="author in authors | orderBy: '_id': 'reverse'"><i class="col-xs-1 glyphicon glyphicon-chevron-right" style="line-height: 3;"></i>
+								<div class="col-xs-10" style="line-height: 3;"><span class="italics">Author: </span>{{author.name}} |<span> Type: </span>{{author.type}}</div>
+								<i class="col-xs-1 text-danger pull-right fade-in glyphicon glyphicon-trash btn btn-danger small" ng-click="removeAuthor()"></i>
+							</li>
+						</ul>
+					</div>
+				</section>
+	<!-- <section ng-controller="reportingApplicationController"></section>	-->
+			</div>
+		</div>
+	</main>
 <% include partials/scripts %>
 <script src="/client/js/controllers/authors-controller.js"></script>
 </body>

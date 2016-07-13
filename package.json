@@ -1,6 +1,6 @@
 {
   "name": "loopscraper",
-  "version": "1.0.0",
+  "version": "1.2.5",
   "description": "simple web application to be used to scrape data off the loop website",
   "main": "server.js",
   "dependencies": {
@@ -13,7 +13,6 @@
     "express": "latest",
     "express-csv": "^0.6.0",
     "gulp": "^3.9.1",
-    "mongodb": "^2.1.4",
     "mongoose": "^4.4.3",
     "q": "^1.4.1",
     "request": "latest",

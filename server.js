@@ -1,16 +1,11 @@
 var express 						= require('express'),
 		csv									=	require('express-csv'),
-		fs 									= require('fs'),
-		// request 						= require('request'),
-		// cheers	 						= require('cheers2'),
-		// xphantom						= require('x-ray-phantom'),
 		xray								= require('x-ray')(),
 		authorsController 	= require('./server/controllers/authors-controller'),
 		articlesController 	= require('./server/controllers/articles-server-controller'),
 		Article 						= require('./server/models/article-model'),
 		bodyParser 					= require('body-parser'),
 		mongoose						= require('mongoose'),
-		mongodb							= require('mongodb'),
 		Q 									= require('q'),
 		app 								= express();
 

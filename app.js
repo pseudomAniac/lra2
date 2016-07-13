@@ -10,7 +10,7 @@ var express 						= require('express'),
 		app 								= express();
 
 // var dbUri = 'mongodb://127.0.0.1:27017/lra'; // local - dev
-var dbUri = 'mongodb://editor_looppacificcount_db:loopdbuser001@ds019980.mlab.com:19980/heroku_gt6n53cm'; // production
+var dbUri = 'mongodb://reader_loopcount_db:readloopcount@ds019980.mlab.com:19980/heroku_gt6n53cm'; // production
 
 // mongoose configurations
 mongoose.connect(dbUri);
@@ -166,12 +166,13 @@ app.get('/delete/:country', function (req, res)
 	res.redirect('/');
 });
 
-// api calls
+/* api calls
 app.get('/api/authors/list', authorsController.listAuthors );
 app.post('/api/authors/new', authorsController.createAuthor ); // calls createAuthor on the server controller
 app.post('/api/add/:author', authorsController.createAuthor ); // calls createAuthor on the server controller
 // app.get('/api/authors/json', authorsController.jsonAuthor );
 app.post('/api/authors/remove', authorsController.deleteAuthor );
+*/
 
 app.set('views',__dirname + '/client/views');
 app.set("view engine",'ejs');
@@ -183,77 +184,8 @@ app.use('/server/js', express.static(__dirname + '/server/js'));
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use(bodyParser.json());
 
-app.listen('3000');
-console.log("go to localhost:3000");
-exports = module.exports = app;
-
-// depreciated ......... needs to be reviewed and removed
-// // var findNauruArticle		= Q.nbind(Article.nauruArticlesModel.find, Article.nauruArticlesModel);
-// app.get('/pacific', function (req, res)
-// {
-// 	// xray(link, selector)
-// 	xray('http://www.loopnauru.com/section/all?page=0','#views-bootstrap-grid-1 .news-title>a', [{links: '@href'}])
-// 	.paginate('.pager-next>a@href')
-// 	.limit(3)
-// 	(function (err, obj) {
-// 		// xray(obj.links)
-// 		console.log(obj);
-// 		// console.log(obj.links);
-// 		if(obj !== null)
-// 			insertNauruArticle(obj);
-// 		// setTimeout(function() {res.redirect('/page/nauru');}, 10000);
-// 		setTimeout(function() {res.send(obj);}, 1000);
-// 	})
-// });
-// app.get('/write/test', function (req,res)
-// {
-// 	var x = xray().driver(xphantom);
-
-// 	x('http://www.looppng.com', '.')(function(err, str) {
-// 	  // if (err) res.send(err);
-// 	  console.log(str);
-// 	  // res.send(str);
-// 	  // done();
-// 	})
-// });
-// // depreciated DB write code
-// app.get('/write/nauru/test', function (req, res)
-// {
-// 	function getInsertedArticle (article) {
-// 		return insertNauruArticle(article);
-// 	}
-// 	var lurl = 'http://www.looptonga.com/section/all?page=0';
-// 		xray(lurl, {
-// 			links: xray('.news-title>a',[{ link: '@href' }])
-// 		})
-// 		(function (err, obj)
-// 		{ // function passing links
-// 			console.log(obj);
-// 			obj.links.forEach(function (link)
-// 			{
-// 				console.log(link.title);
-// 				xray(link.link, {
-// 					title: 'h1.page-header',
-// 					link: 'link[rel=canonical]@href',
-// 					author: '.field-name-field-author .field-item.even',
-// 					views: '.num-views',
-// 					publisher: '.username',
-// 					source: '.field-name-field-source-url .field-item.even',
-// 					pubdate: '.by-line .submitted'
-// 				})(function (err,data)
-// 				{
-// 					// clean before saving: date published
-// 					var tmpPubDate = data.pubdate.slice(data.pubdate.search(",")+2,100),
-// 					cleaned = tmpPubDate.slice(0,tmpPubDate.search(",")+6);
-// 					data.pubdate = cleaned.replace(",","");
-// 					// clean before saving: views
-// 					var rawViews = data.views.replace("\n","");
-// 					data.views = rawViews.split(" ")[6];
-// 					getInsertedArticle(data);//.then(function (err, result) {console.log(result); res.send('saved to db');});
-// 				})
-// 			});
-// 		})
-// 		// .paginate('.pager-next>a@href')
-// 		// .limit(3)
-// 		res.redirect('/page/nauru');
-// });
+app.set('port', (process.env.PORT || 3000));
+app.listen(app.get('port'), function() {
+	console.log("app started at " + paa.get('port'));
+}
+// exports = module.exports = app; ~ depreciated

@@ -20,11 +20,11 @@
     "x-ray-phantom": "^1.0.1"
   },
   "scripts": {
-    "test": "NULL"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
-    "url": "NULL"
+    "url": "https://github.com/sylvery/lra2"
   },
   "keywords": [
     "website",

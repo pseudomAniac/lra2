@@ -9,7 +9,8 @@ var express 						= require('express'),
 		Q 									= require('q'),
 		app 								= express();
 
-var dbUri = 'mongodb://127.0.0.1:27017/lra';
+// var dbUri = 'mongodb://127.0.0.1:27017/lra'; // local - dev
+var dbUri = 'mongodb://heroku_mlab_sylvery_looppacificcount:R!c0h23051991@ds019980.mlab.com:19980/heroku_gt6n53cm'; // production
 // mongoose configurations
 mongoose.connect(dbUri);
 var conn = mongoose.connection;

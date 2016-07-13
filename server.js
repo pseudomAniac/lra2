@@ -9,7 +9,7 @@ var express 						= require('express'),
 		Q 									= require('q'),
 		app 								= express();
 
-var dbUri = 'mongodb://127.0.0.1:27017/loopscraper';
+var dbUri = 'mongodb://127.0.0.1:27017/lra';
 // mongoose configurations
 mongoose.connect(dbUri);
 var conn = mongoose.connection;
@@ -63,7 +63,7 @@ app.get('/write/:country', function (req, res)
             lurl = 'http://www.looppng.com/section/all?page=';
     }
 	// generate links to source publication data from
-	for (var i=counter; i<counter+12; i++) {
+	for (var i=counter; i<counter+20; i++) {
 		nurl = lurl+i;
 		console.log(country,'info collection',i);
 		xray(nurl,

@@ -20,6 +20,7 @@
     "x-ray-phantom": "^1.0.1"
   },
   "scripts": {
+	"test": "gulp",
     "start": "node app.js"
   },
   "repository": {

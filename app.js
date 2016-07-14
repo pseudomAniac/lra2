@@ -10,7 +10,8 @@ var express 						= require('express'),
 		app 								= express();
 
 // var dbUri = 'mongodb://127.0.0.1:27017/lra'; // local - dev
-var dbUri = 'mongodb://reader_loopcount_db:readloopcount@ds019980.mlab.com:19980/heroku_gt6n53cm'; // production
+var dbUri = 'mongodb://reader_loopcount_db:readloopcount@ds019980.mlab.com:19980/heroku_gt6n53cm';
+// 'mongodb://reader_loopcount_db:readloopcount@ds019980.mlab.com:19980/heroku_gt6n53cm'; // production
 
 // mongoose configurations
 mongoose.connect(dbUri);
@@ -186,6 +187,6 @@ app.use(bodyParser.json());
 
 app.set('port', (process.env.PORT || 3000));
 app.listen(app.get('port'), function() {
-	console.log("app started at " + paa.get('port'));
-}
+	console.log("app started at " + app.get('port'));
+})
 // exports = module.exports = app; ~ depreciated

@@ -10,10 +10,10 @@
 		<td><strong>PUBLISHER</strong></td>
 	</thead>
 	<tbody>
-		<tr class="text-left" ng-repeat="article in articles|orderBy:'title':'descending'|filter:searchStringName" id="{{article._id}}">
+		<tr class="text-left" ng-repeat="article in articles|orderBy:'views':'descending'|filter:searchStringName" id="{{article._id}}">
 			<td>{{ article.pubdate }}</td>
-			<!-- <td><a href="{{article.link}}" target="_blank" data-toggle="tooltip" title="{{article.title}}" class="reset clearfix article-title">{{ article.title }}</a></td> -->
-			<td>{{ article.title }}</td>
+			<td><a href="{{article.link}}" target="_blank" data-toggle="tooltip" title="{{article.title}}" class="reset clearfix article-title">{{ article.title }}</a></td>
+			<!-- <td>{{ article.title }}</td> -->
 			<!-- <td>{{ article.link }}</td> -->
 			<td ng-if="article.author === NULL && article.source === NULL || article.source === ' ' ">Unspecified</td>
 			<td ng-if="article.author === NULL && article.source != NULL">{{article.source}}</td>

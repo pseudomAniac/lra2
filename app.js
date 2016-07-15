@@ -66,7 +66,7 @@ app.get('/write/:country', function (req, res)
             lurl = 'http://www.looppng.com/section/all?page=';
     }
 	// generate links to source publication data from
-	for (var i=counter; i<counter+20; i++) {
+	for (var i=counter; i<counter+25; i++) {
 		nurl = lurl+i;
 		console.log(country,'info collection',i);
 		xray(nurl,

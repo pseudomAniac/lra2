@@ -51,17 +51,17 @@
 
 			var counterDisplay = d3.select('#count').append('div').attr('id','sub-count');
 
-			var baseClassCounterDisplay = counterDisplay.selectAll('h4')
+			var baseClassCounterDisplay = counterDisplay.selectAll('a')
+				.append('h4')
 				.data(groupedByDate)
 				.enter()
-					.append('h4')
-					.text(function (d) { return d.values; })
-					.attr({ class: 'inline-count circle', title: function(d) {return d.key;} });
+					.append('a')
+					.attr({ class: 'inline-count circle date h3', title: function(d) {return d.key;} })
+					.attr('href',function(d) { return '/export/'+country+'/'+d.key;})
+					.text(function (d) { return d.values; });
 
-			// baseClassCounterDisplay.append('span').attr('class','date')
-			// 	.append('a')
+			//counterDisplay.selectAll('h4')
 			// 		.text(function (d) { return d.key; })
-			// 		.attr('href',function(d) { return '/export/'+country+'/'+d.key;});
 			// baseClassCounterDisplay.sort();
 			// baseClassCounterDisplay.on('mouseover', function (d) {
 			// 	d3.select(this).select('span').attr('class', 'show date');

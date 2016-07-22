@@ -46,7 +46,7 @@ module.exports.exportArticles = function (req, res) {
 				}
 			else {
 				Article.pngArticlesModel.find({},
-					function (err, result) { res.render('export', {'result':result}); }).limit(20);
+					function (err, result) { res.render('export', {'result':result}); });//.limit(20);
 				break;
 			}
 		case 'nauru':
@@ -57,7 +57,7 @@ module.exports.exportArticles = function (req, res) {
 					).sort({'views':'-1'});
 			}
 			Article.nauruArticlesModel.find({},
-				function (err, result) { res.render('export', {'result':result}); }).limit(20);
+				function (err, result) { res.render('export', {'result':result}); });//.limit(20);
 			break;
 		case 'samoa':
 			// Export Samoa Articles from DB using 'Samoa Articles Model' defined in 'article-model.js'
@@ -67,7 +67,7 @@ module.exports.exportArticles = function (req, res) {
 					).sort({'views':'-1'});
 			}
 			Article.samoaArticlesModel.find({},
-				function (err, result) { res.render('export', {'result':result}); }).limit(20);
+				function (err, result) { res.render('export', {'result':result}); });//.limit(20);
 			break;
 		case 'tonga':
 			// Export Tonga Articles from DB using 'Tonga Articles Model' defined in 'article-model.js'
@@ -77,7 +77,7 @@ module.exports.exportArticles = function (req, res) {
 					).sort({'views':'-1'});
 			}
 			Article.tongaArticlesModel.find({},
-				function (err, result) { res.render('export', {'result':result}); }).limit(20);
+				function (err, result) { res.render('export', {'result':result}); });//.limit(20);
 			break;
 		case 'vanuatu':
 			// Export Vanuatu Articles from DB using 'Vanuatu Articles Model' defined in 'article-model.js'
@@ -87,7 +87,9 @@ module.exports.exportArticles = function (req, res) {
 					).sort({'views':'-1'});
 			}
 			Article.vanuatuArticlesModel.find({},
-				function (err, result) { res.render('export', {'result':result}); }).limit(20);
+				function (err, result) { res.render('export', {'result':result}); });//.limit(20);
+			break;
+		default:
 			break;
 		}
 }

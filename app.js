@@ -7,10 +7,12 @@ var express 						= require('express'),
 		bodyParser 					= require('body-parser'),
 		mongoose						= require('mongoose'),
 		Q 									= require('q'),
+		passport = require('passport'),
+		localPass = require('passport-local'),
 		app 								= express();
 
-// var dbUri = 'mongodb://127.0.0.1:27017/lra'; // local - dev
-var dbUri = 'mongodb://reader_loopcount_db:readloopcount@ds019980.mlab.com:19980/heroku_gt6n53cm';
+var dbUri = 'mongodb://127.0.0.1:27017/lra'; // local - dev
+// var dbUri = 'mongodb://reader_loopcount_db:readloopcount@ds019980.mlab.com:19980/heroku_gt6n53cm';
 // 'mongodb://reader_loopcount_db:readloopcount@ds019980.mlab.com:19980/heroku_gt6n53cm'; // production
 
 // mongoose configurations
@@ -49,6 +51,26 @@ var counter						=0,
 				source: '.field-name-field-source-url .field-item.even',
 				pubdate: '.by-line .submitted'
 			};
+
+app.post('/login', function () {
+	passport.authenticate('local', {
+		successRedirect: '/',
+		failureRedirect: '/login',
+		failureFlash: true,
+		successFlash: "Thanks & Welcome!"
+	});
+});
+
+app.get('login',function (req, res, next) {
+	passport.authenticate('local', function(err, user, info) {
+		if (err) return next(err);
+		if (!user) return res.redirect('/login');
+		req.logIn(user, function(err) {
+			if (err) return next(err);
+			return res.redirect('/users/'+user.username);
+		})
+	})(req, res, next);
+});
 
 app.get('/write/:country', function (req, res)
 {

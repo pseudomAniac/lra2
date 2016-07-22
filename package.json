@@ -1,26 +1,30 @@
 {
   "name": "loopscraper",
-  "version": "1.2.5",
+  "version": "1.2.7",
   "description": "simple web application to be used to scrape data off the loop website",
   "main": "server.js",
   "dependencies": {
-    "assert": "^1.3.0",
+    "bcryptjs": "^2.3.0",
     "body-parser": "^1.14.2",
-    "bootstrap": "^3.3.6",
-    "cheerio": "latest",
-    "cheers2": "^0.4.2",
+    "cookie-parser": "^1.4.3",
     "ejs": "^2.3.4",
     "express": "latest",
     "express-csv": "^0.6.0",
+    "express-session": "^1.14.0",
     "gulp": "^3.9.1",
+    "method-override": "^2.3.6",
     "mongoose": "^4.4.3",
+    "morgan": "^1.7.0",
+    "orchestrate": "^0.8.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "q": "^1.4.1",
     "request": "latest",
     "x-ray": "^2.0.3",
     "x-ray-phantom": "^1.0.1"
   },
   "scripts": {
-	"test": "gulp",
+    "test": "gulp",
     "start": "node app.js"
   },
   "repository": {

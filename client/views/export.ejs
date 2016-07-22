@@ -5,31 +5,48 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<% include partials/stylesheets %>
 </head>
-<body style="padding-top: 75px;">
+<body class="container full-width">
 <!-- main navigation inclusion from .ejs file -->
-<% include partials/mainNavigation %>
-<main class="container">
-	<div class="row">
-		<div class="col-md-3"></div>
+
+<main class="col-xs-12 col-md-9 col-md-offset-3" id="top">
+	<div class="container-fluid">
 		<div class="col-md-6 pull-right">
 			<button id="export-btn" class="btn btn-success btn-block" data-export="export">Export Table</button>
 		</div>
-		<div class="col-md-3"></div>
-		<table class="table">
-			<thead class="text-uppercase">
-				<tr><th>Title</th><th>Author</th><th>Freelance</th><th>Views</th></tr>
-			</thead>
-			<tbody>
-			<% result.map(function(data) { %>
-				<tr><td><%= data.title %></td><td><%= data.author %></td><td>NO</td><td><%= data.views %></td></tr>
-			<% }); %>
-			</tbody>
-		</table>
 	</div>
-</main><hr />
-<footer class="container-fluid well bg-default">
+	<section class="container-fluid">
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<thead class="text-left bg-primary text-uppercase alert">
+					<tr>
+						<th>Title</th>
+						<th>Author</th>
+						<th>Freelance</th>
+						<!-- <th>Category</th> -->
+					</tr>
+				</thead>
+				<tbody>
+				<% result.map(function(data) { %>
+					<tr>
+						<td><%= data.title %></td>
+					<% if (data.author) { %>
+						<td><%= data.author %></td>
+					<% } else if (data.source) { %>
+						<td><%= data.source %></td>
+					<% } else { %>
+						<td>Unspecified</td>
+					<% } %>
+						<td>NO</td>
+						<!-- <td><%= data.category %></td> -->
+					</tr>
+				<% }); %>
+				</tbody>
+			</table>
+		</div>
+<footer class="container-fluid bg-primary">
 <% include partials/footer %>
 </footer>
+</main>
 <!-- scripts inclusion from .ejs file -->
 <% include partials/scripts %>
 <!-- graphs inclusion from .ejs file  -->

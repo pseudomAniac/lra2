@@ -126,10 +126,15 @@ svg {
   border: 2px solid;
 }
 .inline-count {
-  color:skyblue;
+  color:black;
   display: inline;
   float: left;
   border: 2px solid white;
+  line-height: 1.75em;
+}
+.inline-count:hover, .inline-count:active, .inline-count:focus {
+  text-decoration: none;
+  color: black;
 }
 #ui-datepicker-div {
   z-index: 1001 !important;

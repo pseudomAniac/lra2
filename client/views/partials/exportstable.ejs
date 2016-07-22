@@ -1,28 +1,19 @@
 <table class="table table-striped">
 	<thead class="text-left bg-primary text-uppercase alert">
-		<td><strong>DATE</strong></td>
 		<td><strong>TITLE</strong></td>
-		<!-- <td><strong>LINK</strong></td> -->
 		<td><strong>AUTHOR</strong></td>
 		<td><strong>FREELANCE</strong></td>
-		<!-- <td class="text-center"><strong>VIEWS</strong></td> -->
-		<td><strong>CATEGORY</strong></td>
-		<!-- <td><strong>PUBLISHER</strong></td> -->
 	</thead>
 	<tbody>
 		<tr class="text-left" ng-repeat="article in articles|orderBy:'views':'descending'|filter:searchStringName" id="{{article._id}}">
-			<td><a href="/export/png/{{article.pubdate}}">{{ article.pubdate }}</a></td>
 			<!-- <td><a href="{{article.link}}" target="_blank" data-toggle="tooltip" title="{{article.title}}" class="reset clearfix article-title">{{ article.title }}</a></td> -->
 			<td>{{ article.title }}</td>
-			<!-- <td>{{ article.link }}</td> -->
 			<td ng-if="article.author === NULL && article.source === NULL || article.source === ' ' ">Unspecified</td>
 			<td ng-if="article.author === NULL && article.source != NULL">{{article.source}}</td>
 			<td ng-if="article.source === NULL && article.author != NULL">{{article.author}}</td>
 			<td ng-if="article.source != NULL && article.author != NULL">{{ article.source }}</td>
 			<td>NO</td>
-			<td>{{ article.views }}</td>
 			<!-- <td>{{ article.category }}</td> -->
-			<!-- <td class="td-last">{{ article.publisher }}</td> -->
 		</tr>
 	</tbody>
 </table>

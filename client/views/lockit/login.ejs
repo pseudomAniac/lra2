@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login | Loop Pacific Count</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<% include ../partials/stylesheets %>
+</head>
+<body class="container-fluid">
+	<div class="col-md-12">
+		<form class="form-group-lg" action="/login" method="POST">
+			<legend class="form-control-static">
+				<label for="login"><i class="glyphicon glyphicon-user"></i> </label>
+				<input type="text" id="login" name="login" placeholder="username" value="test" />
+			</legend>
+			<legend class="form-control-static">
+				<label for="password"><i class="glyphicon glyphicon-send"></i> </label>
+				<input type="password" id="password" name="password" placeholder="Your password" />
+			</legend>
+			<input type="submit" class="btn btn-primary btn-block" value="Login" />
+		</form> 
+	</div>
+</body>
+</html>

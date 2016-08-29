@@ -142,3 +142,11 @@ svg {
 form.add-author {
   padding-bottom: 2em;
 }
+#lsbMobileMenu.aside.btn-info {
+    position: fixed;
+    float: left;
+    left: 5px;
+    top: 0px;
+    height: 100%;
+    padding-top: 55%;
+}

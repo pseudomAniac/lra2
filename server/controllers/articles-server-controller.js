@@ -1,5 +1,6 @@
 var csv 		= require('express-csv');
 var Article = require('../models/article-model');
+var myConf = require("../../app/my-conf.js");
 
 module.exports.listArticles = function (req, res) {
 	var country = req.params.country;
@@ -26,7 +27,7 @@ module.exports.listArticles = function (req, res) {
 			Article.vanuatuArticlesModel.find({}, function (err, result) { res.json(result); });//.limit(20);
 			break;
 		}
-}
+};
 
 module.exports.exportArticles = function (req, res) {
 	var country 		= req.params.country,

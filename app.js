@@ -36,88 +36,31 @@ var insertNauruArticle		= Q.nfbind(naurucollection.insert.bind(naurucollection))
 		insertTongaArticle		= Q.nbind(tongacollection.insert.bind(tongacollection)),
 		insertVanuatuArticle	= Q.nbind(vanuatucollection.insert.bind(vanuatucollection));
 
-var counter						=0,
-		sampleArticle 		=
-			{
-				title: "Article Title",
-				author: "Sample Article Author",
-				views: 284,
-				publisher: "Sample Article Publisher",
-				pubdate: "March 22 2016"
-			},
-		postmeta_extract 	=
-			{
-				title: 'h1.page-header',
-				link: 'link[rel=canonical]@href',
-				author: '.field-name-field-author .field-item.even',
-				category: 'body@class',
-				views: '.num-views',
-				comments: '.comment-count', 
-				publisher: '.username',
-				source: '.field-name-field-source-url .field-item.even',
-				pubdate: '.by-line .submitted'
-			};
+var	sampleArticle = {
+		title: "Article Title",
+		author: "Sample Article Author",
+		views: 284,
+		publisher: "Sample Article Publisher",
+		pubdate: "March 22 2016"
+	},
+	postmeta_extract = {
+		title: 'h1.page-header',
+		link: 'link[rel=canonical]@href',
+		author: '.field-name-field-author .field-item.even',
+		category: 'body@class',
+		views: '.num-views',
+		comments: '.comment-count', 
+		publisher: '.username',
+		source: '.field-name-field-source-url .field-item.even',
+		pubdate: '.by-line .submitted'
+	};
+
+var counter	= 0;
 
 app.get('/write/:country', function (req, res){
     var country = req.params.country, lurl = 'http://www.looppng.com/section/all?page=', nurl = '';
-
-    switch (country) {
-        case 'nauru':
-        case 'png':
-        case 'samoa':
-        case 'tonga':
-        case 'vanuatu':
-            lurl = 'http://www.loop' + country + '.com/section/all?page=';
-            break;
-        default:
-            lurl = 'http://www.looppng.com/section/all?page=';
-    }
-	// generate links to source publication data from
-	for (var i=counter; i<counter+20; i++) {
-		nurl = lurl+i;
-		console.log(country,'info collection',i);
-		xray(nurl,
-		{
-		    links: xray('.news-title>a', [{ link: '@href' }]) // get the links to crawl to
-		})(function (err, obj) { // function passing links
-		    if (!err) {
-		        obj.links.forEach(function (link) {
-		            xray(link.link, postmeta_extract)(function (err, data) {
-		                if (!err) {
-		                    // clean before saving: category
-		                    var tmpCat = data.category.split(" ");
-		                    data.category = tmpCat[tmpCat.length - 1].replace("taxonomy-", "");
-		                    // clean before saving: date published
-		                    var tmpPubDate = data.pubdate.slice(data.pubdate.search(",") + 2, 100),
-														cleaned = tmpPubDate.slice(0, tmpPubDate.search(",") + 6);
-		                    data.pubdate = cleaned.replace(",", "");
-		                    // clean before saving: views
-		                    var rawViews = data.views.replace("\n", "");
-		                    data.views = rawViews.split(" ")[6];
-		                    switch (country) {
-		                        case 'nauru':
-		                            insertNauruArticle(data);
-		                            break;
-		                        case 'png':
-		                            insertPNGArticle(data);
-		                            break;
-		                        case 'samoa':
-		                            insertSamoaArticle(data);
-		                            break;
-		                        case 'tonga':
-		                            insertTongaArticle(data);
-		                            break;
-		                        default:
-		                            insertVanuatuArticle(data);
-		                            break;
-		                    }
-		                }
-		            });
-		        });
-		    }
-		});
-	}
-	res.redirect('/page/'+country);
+	retrieve(country,lurl,25,0);
+    res.redirect('/page/'+country);
 });
 
 app.get('/', function (req, res){
@@ -147,37 +90,118 @@ app.get("/page/:country/top5", function (req, res) {
 	res.render(__dirname + "/client/views/" + req.params.country + "-top-5");
 });
 
-app.get('/delete/:country', function (req, res)
-{
+app.get("/populate", function (req, res) {
+	res.render(__dirname + "/client/views/populate")
+});
+
+app.get("/populate/content/", function (req, res) {
+	var country = req.query.country.toLowerCase(), pages = req.query.pages, counter = req.query.counter;
+	retrieve(country, pages, counter)
+	res.redirect("/page/"+country);
+});
+
+app.get('/delete/:country', function (req, res){
 	var country = req.params.country;
 	switch (country) {
 		case 'nauru':
 			naurucollection.drop();
+			retrieve("nauru",25,0);
 			break;
 		case 'png':
 			pngcollection.drop();
+			retrieve("png",25,0);
 			break;
 		case 'samoa':
 			samoacollection.drop();
+			retrieve("samoa",25,0);
 			break;
 		case 'tonga':
 			tongacollection.drop();
+			retrieve("tonga",25,0);
 			break;
 		case 'vanuatu':
 			vanuatucollection.drop();
+			retrieve("vanuatu",25,0);
 			break;
 		case 'all':
 			naurucollection.drop();
+			retrieve("nauru",25,0);
 			pngcollection.drop();
+			retrieve("png",25,0);
 			samoacollection.drop();
+			retrieve("samoa",25,0);
 			tongacollection.drop();
+			retrieve("tonga",25,0);
 			vanuatucollection.drop();
+			retrieve("vanuatu",25,0);
 		default:
 			break;
 	}
 	myConf.printDate();
 	res.redirect('/');
 });
+
+// functions
+
+function retrieve(country,pages,counter) {
+	var lurl = "";
+	switch (country) {
+		case 'nauru':
+		case 'png':
+		case 'samoa':
+		case 'tonga':
+		case 'vanuatu':
+			lurl = 'http://www.loop' + country + '.com/section/all?page=' + counter;
+			break;
+		default:
+			lurl = 'http://www.looppng.com/section/all?page=';
+	}
+	// generate links to source publication data from
+	for (var i=counter; i<counter+pages; i++) {
+		var nurl = lurl+i;
+		console.log(country,'info collection',i);
+		xray(nurl,{
+			links: xray('.news-title>a', [{ link: '@href' }]) // get the links to crawl to
+		})(function (err, obj) { // function passing links
+			if (!err) {
+				obj.links.forEach(function (link) {
+					xray(link.link, postmeta_extract)(function (err, data) {
+						if (!err) {
+							// clean before saving: category
+							var tmpCat = data.category.split(" ");
+							data.category = tmpCat[tmpCat.length - 1].replace("taxonomy-", "");
+							// clean before saving: date published
+							var tmpPubDate = data.pubdate.slice(data.pubdate.search(",") + 2, 100),
+														cleaned = tmpPubDate.slice(0, tmpPubDate.search(",") + 6);
+							data.pubdate = cleaned.replace(",", "");
+							// clean before saving: views
+							var rawViews = data.views.replace("\n", "");
+							data.views = rawViews.split(" ")[6];
+							switch (country) {
+								case 'nauru':
+									insertNauruArticle(data);
+									break;
+								case 'png':
+									insertPNGArticle(data);
+									break;
+								case 'samoa':
+									insertSamoaArticle(data);
+									break;
+								case 'tonga':
+									insertTongaArticle(data);
+									break;
+								default:
+									insertVanuatuArticle(data);
+									break;
+							}
+						}
+					});
+				});
+			}
+		});
+	}
+	//return callback("done")
+}
 
 app.set('views',__dirname + '/client/views');
 app.set("view engine",'ejs');

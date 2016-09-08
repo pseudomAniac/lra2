@@ -4,8 +4,16 @@ $(document).ready(function() {
 		$('.site-title').remove();
 		$('#datepicker-counter').remove();
 		$('#sidebar-navigation').attr('style','padding-top: 3em;')
+	// configure accordion
+	var accord = $(".accordion"), i;
+	for (i = 0; i<accord.length; i++) {
+		acc[i].onclick = function() {
+			this.classList.toggle("active");
+			this.nextElementSibling.classList.toggle("hidden");
+		}
+	}
 	};
-	
+
 // animate on mobile screen devices
 $('#lsbMobileMenu').on('click', function() {
 	$('aside').removeClass('col-xs-offset-12');

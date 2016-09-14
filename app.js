@@ -8,7 +8,7 @@ var express 						= require('express'),
 		Q 									= require('q'),
 		passport = require('passport'),
 		localPass = require('passport-local'),
-		config 								= require('./app/config.js'),
+//		config 								= require('./app/config.js'),
 		myConf								= require("./app/my-conf.js"),
 //		Lockit								= require('lockit'),
 		cookieSession						= require('cookie-session'),
@@ -215,21 +215,20 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cookieSession({ secret: 'monobelle' }));
 
-var lockit = new Lockit(config);
-
-app.use(lockit.router);
+// var lockit = new Lockit(config);
+// app.use(lockit.router);
 /* 
 lockit.on('signup', function(user, res) {
 	console.log('a news user has signed up');
 	res.send('welcome!');
-}) */
+})
 lockit.on('login', function(user, res, target) {
 	if (user) console.log(user);
 	if (res) console.log(res);
 	console.log('login success!');
 	res.redirect(target);
 });
-
+ */
 app.set('port', (process.env.PORT || 3000));
 app.listen(app.get('port'), function() {
 	console.log("app started at " + app.get('port'));

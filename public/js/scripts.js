@@ -30,8 +30,7 @@ $('#lsbMobileMenu i.glyphicon-chevron-right').on('click', function() {
 })
 	
   $('li.dropdown:last').attr('style','margin-right:50px');
-	$('.datepicker').datepicker(
-	{
+	$('.datepicker').datepicker({
 		dateFormat: 'MM d yy',
 		showAnim: 'fade'
 	});

@@ -150,3 +150,9 @@ form.add-author {
     height: 100%;
     padding-top: 55%;
 }
+.hidden-md {
+  display: none;
+}
+.hidden-sm {
+  display: none;
+}

@@ -18,8 +18,8 @@ var express 						= require('express'),
 // ================================================= //
 //               mongoose configurations             //
 // ================================================= //
-// var dbUri = 'mongodb://127.0.0.1:27017/lra'; // local - dev
-var dbUri = 'mongodb://reader_loopcount_db:readloopcount@ds019980.mlab.com:19980/heroku_gt6n53cm';
+var dbUri = 'mongodb://127.0.0.1:27017/lra'; // local - dev
+// var dbUri = 'mongodb://reader_loopcount_db:readloopcount@ds019980.mlab.com:19980/heroku_gt6n53cm';
 
 mongoose.connect(dbUri);
 var conn = mongoose.connection;
@@ -147,14 +147,19 @@ function retrieve(country,pages,counter) {
 	var lurl = "";
 	switch (country) {
 		case 'nauru':
+			naurucollection.drop();
 		case 'png':
+			pngcollection.drop();
 		case 'samoa':
+			samoacollection.drop();
 		case 'tonga':
+			tongacollection.drop();
 		case 'vanuatu':
+			vanuatucollection.drop();
 			lurl = 'http://www.loop' + country + '.com/section/all?page=' + counter;
 			break;
 		default:
-			lurl = 'http://www.looppng.com/section/all?page=';
+			lurl = 'http://www.looppng.com/section/all?page=' + counter;
 	}
 	// generate links to source publication data from
 	for (var i=counter; i<counter+pages; i++) {

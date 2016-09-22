@@ -18,8 +18,9 @@ var express 						= require('express'),
 // ================================================= //
 //               mongoose configurations             //
 // ================================================= //
-var dbUri = 'mongodb://127.0.0.1:27017/lra'; // local - dev
+// var dbUri = 'mongodb://127.0.0.1:27017/lra'; // local - dev
 // var dbUri = 'mongodb://reader_loopcount_db:readloopcount@ds019980.mlab.com:19980/heroku_gt6n53cm';
+var dbUri = 'mongodb://test_reader:default@ds019980.mlab.com:19980/heroku_gt6n53cm';
 
 mongoose.connect(dbUri);
 var conn = mongoose.connection;

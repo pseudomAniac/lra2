@@ -10,12 +10,8 @@ gulp.task('server', function() {
 	})
 });
 
-gulp.task('default', function() {
-	gulp.run('server')
-
-	gulp.watch(['./app.js','./server/*/*.js'], function() {
-		gulp.run('server');
-	})
+gulp.task('default', ['server'], function() {
+	gulp.watch(['./app.js','./server/*/*.js', './client/views/lockit/*.ejs', './app/*.js'], ['server'])
 });
 
 process.on('exit', function() {

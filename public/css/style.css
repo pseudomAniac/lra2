@@ -126,14 +126,33 @@ svg {
   border: 2px solid;
 }
 .inline-count {
-  color:skyblue;
+  color:black;
   display: inline;
   float: left;
   border: 2px solid white;
+  line-height: 1.75em;
+}
+.inline-count:hover, .inline-count:active, .inline-count:focus {
+  text-decoration: none;
+  color: black;
 }
 #ui-datepicker-div {
   z-index: 1001 !important;
 }
 form.add-author {
   padding-bottom: 2em;
+}
+#lsbMobileMenu.aside.btn-info {
+    position: fixed;
+    float: left;
+    left: 5px;
+    top: 0px;
+    height: 100%;
+    padding-top: 55%;
+}
+.hidden-md {
+  display: none;
+}
+.hidden-sm {
+  display: none;
 }

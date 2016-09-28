@@ -54,7 +54,13 @@
 			</div>
 		</div>
 	</main>
-<% include partials/scripts %>
+	<div class="btn-group btn-block">
+		<button type="button" class="btn btn-info" data-toggle="modal" data-target="#login-modal">Login</button>
+		<button type="button" class="btn btn-info" data-toggle="modal" data-target="#signup-modal">Sign Up</button>
+	</div>
+	<% include lockit/login-modal %>
+	<% include lockit/signup-modal %>	
+	<% include partials/scripts %>
 <script src="/client/js/controllers/authors-controller.js"></script>
 </body>
 </html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="PNGArticlesListing" data-country="png">
+<head>
+	<title>Populate Contents | Loop Reporting App</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<% include partials/stylesheets %>
+</head>
+<body class="container full-width" ng-controller="articlesController">
+<% include partials/lsb %>
+<main class="col-xs-12 col-md-9 col-md-offset-3" id="top">
+	<section class="row text-center">
+		<h3>Content Population Form</h3>
+		<form class="form-inline" id="populate-content-form" action="/populate/content/" >
+			<section class="form-group">
+				<label for="num-pages" >Country</label>
+				<select class="form-control" name="country" id="country-list">
+					<option>Nauru</option>
+					<option>PNG</option>
+					<option>Samoa</option>
+					<option>Tonga</option>
+					<option>Vanuatu</option>
+				</select>
+			</section>
+			<section class="form-group">
+				<label for="num-pages" >Pages</label>
+				<input type="number" name="pages" id="num-pages" class="form-control" min="1" max="50" />
+			</section>
+			<section class="form-group">
+				<label for="num-pages" >Starting at</label>
+				<input type="number" name="counter" id="starting-page" class="form-control" min="0" max="9999" />
+			</section>
+			<button class="btn btn-success form-control" type="submit">Submit</button>
+		</form>
+	</section>
+</main>
+<% include partials/scripts %>
+<% include partials/graphs %>
+<script src="/client/js/controllers/articles-client-controller.js"></script>
+</body>
+</html>

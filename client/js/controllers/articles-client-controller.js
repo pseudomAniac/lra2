@@ -1,12 +1,20 @@
 PNGArticleListApp.controller('articlesController', ['$scope', '$resource', function ($scope, $resource) {
 	var PNGArticle		= $resource("/articles/png");
-
 	PNGArticle.query(function (result) {
 		$scope.articles = result;
 		$scope.pageTitle = "PNG";
-	})
+	});
 }])
 
+PNGArticleListApp.controller('topArticlesController', ['$scope', '$resource', function ($scope, $resource) {
+	var PNGTop5 = $resource("/top/png");
+	PNGTop5.query(function (result) {
+		$scope.articles = result;
+		$scope.pageTitle = "PNG";
+	});
+}])
+
+// Nauru
 NauruArticleListApp.controller('articlesController', ['$scope', '$resource', function ($scope, $resource) {
 	var NauruArticle		= $resource("/articles/nauru");
 
@@ -14,6 +22,14 @@ NauruArticleListApp.controller('articlesController', ['$scope', '$resource', fun
 		$scope.articles = result;
 		$scope.pageTitle = "Nauru";
 	})
+}])
+
+NauruArticleListApp.controller('topArticlesController', ['$scope', '$resource', function ($scope, $resource) {
+	var NauruTop5 = $resource("/top/nauru");
+	NauruTop5.query(function (result) {
+		$scope.articles = result;
+		$scope.pageTitle = "Nauru";
+	});
 }])
 
 SamoaArticleListApp.controller('articlesController', ['$scope', '$resource', function ($scope, $resource) {
@@ -25,6 +41,14 @@ SamoaArticleListApp.controller('articlesController', ['$scope', '$resource', fun
 	})
 }])
 
+SamoaArticleListApp.controller('topArticlesController', ['$scope', '$resource', function ($scope, $resource) {
+	var SamoaTop5 = $resource("/top/samoa");
+	SamoaTop5.query(function (result) {
+		$scope.articles = result;
+		$scope.pageTitle = "Samoa";
+	});
+}])
+
 TongaArticleListApp.controller('articlesController', ['$scope', '$resource', function ($scope, $resource) {
 	var TongaArticle		= $resource("/articles/tonga");
 
@@ -34,6 +58,14 @@ TongaArticleListApp.controller('articlesController', ['$scope', '$resource', fun
 	})
 }])
 
+TongaArticleListApp.controller('topArticlesController', ['$scope', '$resource', function ($scope, $resource) {
+	var TongaTop5 = $resource("/top/tonga");
+	TongaTop5.query(function (result) {
+		$scope.articles = result;
+		$scope.pageTitle = "Tonga";
+	});
+}])
+
 VanuatuArticleListApp.controller('articlesController', ['$scope', '$resource', function ($scope, $resource) {
 	var VanuatuArticle		= $resource("/articles/vanuatu");
 
@@ -41,4 +73,12 @@ VanuatuArticleListApp.controller('articlesController', ['$scope', '$resource', f
 		$scope.articles = result;
 		$scope.pageTitle = "Vanuatu";
 	})
+}])
+
+VanuatuArticleListApp.controller('topArticlesController', ['$scope', '$resource', function ($scope, $resource) {
+	var VanuatuTop5 = $resource("/top/vanuatu");
+	VanuatuTop5.query(function (result) {
+		$scope.articles = result;
+		$scope.pageTitle = "Vanuatu";
+	});
 }])

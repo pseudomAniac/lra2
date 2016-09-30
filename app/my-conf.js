@@ -4,6 +4,11 @@ exports.printDate = function printDate () {
 	console.log(today);
 }
 
+exports.getToday = function getToday () {
+	var fullDate = new Date();
+	return getMonthInWords(fullDate.getUTCMonth()) + " " + fullDate.getUTCDate() + " " + fullDate.getUTCFullYear();
+}
+
 function getMonthInWords (num) {
 	switch (num) {
 		case 0: return "January"; break;

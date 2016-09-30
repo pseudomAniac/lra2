@@ -49,6 +49,7 @@ var	sampleArticle = {
 		title: 'h1.page-header',
 		link: 'link[rel=canonical]@href',
 		author: '.field-name-field-author .field-item.even',
+		description: '.field-name-field-feature-caption .field-item p',
 		category: 'body@class',
 		views: '.num-views',
 		comments: '.comment-count', 
@@ -57,43 +58,28 @@ var	sampleArticle = {
 		pubdate: '.by-line .submitted'
 	};
 
-var counter	= 0;
-// get calls
+var counter	= 0, today = myConf.printDate();
 app.get('/write/:country', function (req, res){
     var country = req.params.country, lurl = 'http://www.looppng.com/section/all?page=', nurl = '';
-	retrieve(country,lurl,25,0);
+	retrieve(country,lurl,8,0);
     res.redirect('/page/'+country);
-});
-app.get('/', function (req, res){
-	res.render(__dirname + '/client/views/png');
-	myConf.printDate();
-});
-app.get('/home', function(req, res) {
-	res.render(__dirname + '/client/views/index');
 });
 // api call to get stories
 app.get('/articles/:country', articlesController.listArticles);
-app.get("/test-xray", function (req, res) {
-	xray('http://stackoverflow.com/', {
-		links: [ xray('a.question-hyperlink', '@href') ]
-	})(function(err, obj) {
-		if (err) console.log(err);
-		else if (obj) console.log(obj);
-		else res.send("returned an empty set");
-	});
-});
-// api call to export stories 
-app.get('/export/:country/:startDate', articlesController.exportArticles);
-app.get('/export/:country', articlesController.exportArticles);
-// uri call to render pages
 app.get('/page/:country', function (req, res){
 	myConf.printDate();
 	res.render(__dirname + '/client/views/'+req.params.country);
 });
-app.get("/page/:country/top5", function (req, res) {
+// uri call to get top 5 stories
+app.get('/top/:country', articlesController.top5);
+app.get("/top-5/:country", function (req, res) {
 	myConf.printDate();
 	res.render(__dirname + "/client/views/" + req.params.country + "-top-5");
 });
+// api call to export stories 
+app.get('/export/:country/:startDate', articlesController.exportArticles);
+app.get('/export/:country', articlesController.exportArticles);
+// api call to populate stories
 app.get("/populate", function (req, res) {
 	res.render(__dirname + "/client/views/populate")
 });
@@ -103,7 +89,7 @@ app.get("/populate/content/", function (req, res) {
 	res.redirect("/page/"+country);
 });
 app.get('/delete/:country', function (req, res){
-	var country = req.params.country, numpages = 25, startAt = 0;
+	var country = req.params.country, numpages = 8, startAt = 0;
 	switch (country) {
 		case 'nauru':
 			naurucollection.drop();
@@ -136,12 +122,31 @@ app.get('/delete/:country', function (req, res){
 			retrieve("tonga",numpages,startAt);
 			vanuatucollection.drop();
 			retrieve("vanuatu",numpages,startAt);
+			break;
 		default:
 			break;
 	}
 	myConf.printDate();
 	res.redirect('/');
 });
+app.get('/', function (req, res){
+	res.render(__dirname + '/client/views/png');
+	myConf.printDate();
+});
+app.get('/home', function(req, res) {
+	res.render(__dirname + '/client/views/index');
+});
+//tests
+app.get("/test-xray", function (req, res) {
+	xray('http://stackoverflow.com/', {
+		links: [ xray('a.question-hyperlink', '@href') ]
+	})(function(err, obj) {
+		if (err) console.log(err);
+		else if (obj) console.log(obj);
+		else res.send("returned an empty set");
+	});
+});
+
 // functions
 function retrieve(country,numpages,counter) {
 	var lurl = "";
@@ -160,6 +165,7 @@ function retrieve(country,numpages,counter) {
 			break;
 		default:
 			lurl = 'http://www.looppng.com/section/all?page=' + counter;
+			break;
 	}
 	// generate links to source publication data from
 	for (var i=counter; i<counter+numpages; i++) {
@@ -172,6 +178,8 @@ function retrieve(country,numpages,counter) {
 				obj.links.forEach(function (link) {
 					xray(link.link, postmeta_extract)(function (err, data) {
 					 if (!err) {
+						// clean before saving: author
+						// var tmpAuth = data.author.
 						// clean before saving: category
 						var tmpCat = data.category.split(" ");
 						data.category = tmpCat[tmpCat.length - 1].replace("taxonomy-", "");

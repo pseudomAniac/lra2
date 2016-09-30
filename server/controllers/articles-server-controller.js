@@ -4,26 +4,20 @@ var myConf = require("../../app/my-conf.js");
 
 module.exports.listArticles = function (req, res) {
 	var country = req.params.country;
-	switch (country) 
-	{
+	switch (country) {
 		case 'png':
-			// List PNG Articles from DB using 'PNG Articles Model' defined in 'article-model.js'
 			Article.pngArticlesModel.find({}, function (err, result) { res.json(result); });//.limit(20);
 			break;
 		case 'nauru':
-			// List Nauru Articles from DB using 'Nauru Articles Model' defined in 'article-model.js'
 			Article.nauruArticlesModel.find({}, function (err, result) { res.json(result); });//.limit(20);
 			break;
 		case 'samoa':
-			// List Samoa Articles from DB using 'Samoa Articles Model' defined in 'article-model.js'
 			Article.samoaArticlesModel.find({}, function (err, result) { res.json(result); });//.limit(20);
 			break;
 		case 'tonga':
-			// List Tonga Articles from DB using 'Tonga Articles Model' defined in 'article-model.js'
 			Article.tongaArticlesModel.find({}, function (err, result) { res.json(result); });//.limit(20);
 			break;
 		case 'vanuatu':
-			// List Vanuatu Articles from DB using 'Vanuatu Articles Model' defined in 'article-model.js'
 			Article.vanuatuArticlesModel.find({}, function (err, result) { res.json(result); });//.limit(20);
 			break;
 		}
@@ -34,10 +28,8 @@ module.exports.exportArticles = function (req, res) {
 			startDate 	= req.params.startDate,
 			endDate			=	req.params.endDate;
 	console.log(startDate + " - " + country);
-	switch (country) 
-	{
+	switch (country) {
 		case 'png':
-			// Export PNG Articles from DB using 'PNG Articles Model' defined in 'article-model.js'
 			if (typeof(startDate) != undefined) {
 					Article.pngArticlesModel.find({"pubdate":startDate},
 						function (err, result) { res.render('export', {"result":result}); }
@@ -51,7 +43,6 @@ module.exports.exportArticles = function (req, res) {
 				break;
 			}
 		case 'nauru':
-			// Export Nauru Articles from DB using 'Nauru Articles Model' defined in 'article-model.js'
 			if (typeof(startDate) != undefined) {
 				Article.nauruArticlesModel.find({'pubdate':startDate},
 					function (err, result) { res.render('export', {'result':result}); }
@@ -61,7 +52,6 @@ module.exports.exportArticles = function (req, res) {
 				function (err, result) { res.render('export', {'result':result}); });//.limit(20);
 			break;
 		case 'samoa':
-			// Export Samoa Articles from DB using 'Samoa Articles Model' defined in 'article-model.js'
 			if (typeof(startDate) != undefined) {
 				Article.samoaArticlesModel.find({'pubdate':startDate},
 					function (err, result) { res.render('export', {'result':result}); }
@@ -71,7 +61,6 @@ module.exports.exportArticles = function (req, res) {
 				function (err, result) { res.render('export', {'result':result}); });//.limit(20);
 			break;
 		case 'tonga':
-			// Export Tonga Articles from DB using 'Tonga Articles Model' defined in 'article-model.js'
 			if (typeof(startDate) != undefined) {
 				Article.tongaArticlesModel.find({'pubdate':startDate},
 					function (err, result) { res.render('export', {'result':result}); }
@@ -81,7 +70,6 @@ module.exports.exportArticles = function (req, res) {
 				function (err, result) { res.render('export', {'result':result}); });//.limit(20);
 			break;
 		case 'vanuatu':
-			// Export Vanuatu Articles from DB using 'Vanuatu Articles Model' defined in 'article-model.js'
 			if (typeof(startDate) != undefined) {
 				Article.vanuatuArticlesModel.find({'pubdate':startDate},
 					function (err, result) { res.render('export', {'result':result}); }
@@ -94,3 +82,24 @@ module.exports.exportArticles = function (req, res) {
 			break;
 		}
 }
+
+module.exports.top5 = function (req,res) {
+	var country = req.params.country, dte = myConf.getToday(); console.log("from 'top5' - "+dte);
+	switch (country) {
+		case 'png':
+			Article.pngArticlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);//.limit(20);
+			break;
+		case 'nauru':
+			Article.nauruArticlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);//.limit(20);
+			break;
+		case 'samoa':
+			Article.samoaArticlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);//.limit(20);
+			break;
+		case 'tonga':
+			Article.tongaArticlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);//.limit(20);
+			break;
+		case 'vanuatu':
+			Article.vanuatuArticlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);//.limit(20);
+			break;
+		}
+};

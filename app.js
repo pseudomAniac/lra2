@@ -31,6 +31,7 @@ var	postmeta_extract = {
 	};
 
 var counter	= 0, today = myConf.printDate();
+
 app.get('/write/:country', function (req, res){
   var country = req.params.country;
 	retrieve(country,8,0);
@@ -108,16 +109,6 @@ app.get('/', function (req, res){
 app.get('/home', function(req, res) {
 	res.render(__dirname + '/client/views/index');
 });
-//tests
-app.get("/test-xray", function (req, res) {
-	xray('http://stackoverflow.com/', {
-		links: [ xray('a.question-hyperlink', '@href') ]
-	})(function(err, obj) {
-		if (err) console.log(err);
-		else if (obj) console.log(obj);
-		else res.send("returned an empty set");
-	});
-});
 
 // functions - retrieve
 function retrieve(country,pagesToScan,startScanAt) {
@@ -142,7 +133,6 @@ function retrieve(country,pagesToScan,startScanAt) {
 	for (var i = startScanAt; i < (startScanAt+pagesToScan); i++) {
 		var nurl = lurl+i;
 		// console.log(country,'info collection', i);
-		console.log(i+' - total: '+startScanAt+pagesToScan+'\nstart at: '+startScanAt+'\tscan: '+pagesToScan+'pages\n'+nurl)
 		xray(nurl,{
 			links: xray('.news-title>a', [{ link: '@href' }]) // exttract the links to crawl to
 		})(function (err, obj) { // function catching links passed from previous fx

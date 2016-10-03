@@ -140,6 +140,9 @@ function retrieve(country,pagesToScan,startScanAt) {
 				obj.links.forEach(function (link) {
 					xray(link.link, postmeta_extract)(function (err, data) {
 					 if (!err) {
+						// clean before saving: author
+						// var tmpAuthor = data.author;
+						// if(tmpAuthor.charAt(tmpAuthor.length-1) === " ") data.author()
 						// clean before saving: category
 						var tmpCat = data.category.split(" ");
 						data.category = tmpCat[tmpCat.length - 1].replace("taxonomy-", "");
@@ -203,6 +206,7 @@ lockit.on('login', function(user, res, target) {
 	res.redirect(target);
 });
  */
+
 app.set('port', (process.env.PORT || 3000));
 app.listen(app.get('port'), function() {
 	console.log("app started at " + app.get('port'));

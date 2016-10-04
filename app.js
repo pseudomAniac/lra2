@@ -153,6 +153,7 @@ function retrieve(country,pagesToScan,startScanAt) {
 						// clean before saving: views
 						var rawViews = data.views.replace("\n", "");
 						data.views = rawViews.split(" ")[6];
+						data.views = Number.parseInt(data.views);
 						switch (country) {
 							case 'nauru':
 								db.insertNauruArticle(data);

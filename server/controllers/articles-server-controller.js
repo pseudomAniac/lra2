@@ -87,7 +87,7 @@ module.exports.top5 = function (req,res) {
 	var country = req.params.country, dte = myConf.getToday(); console.log("from 'top5' - "+dte);
 	switch (country) {
 		case 'png':
-			Article.pngArticlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);//.limit(20);
+			Article.pngArticlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(6);//.limit(20);
 			break;
 		case 'nauru':
 			Article.nauruArticlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);//.limit(20);

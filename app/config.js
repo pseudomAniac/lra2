@@ -6,8 +6,8 @@ exports.url = 'https://looppacificcount.herokuapp.com';
 exports.rest = false;
 exports.db = {
 //	url: 'mongodb://127.0.0.1:27017/',
-	url: 'mongodb://test_user:default@ds019980.mlab.com:19980/heroku_gt6n53cm',
-	name: "lra",
+	url: 'mongodb://test_user:default@ds019980.mlab.com:19980/',
+	name: "heroku_gt6n53cm",
 	collection: 'users'
 }
 exports.login = {

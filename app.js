@@ -9,14 +9,15 @@ var express  = require('express'),
 	passport = require('passport'),
 	localPass = require('passport-local'),
 	serveStatic = require("serve-static"),
-	config = require('./app/config.js'),
+//	config = require('./app/config.js'),
 	myConf = require("./app/my-conf.js"),
-	Lockit = require('lockit'),
+//	Lockit = require('lockit'),
 	db = require('./lib/db-confg.js'),
 	cookieSession = require('cookie-session'),
 	cookieParser = require('cookie-parser'),
 	app = express();
 		
+/* 
 var lockit = new Lockit(config);
 lockit.on('signup', function(user, res) {
 	console.log('a news user has signed up:\t',user.name);
@@ -28,7 +29,7 @@ lockit.on('login', function(user, res, target) {
 	console.log('login success!');
 	res.redirect(target);
 });
-
+ */
 var	postmeta_extract = {
 		title: 'h1.page-header',
 		link: 'link[rel=canonical]@href',
@@ -213,13 +214,13 @@ app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cookieSession({ secret: 'monobelle' }));
-app.use(lockit.router);
+// app.use(lockit.router);
 app.use(serveStatic("/public"));
 app.use(serveStatic("/public/img"));
 
 
-app.set("environment", (process.env.NODE_ENV="development"));
-console.log(app.get("environment"))
+// app.set("environment", (process.env.NODE_ENV="development"));
+// console.log(app.get("environment"))
 
 app.set('port', (process.env.PORT || 3000));
 app.listen(app.get('port'), function() {

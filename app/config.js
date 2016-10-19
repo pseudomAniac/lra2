@@ -1,11 +1,13 @@
 var dbConf = require("../lib/db-confg.js");
 var adapter = require("lockit-mongodb-adapter");
 exports.appname = 'Loop Pacific Count';
-exports.url = 'http://localhost:3000';
+// exports.url = 'http://localhost:3000';
+exports.url = 'https://looppacificcount.herokuapp.com';
 exports.rest = false;
 exports.db = {
-	url: 'mongodb://127.0.0.1:27017/',
-	name: "lra2",
+//	url: 'mongodb://127.0.0.1:27017/',
+	url: 'mongodb://test_user:default@ds019980.mlab.com:19980/heroku_gt6n53cm',
+	name: "lra",
 	collection: 'users'
 }
 exports.login = {

@@ -4,6 +4,12 @@ PNGArticleListApp.controller('articlesController', ['$scope', '$resource', funct
 		$scope.articles = result;
 		$scope.pageTitle = "PNG";
 	});
+	
+	$scope.reverse = true;
+	$scope.sortBy = function(propertyName) {
+		$scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+		$scope.propertyName = propertyName;
+	}
 }])
 
 PNGArticleListApp.controller('topArticlesController', ['$scope', '$resource', function ($scope, $resource) {

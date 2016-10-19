@@ -154,18 +154,20 @@ function retrieve(country,pagesToScan,startScanAt) {
 					xray(link.link, postmeta_extract)(function (err, data) {
 					 if (!err) {
 						// clean before saving: author
-						var tmpAuthor = data.author.split(" ");
-						if(tmpAuthor[0] === " ") {
-							while (tmpAuthor[0] === " ") {
-								tmpAuthor.pop(0);
+						if (data.author.charAt(0) === " " || data.author.charAt(data.author.length-1) === " ") {
+							var tmpAuthor = data.author.split(" ");
+							if(tmpAuthor[0] === " ") {
+								while (tmpAuthor[0] === " ") {
+									tmpAuthor.shift();
+								}
 							}
-						}
-						if(tmpAuthor[tmpAuthor.length-1] === " ") {
-							while (tmpAuthor[tmpAuthor.length-1] === " " ) {
-								tmpAuthor.length = tmpAuthor.length-1;
+							if(tmpAuthor[tmpAuthor.length-1] === " ") {
+								while (tmpAuthor[tmpAuthor.length-1] === " " ) {
+									tmpAuthor.pop();
+								}
 							}
+							data.author = tmpAuthor [0] + " " + tmpAuthor[1];															
 						}
-						data.author = tmpAuthor [0] + " " + tmpAuthor[1];								
 						// clean before saving: category
 						var tmpCat = data.category.split(" ");
 						data.category = tmpCat[tmpCat.length - 1].replace("taxonomy-", "");

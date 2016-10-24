@@ -156,3 +156,13 @@ form.add-author {
 .hidden-sm {
   display: none;
 }
+
+#deeplink-me > section.form-group {
+  width: 100%
+}
+#deeplink-me > section.form-group > input {
+  width: 100%
+}
+#deeplink-link {
+  word-wrap: break-word;
+}

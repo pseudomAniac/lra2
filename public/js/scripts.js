@@ -37,7 +37,14 @@ $('#lsbMobileMenu i.glyphicon-chevron-right').on('click', function() {
 	// $('[data-toggle="popover"]').popover(); 
 	$('[data-toggle="tooltip"]').tooltip(); 
 	$('circle.tooltip').tooltip();
-	$("#export-btn").click(function(){
-	  $("table").tableToCSV();
+	$("#table-export-btn").click(function(){
+	  $("#datatable").table2excel({
+	  	name: 'data-table',
+	  	filename: 'unkown-error',
+	  	fileext: ".xls",
+	  	exclude_img: true,
+	  	exclude_links: true,
+	  	exclude_inputs: true
+	  });
 	});
 });

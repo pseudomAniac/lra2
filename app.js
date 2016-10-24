@@ -29,7 +29,9 @@ var	postmeta_extract = {
 };
 
 var counter	= 0, today = myConf.printDate();
-
+app.post("/", function (req, res) {
+	res.redirect("/populate");
+});
 app.get('/write/:country', function (req, res){
   var country = req.params.country;
 	retrieve(country,8,0);

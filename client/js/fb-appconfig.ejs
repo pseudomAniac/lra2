@@ -9,12 +9,12 @@
   // Place following code after FB.init call.
 
   function onLogin(response) {
-    if (response.status == 'connected') {
-      FB.api('/me?fields=first_name', function(data) {
-        var welcomeBlock = document.getElementById('fb-welcome');
-        welcomeBlock.innerHTML = "You're logged in as " + data.first_name + '!';
-      });
-    }
+    // if (response.status == 'connected') {
+    //   FB.api('/me?fields=first_name', function(data) {
+    //     var welcomeBlock = document.getElementById('fb-welcome');
+    //     welcomeBlock.innerHTML = "You're logged in as " + data.first_name + '!';
+    //   });
+    // }
   }
 
   FB.getLoginStatus(function(response) {

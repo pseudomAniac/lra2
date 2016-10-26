@@ -20,27 +20,25 @@ var	postmeta_extract = {
 	link: 'link[rel=canonical]@href',
 	uuid: 'link[rel=shortlink]@href',
 	author: '.field-name-field-author .field-item.even',
-	// description: '.field-name-field-feature-caption .field-item p',
+	description: '.field-name-field-feature-caption .field-item p',
 	category: 'body@class',
 	views: '.num-views',
-	// comments: '.comment-count',
+	comments: '.comment-count',
 	publisher: '.username',
 	source: '.field-name-field-source-url .field-item.even',
 	pubdate: '.by-line .submitted'
 };
 
-var counter	= 0, today = myConf.printDate();
+var counter	= 0;
 app.post("/", function (req, res) {
 	res.redirect("/populate");
 });
 app.get('/uuid/:url', function(req, res) {
 	var url = 'http://www.looppng.com/content/'+req.params.url;
-	// console.log(url);
 	xray(url, {uuid: 'link[rel=shortlink]@href'})(function (err, data) {
-		// console.log(data.uuid);
 		var uuid = data.uuid.split("/");
-		// console.log(uuid[uuid.length-1])
-		return uuid[uuid.length-1]
+		uuid = (uuid[uuid.length-1]);
+		res.json({uuid:Number.parseInt(uuid)});
 	});
 })
 app.get('/write/:country', function (req, res){
@@ -51,13 +49,13 @@ app.get('/write/:country', function (req, res){
 // api call to get stories
 app.get('/articles/:country', articlesController.listArticles);
 app.get('/page/:country', function (req, res){
-	myConf.printDate();
+	// myConf.printDate();
 	res.render(__dirname + '/client/views/'+req.params.country);
 });
 // uri call to get top 5 stories
 app.get('/top/:country', articlesController.top5);
 app.get("/top-5/:country", function (req, res) {
-	myConf.printDate();
+	// myConf.printDate();
 	res.render(__dirname + "/client/views/" + req.params.country + "-top-5");
 });
 // api call to export stories 
@@ -115,12 +113,12 @@ app.get('/delete/:country', function (req, res){
 		default:
 			break;
 	}
-	myConf.printDate();
+	// myConf.printDate();
 	res.redirect('/');
 });
 app.get('/', function (req, res){
 	res.render(__dirname + '/client/views/png');
-	myConf.printDate();
+	// myConf.printDate();
 });
 app.get('/home', function(req, res) {
 	res.render(__dirname + '/client/views/index');
@@ -153,7 +151,7 @@ function retrieve(country,pagesToScan,startScanAt) {
 	}
 	for (var i = startScanAt; i < (startScanAt+pagesToScan); i++) {
 		var nurl = lurl+i;
-		console.log(country,'info collection', i);
+		// console.log(country,'info collection', i);
 		xray(nurl,{
 			links: xray('.news-title>a', [{ link: '@href' }]) // exttract the links to crawl to
 		})(function (err, obj) { // function catching links passed from previous fx
@@ -162,20 +160,20 @@ function retrieve(country,pagesToScan,startScanAt) {
 					xray(link.link, postmeta_extract)(function (err, data) {
 					 if (!err) {
 						// // clean before saving: author
-						// if (data.author.charAt(0) === " " || data.author.charAt(data.author.length-1) === " ") {
-						// 	var tmpAuthor = data.author.split(" ");
-						// 	if(tmpAuthor[0] === " ") {
-						// 		// while (tmpAuthor[0] === " ") {
-						// 			tmpAuthor.shift();
-						// 		// }
-						// 	}
-						// 	if(tmpAuthor[tmpAuthor.length-1] === " ") {
-						// 		// while (tmpAuthor[tmpAuthor.length-1] === " " ) {
-						// 			tmpAuthor.pop();
-						// 		// }
-						// 	}
-						// 	data.author = tmpAuthor [0] + " " + tmpAuthor[1];															
-						// }
+						if (data.author.charAt(0) === " " || data.author.charAt(data.author.length-1) === " ") {
+							var tmpAuthor = data.author.split(" ");
+							if(tmpAuthor[0] === " ") {
+								// while (tmpAuthor[0] === " ") {
+									tmpAuthor.shift();
+								// }
+							}
+							if(tmpAuthor[tmpAuthor.length-1] === " ") {
+								// while (tmpAuthor[tmpAuthor.length-1] === " " ) {
+									tmpAuthor.pop();
+								// }
+							}
+							data.author = tmpAuthor [0] + " " + tmpAuthor[1];															
+						}
 						// clean before saving: category
 						var nodeID = data.uuid.split("/");
 						data.uuid = nodeID[nodeID.length-1];
@@ -214,57 +212,7 @@ function retrieve(country,pagesToScan,startScanAt) {
 		});
 	}
 }
-
-// // passport config
-// app.get('/auth/facebook', passport.authenticate('facebook'));
-// app.get('/auth/facebook/callback',
-//   passport.authenticate('facebook', { failureRedirect: '/login' }),
-//   function(req, res) {
-// 	// Successful authentication, redirect home.
-// 	res.redirect('/');
-//   });
-// app.get("/user", function(req, res) {
-// 	res.redirect(__dirname + "/client/views/populate")
-// })
-// app.get("/login", function(req, res) {
-// 	res.render(__dirname + "/client/views/lockit/login");
-// });
-// app.post("/login", passport.authenticate("local", {
-// 		successRedirect: "/populate",
-// 		failureRedirect: "/login",
-// 		failureFlash: true
-// 	}),
-// 	function(req, res) {
-// 		res.redirect("/user");
-// 	}
-// )
-// passport.use(new LocalStrategy(
-//  {
-// 	usernameField: 'username',
-// 	passwordField: 'password',
-// 	passReqToCallback: true,
-// 	session: false
-// }, 
-// function (username, password, done) {
-// 	Users.findOne({username: req.username}, function (err, user) {
-// 		return done(null, user);
-// 	})
-// 	/* User.findOne({username: username}, function(err, user) {
-// 		if (err) return done(err);
-// 		if (!user) return done(null, false);
-// 		if (!user.verifyPassword(password)) return done(null, false);
-// 		return done(null, user); */
-// }
-// 	/* clientID: 178270979235562,
-// 	clientSecret: "c82b7d570de1d13beb131cd89bc81c4d",
-// 	callbackURL: "http://localhost:3000/auth/facebook/callback"
-// }), function(accessToken, refreshToken, profile, cb) {
-// 	User.findOrCreate({ facebookId: profile.id }, function(err, user) {
-// 		return cb(err, user);
-// 	}) */
-// ));
-
-  
+ 
 // app.use & app.set codes
 app.set('views',__dirname + '/client/views');
 app.set("view engine",'ejs');
@@ -280,8 +228,5 @@ app.use(cookieSession({ secret: 'monobelle' }));
 app.use(compression());
 app.use(serveStatic("/public"));
 app.use(serveStatic("/public/img"));
-
 app.set('port', (process.env.PORT || 3000));
-app.listen(app.get('port'), function() {
-	console.log("app started at " + app.get('port'));
-})
+app.listen(app.get('port'), function() { console.log("app started at " + app.get('port')); })

@@ -1,6 +1,6 @@
 var gulp 	= require('gulp'),
-		spawn	= require('child_process').spawn,
-		node;
+	spawn	= require('child_process').spawn,
+	node;
 
 gulp.task('server', function() {
 	if (node) node.kill();
@@ -11,7 +11,7 @@ gulp.task('server', function() {
 });
 
 gulp.task('default', ['server'], function() {
-	gulp.watch(['./app.js','./server/*/*.js', './client/views/lockit/*.ejs', './app/*.js', './lib/*.js'], ['server'])
+	gulp.watch(['./app.js','./server/*/*.js', './app/*.js', './lib/*.js'], ['server'])
 });
 
 process.on('exit', function() {

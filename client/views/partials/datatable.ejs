@@ -18,7 +18,7 @@
 		<!-- <td><strong>FREELANCE</strong></td> -->
 		<td><strong>CATEGORY</strong></td>
 		<!-- <td class="text-center"><strong ng-click="sortBy('views')">VIEWS</strong></td> -->
-		<!-- <td><strong>PUBLISHER</strong></td> -->
+		<td><strong>DEEP LINK</strong></td>
 	</thead>
 	<tbody>
 		<tr class="text-left" ng-repeat="article in articles|orderBy:'views':'descending'|filter:searchStringName" id="{{article._id}}">
@@ -33,7 +33,7 @@
 			<!-- <td>NO</td> -->
 			<td>{{ article.category }}</td>
 			<!-- <td>{{ article.views }}</td> -->
-			<td class="td-last">{{ article.uuid }}</td>
+			<td class="td-last"><a href="http://deeplink.me/{{article.link}}/?uuid={{ article.uuid }}">http://deeplink.me/{{article.link}}/?uuid={{ article.uuid }}</a></td>
 		</tr>
 	</tbody>
 	<caption>country</caption>

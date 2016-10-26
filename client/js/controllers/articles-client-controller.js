@@ -1,5 +1,5 @@
 PNGArticleListApp.controller('articlesController', ['$scope', '$resource', function ($scope, $resource) {
-	var PNGArticle		= $resource("/articles/png");
+	var PNGArticle = $resource("/articles/png");
 	PNGArticle.query(function (result) {
 		$scope.articles = result;
 		$scope.pageTitle = "PNG";

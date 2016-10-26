@@ -52,20 +52,22 @@
 			<form class="form-inline" id="deeplink-me">
 				<section class="form-group h3">
 					<input class="form-control" type="text" placeholder="insert article link in here" id="deeplink-formatter" ng-model="deeplinker" ng-paste="getURL($event.originalEvent)" />
-					<input class="form-control" type="number" placeholder="insert article uuid in here" id="deeplink-uuid" ng-model="uuid" />
+					<!-- depreciated - remove on next commit <input class="form-control" type="text" placeholder="insert article uuid in here" id="deeplink-uuid" ng-model="uuid" /> -->
 				</section>
 				<section class="form-group h1 well">
-					<div class="title text-muted" id="deeplink-link">http://deeplink.me/{{ deeplinker }}/?uuid={{ uuid }}</div>
-					<!-- <div class="fb-share-button" data-href="https://looppacificcount.herokuapp.com/populate" data-layout="button_count" data-size="large" data-mobile-iframe="false"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Flooppacificcount.herokuapp.com%2Fpopulate&amp;src=sdkpreparse">Share</a></div> -->
+					<div class="title text-muted" id="deeplink-link">http://deeplink.me/{{ deeplinker }}/?uuid={{ uuid.uuid }}</div>
 				</section>
 			</form>
 		</section>
 	</div>
 	<div class="row">
-		<section style="width: 75%">
+		<section style="width: 810">
 			<div class="row text-center">
 				<section class="col-md-6">
-					<div class="fb-comments" data-href="https://looppacificcount.herokuapp.com/populate" data-numposts="5" color_scheme="dark"></div>
+					<div class="fb-comments" data-href="https://looppacificcount.herokuapp.com/populate" data-numposts="5" color_scheme="light"></div>
+				</section>
+				<section class="col-md-6">
+					<div class="fb-login-button" data-max-rows="45" data-size="large" data-show-faces="true" data-auto-logout-link="true"></div>
 				</section>
 			</div>
 		</section>

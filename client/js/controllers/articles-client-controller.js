@@ -4,7 +4,6 @@ PNGArticleListApp.controller('articlesController', ['$scope', '$resource', funct
 		$scope.articles = result;
 		$scope.pageTitle = "PNG";
 	});
-	$scope.deeplinker = "";
 	$scope.reverse = true;
 	$scope.sortBy = function(propertyName) {
 		$scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
@@ -20,7 +19,6 @@ PNGArticleListApp.controller('topArticlesController', ['$scope', '$resource', fu
 	});
 }])
 
-// Nauru
 NauruArticleListApp.controller('articlesController', ['$scope', '$resource', function ($scope, $resource) {
 	var NauruArticle		= $resource("/articles/nauru");
 

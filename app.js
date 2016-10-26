@@ -32,6 +32,10 @@ var counter	= 0, today = myConf.printDate();
 app.post("/", function (req, res) {
 	res.redirect("/populate");
 });
+app.get('/uuid/:url', function(req, res) {
+	var url = req.params.url;
+	console.log(url);
+})
 app.get('/write/:country', function (req, res){
   var country = req.params.country;
 	retrieve(country,8,0);

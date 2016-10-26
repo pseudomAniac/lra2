@@ -3,5 +3,5 @@ var app 					= angular.module('authorsListing', ['ngResource']),
 	NauruArticleListApp 	= angular.module('NauruArticlesListing', ['ngResource']),
 	SamoaArticleListApp 	= angular.module('SamoaArticlesListing', ['ngResource']),
 	TongaArticleListApp 	= angular.module('TongaArticlesListing', ['ngResource']),
-	VanuatuArticleListApp 	= angular.module('VanuatuArticlesListing', ['ngResource']).
-	dashboard				= angular.module('dashboard', ['ngResource']);
+	VanuatuArticleListApp 	= angular.module('VanuatuArticlesListing', ['ngResource']),
+	dashboardApp			= angular.module('dashboardAppModule', ['ngResource']);

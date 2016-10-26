@@ -18,11 +18,12 @@ var express  = require('express'),
 var	postmeta_extract = {
 	title: 'h1.page-header',
 	link: 'link[rel=canonical]@href',
+	uuid: 'link[rel=shortlink]@href',
 	author: '.field-name-field-author .field-item.even',
-	description: '.field-name-field-feature-caption .field-item p',
+	// description: '.field-name-field-feature-caption .field-item p',
 	category: 'body@class',
 	views: '.num-views',
-	comments: '.comment-count', 
+	// comments: '.comment-count',
 	publisher: '.username',
 	source: '.field-name-field-source-url .field-item.even',
 	pubdate: '.by-line .submitted'
@@ -33,8 +34,14 @@ app.post("/", function (req, res) {
 	res.redirect("/populate");
 });
 app.get('/uuid/:url', function(req, res) {
-	var url = req.params.url;
-	console.log(url);
+	var url = 'http://www.looppng.com/content/'+req.params.url;
+	// console.log(url);
+	xray(url, {uuid: 'link[rel=shortlink]@href'})(function (err, data) {
+		// console.log(data.uuid);
+		var uuid = data.uuid.split("/");
+		// console.log(uuid[uuid.length-1])
+		return uuid[uuid.length-1]
+	});
 })
 app.get('/write/:country', function (req, res){
   var country = req.params.country;
@@ -71,22 +78,27 @@ app.get('/delete/:country', function (req, res){
 		case 'nauru':
 			db.naurucollection.drop();
 			retrieve("nauru",pagesToScan,startScanAt);
+			res.redirect('/page/nauru');
 			break;
 		case 'png':
 			db.pngcollection.drop();
 			retrieve("png",pagesToScan,startScanAt);
+			res.redirect('/page/png');
 			break;
 		case 'samoa':
 			db.samoacollection.drop();
 			retrieve("samoa",pagesToScan,startScanAt);
+			res.redirect('/page/samoa');
 			break;
 		case 'tonga':
 			db.tongacollection.drop();
 			retrieve("tonga",pagesToScan,startScanAt);
+			res.redirect('/page/tonga');
 			break;
 		case 'vanuatu':
 			db.vanuatucollection.drop();
 			retrieve("vanuatu",pagesToScan,startScanAt);
+			res.redirect('/page/vanuatu');
 			break;
 		case 'all':
 			db.naurucollection.drop();
@@ -116,38 +128,32 @@ app.get('/home', function(req, res) {
 
 // functions - retrieve 
 function retrieve(country,pagesToScan,startScanAt) {
-	var lurl = "";
+	var lurl = 'http://www.loop' + country + '.com/section/all?page=';
 	pagesToScan = Number.parseInt(pagesToScan);
 	startScanAt = Number.parseInt(startScanAt);
-	console.log(country)
+	// console.log(country)
 	switch (country) {
 		case 'nauru':
-			lurl = 'http://www.loopnauru.com/section/all?page=';
 			db.naurucollection.drop();
 			break;
 		case 'png':
-			lurl = 'http://wwwpng.com/section/all?page=';
 			db.pngcollection.drop();
 			break;
 		case 'samoa':
-			lurl = 'http://www.loopsamoa.com/section/all?page=';
 			db.samoacollection.drop();
 			break;
 		case 'tonga':
-			lurl = 'http://www.looptonga.com/section/all?page=';
 			db.tongacollection.drop();
 			break;
 		case 'vanuatu':
-			lurl = 'http://www.loopvanuatu.com/section/all?page=';
 			db.vanuatucollection.drop();
 			break;
 		default:
-			lurl = 'http://www.loop' + country + '.com/section/all?page=';
 			break;
 	}
 	for (var i = startScanAt; i < (startScanAt+pagesToScan); i++) {
 		var nurl = lurl+i;
-		// console.log(country,'info collection', i);
+		console.log(country,'info collection', i);
 		xray(nurl,{
 			links: xray('.news-title>a', [{ link: '@href' }]) // exttract the links to crawl to
 		})(function (err, obj) { // function catching links passed from previous fx
@@ -155,7 +161,7 @@ function retrieve(country,pagesToScan,startScanAt) {
 				obj.links.forEach(function (link) {
 					xray(link.link, postmeta_extract)(function (err, data) {
 					 if (!err) {
-						// clean before saving: author
+						// // clean before saving: author
 						// if (data.author.charAt(0) === " " || data.author.charAt(data.author.length-1) === " ") {
 						// 	var tmpAuthor = data.author.split(" ");
 						// 	if(tmpAuthor[0] === " ") {
@@ -170,6 +176,9 @@ function retrieve(country,pagesToScan,startScanAt) {
 						// 	}
 						// 	data.author = tmpAuthor [0] + " " + tmpAuthor[1];															
 						// }
+						// clean before saving: category
+						var nodeID = data.uuid.split("/");
+						data.uuid = nodeID[nodeID.length-1];
 						// clean before saving: category
 						var tmpCat = data.category.split(" ");
 						data.category = tmpCat[tmpCat.length - 1].replace("taxonomy-", "");

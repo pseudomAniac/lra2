@@ -51,7 +51,7 @@
 			<!-- <div class="fb-welcome"></div> -->
 			<form class="form-inline" id="deeplink-me">
 				<section class="form-group h3">
-					<input class="form-control" type="text" placeholder="insert article link in here" id="deeplink-formatter" ng-model="deeplinker" />
+					<input class="form-control" type="text" placeholder="insert article link in here" id="deeplink-formatter" ng-model="deeplinker" ng-paste="getURL($event.originalEvent)" />
 					<input class="form-control" type="number" placeholder="insert article uuid in here" id="deeplink-uuid" ng-model="uuid" />
 				</section>
 				<section class="form-group h1 well">

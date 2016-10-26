@@ -1,6 +1,6 @@
 {
   "name": "loopscraper",
-  "version": "1.6.13",
+  "version": "1.6.14",
   "description": "simple web application to be used to scrape data off the loop pacific website",
   "main": "app.js",
   "dependencies": {

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="dashboardAppModule" data-country="png">
+<head>
+	<title>Populate Contents | Loop Reporting App</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta property="og:url"           content="https://looppacificcount.herokuapp.com/deeplink-me" />
+	<meta property="og:type"          content="website" />
+	<meta property="og:title"         content="Deep Link Me | Deep Link Generator" />
+	<meta property="og:description"   content="Use this app page to generate a deep link for the story you are sharing on FB." />
+	<meta property="og:image"         content="https://looppacificcount.herokuapp.com/img/home.png" />
+	<meta property="fb:app_id" content="178270979235562" />
+	<meta property="fb:admins" content="100000898434640" />
+	<% include partials/stylesheets %>
+</head>
+<body class="container full-width" ng-controller="dashboardController">
+<% include ../js/fb-appconfig %>
+<% include partials/rsb %>
+<main class="col-xs-12 col-md-9 col-md-offset-3" id="top">
+	<div class="row">
+		<section class="col-md-6">
+			<h3>Deep Link Me</h3>
+			<div class="text-muted small">Use this app's page to generate a deep link for the story you are sharing on FB</div>
+			<div class="fb-like" data-href="https://looppacificcount.herokuapp.com/populate" data-width="810" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+			<!-- <div class="fb-welcome"></div> -->
+			<form class="form-inline" id="deeplink-me">
+				<section class="form-group h3">
+					<input class="form-control" type="text" placeholder="insert article link in here" id="deeplink-formatter" ng-model="deeplinker" ng-paste="getURL($event.originalEvent)" />
+				</section>
+				<section class="form-group h1 well">
+					<div class="title text-muted" id="deeplink-link">http://deeplink.me/{{ deeplinker }}/?uuid={{ uuid.uuid }}</div>
+				</section>
+			</form>
+		</section>
+		<section class="col-md-6">
+			<div class="fb-comments" data-href="https://looppacificcount.herokuapp.com/populate" data-numposts="5" color_scheme="dark"></div>
+			<div class="fb-login-button" data-max-rows="45" data-size="large" data-show-faces="true" data-auto-logout-link="true"></div>
+		</section>
+	</div>
+</main>
+<% include partials/scripts/standard-scripts %>
+<script src="/client/js/controllers/dashboard-controller.js"></script>
+</body>
+</html>

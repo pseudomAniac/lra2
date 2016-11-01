@@ -5,8 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta property="og:url"           content="https://looppacificcount.herokuapp.com/populate" />
 	<meta property="og:type"          content="website" />
-	<meta property="og:title"         content="Deep Link Me | Deep Link Generator" />
-	<meta property="og:description"   content="Use this app page to generate a deep link for the story you are sharing on FB." />
+	<meta property="og:title"         content="Content Retriever | Loop Pacific Count" />
+	<meta property="og:description"   content="Use this app's page to generate content for daily reporting." />
 	<meta property="og:image"         content="https://looppacificcount.herokuapp.com/img/home.png" />
 	<meta property="fb:app_id" content="178270979235562" />
 	<meta property="fb:admins" content="100000898434640" />
@@ -14,14 +14,14 @@
 </head>
 <body class="container full-width" ng-controller="dashboardController">
 <% include ../js/fb-appconfig %>
-<% include partials/lsb %>
+<% include partials/rsb %>
 <main class="col-xs-12 col-md-9 col-md-offset-3" id="top">
 	<div class="row">
-		<section class="col-md-12 hidden-sm">
-			<div class="text-muted small">Populate content | Generate Deep Link - Use this page to either retrive content from loop pacific websites or simple generate a deep link for the story you are sharing.</div>
+		<section class="col-md-12">
 		</section>
-		<section class="col-md-6 hidden-sm">
+		<section class="col-md-6">
 			<h3>Content Population Form</h3>
+			<div class="text-muted small">Use this app's page to generate content for daily reporting</div>
 			<form class="form-horizontal" id="populate-content-form" action="/populate/content/" >
 				<section class="form-group">
 					<label for="country-list" >Country</label>
@@ -44,36 +44,10 @@
 				<button class="btn btn-success form-control" type="submit">Submit</button>
 			</form>
 		</section>
-		<section class="col-md-6">
-			<h3>Deep Link Me</h3>
-			<div class="fb-like" data-href="https://looppacificcount.herokuapp.com/populate" data-width="810" data-layout="button_count" data-action="recommend" data-size="small" data-show-faces="true" data-share="true"></div>
-			<div class="text-muted small">Deep Link Generator - Use this app page to generate a deep link for the story you are sharing.</div>
-			<!-- <div class="fb-welcome"></div> -->
-			<form class="form-inline" id="deeplink-me">
-				<section class="form-group h3">
-					<input class="form-control" type="text" placeholder="insert article link in here" id="deeplink-formatter" ng-model="deeplinker" ng-paste="getURL($event.originalEvent)" />
-					<!-- depreciated - remove on next commit <input class="form-control" type="text" placeholder="insert article uuid in here" id="deeplink-uuid" ng-model="uuid" /> -->
-				</section>
-				<section class="form-group h1 well">
-					<div class="title text-muted" id="deeplink-link">http://deeplink.me/{{ deeplinker }}/?uuid={{ uuid.uuid }}</div>
-				</section>
-			</form>
-		</section>
-	</div>
-	<div class="row">
-		<section style="width: 810">
-			<div class="row text-center">
-				<section class="col-md-6">
-					<div class="fb-comments" data-href="https://looppacificcount.herokuapp.com/populate" data-numposts="5" color_scheme="light"></div>
-				</section>
-				<section class="col-md-6">
-					<div class="fb-login-button" data-max-rows="45" data-size="large" data-show-faces="true" data-auto-logout-link="true"></div>
-				</section>
-			</div>
-		</section>
 	</div>
 </main>
-<% include partials/scripts %>
+<% include partials/scripts/standard-scripts %>
+<% include partials/scripts/additional-scripts %>
 <% include partials/graphs %>
 <script src="/client/js/controllers/dashboard-controller.js"></script>
 </body>

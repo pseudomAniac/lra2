@@ -1,10 +1,10 @@
-<script>
 window.fbAsyncInit = function() {
-    FB.init({
-        appId      : '178270979235562',
-        xfbml      : true,
-        version    : 'v2.8'
-    });
+  FB.init({
+    appId      : '178270979235562',
+    xfbml      : true,
+    version    : 'v2.6'
+  });
+
   // ADD ADDITIONAL FACEBOOK CODE HERE
   // Place following code after FB.init call.
 
@@ -12,7 +12,7 @@ window.fbAsyncInit = function() {
     if (response.status == 'connected') {
       FB.api('/me?fields=first_name', function(data) {
         var welcomeBlock = document.getElementById('fb-welcome');
-        welcomeBlock.innerHTML = "You're logged in as " + data.first_name + '!';
+        welcomeBlock.innerHTML = 'Hello, ' + data.first_name + '!';
       });
     }
   }
@@ -32,10 +32,9 @@ window.fbAsyncInit = function() {
 };
 
 (function(d, s, id){
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-</script>
+   var js, fjs = d.getElementsByTagName(s)[0];
+   if (d.getElementById(id)) {return;}
+   js = d.createElement(s); js.id = id;
+   js.src = "//connect.facebook.net/en_US/sdk.js";
+   fjs.parentNode.insertBefore(js, fjs);
+ }(document, 'script', 'facebook-jssdk'));

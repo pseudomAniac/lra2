@@ -28,19 +28,19 @@ var	postmeta_extract = {
 	source: '.field-name-field-source-url .field-item.even',
 	pubdate: '.by-line .submitted'
 };
-
 var counter	= 0;
 app.post("/", function (req, res) {
 	res.redirect("/populate");
 });
 app.get('/uuid/:url', function(req, res) {
 	var url = 'http://www.looppng.com/content/'+req.params.url;
+	url = decodeURI(url);
 	xray(url, {uuid: 'link[rel=shortlink]@href'})(function (err, data) {
 		var uuid = data.uuid.split("/");
 		uuid = (uuid[uuid.length-1]);
 		res.json({uuid:Number.parseInt(uuid)});
 	});
-})
+});
 app.get('/write/:country', function (req, res){
   var country = req.params.country;
 	retrieve(country,8,0);
@@ -64,6 +64,9 @@ app.get('/export/:country', articlesController.exportArticles);
 // api call to populate stories
 app.get("/populate", function (req, res) {
 	res.render(__dirname + "/client/views/populate")
+});
+app.get("/deeplink-me", function(req, res) {
+	res.render(__dirname + '/client/views/deeplink-me');
 });
 app.get("/populate/content/", function (req, res) {
 	var country = req.query.country.toLowerCase(), pagesToScan = req.query.pages, startScanAt = req.query.counter;

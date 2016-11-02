@@ -16,21 +16,21 @@ var express  = require('express'),
 	app = express();
 		
 var	postmeta_extract = {
+	pubdate: '.by-line .submitted',
 	title: 'h1.page-header',
 	link: 'link[rel=canonical]@href',
 	uuid: 'link[rel=shortlink]@href',
-	author: '.field-name-field-author .field-item.even',
 	description: '.field-name-field-feature-caption .field-item p',
+	author: '.username',
 	category: 'body@class',
-	views: '.num-views',
-	comments: '.comment-count',
-	publisher: '.username',
-	source: '.field-name-field-source-url .field-item.even',
-	pubdate: '.by-line .submitted'
+	views: '.num-views'
+	// author: '.field-name-field-author .field-item.even',
+	// comments: '.comment-count',
+	// source: '.field-name-field-source-url .field-item.even',
 };
 var counter	= 0;
 app.post("/", function (req, res) {
-	res.redirect("/populate");
+	res.redirect("/deeplink-me");
 });
 app.get('/uuid/:url', function(req, res) {
 	var url = 'http://www.looppng.com/content/'+req.params.url;
@@ -162,27 +162,12 @@ function retrieve(country,pagesToScan,startScanAt) {
 				obj.links.forEach(function (link) {
 					xray(link.link, postmeta_extract)(function (err, data) {
 					 if (!err) {
-						// // clean before saving: author
-						if (data.author.charAt(0) === " " || data.author.charAt(data.author.length-1) === " ") {
-							var tmpAuthor = data.author.split(" ");
-							if(tmpAuthor[0] === " ") {
-								// while (tmpAuthor[0] === " ") {
-									tmpAuthor.shift();
-								// }
-							}
-							if(tmpAuthor[tmpAuthor.length-1] === " ") {
-								// while (tmpAuthor[tmpAuthor.length-1] === " " ) {
-									tmpAuthor.pop();
-								// }
-							}
-							data.author = tmpAuthor [0] + " " + tmpAuthor[1];															
-						}
 						// clean before saving: category
 						var nodeID = data.uuid.split("/");
 						data.uuid = nodeID[nodeID.length-1];
 						// clean before saving: category
-						var tmpCat = data.category.split(" ");
-						data.category = tmpCat[tmpCat.length - 1].replace("taxonomy-", "");
+						data.category = data.category.split(" ");
+						data.category = data.category.slice(10);
 						// clean before saving: date published
 						var tmpPubDate = data.pubdate.slice(data.pubdate.search(",") + 2, 100),
 							cleaned = tmpPubDate.slice(0, tmpPubDate.search(",") + 6);

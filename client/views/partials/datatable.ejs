@@ -26,10 +26,8 @@
 			<td><a href="{{article.link}}" target="_blank" data-toggle="tooltip" title="{{article.title}}" class="reset clearfix article-title">{{ article.title }}</a></td>
 			<!-- <td>{{ article.title }}</td> -->
 			<!-- <td>{{ article.link }}</td> -->
-			<td ng-if="article.author === NULL && article.source === NULL || article.source === ' ' ">Unspecified</td>
-			<td ng-if="article.author === NULL && article.source != NULL">{{article.source}}</td>
-			<td ng-if="article.source === NULL && article.author != NULL">{{article.author}}</td>
-			<td ng-if="article.source != NULL && article.author != NULL">{{article.author}}</td>
+			<td ng-if="article.author === NULL">Unspecified</td>
+			<td ng-if="article.author != NULL">{{article.author}}</td>
 			<!-- <td>NO</td> -->
 			<td>{{ article.category }}</td>
 			<!-- <td>{{ article.views }}</td> -->

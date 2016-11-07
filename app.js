@@ -14,7 +14,6 @@ var express  = require('express'),
 	cookieSession = require('cookie-session'),
 	cookieParser = require('cookie-parser'),
 	app = express();
-		
 var	postmeta_extract = {
 	pubdate: '.by-line .submitted',
 	title: 'h1.page-header',

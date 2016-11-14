@@ -213,7 +213,10 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cookieSession({ secret: 'monobelle' }));
 app.use(compression());
-app.use(serveStatic("/public"));
-app.use(serveStatic("/public/img"));
+app.use(serveStatic("/css/*.*"));
+app.use(serveStatic("/js/*.*"));
+app.use(serveStatic("/img/*.*"));
+app.use(serveStatic("/client/js/*.*"));
+app.use(serveStatic("/server/js/*.*"));
 app.set('port', (process.env.PORT || 3000));
 app.listen(app.get('port'), function() { console.log("app started at " + app.get('port')); })

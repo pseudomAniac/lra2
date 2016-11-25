@@ -1,6 +1,6 @@
-var csv 		= require('express-csv');
+// var csv 		= require('express-csv');
 var Article = require('../models/article-model');
-var myConf = require("../../app/my-conf.js");
+var myConf 	= require("../../app/my-conf.js");
 
 module.exports.listArticles = function (req, res) {
 	var country = req.params.country;
@@ -19,6 +19,28 @@ module.exports.listArticles = function (req, res) {
 			break;
 		case 'vanuatu':
 			Article.vanuatuArticlesModel.find({}, function (err, result) { res.json(result); });
+			break;
+		}
+};
+module.exports.top5 = function (req,res) {
+	var country = req.params.country, 
+		dte 	= myConf.getToday(); 
+	// console.log("from 'top5' - "+dte);
+	switch (country) {
+		case 'png':
+			Article.pngArticlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);
+			break;
+		case 'nauru':
+			Article.nauruArticlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);
+			break;
+		case 'samoa':
+			Article.samoaArticlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);
+			break;
+		case 'tonga':
+			Article.tongaArticlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);
+			break;
+		case 'vanuatu':
+			Article.vanuatuArticlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);
 			break;
 		}
 };
@@ -81,25 +103,3 @@ module.exports.exportArticles = function (req, res) {
 			break;
 		}
 }
-module.exports.top5 = function (req,res) {
-	var country = req.params.country, 
-		dte 	= myConf.getToday(); 
-	// console.log("from 'top5' - "+dte);
-	switch (country) {
-		case 'png':
-			Article.pngArticlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);
-			break;
-		case 'nauru':
-			Article.nauruArticlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);
-			break;
-		case 'samoa':
-			Article.samoaArticlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);
-			break;
-		case 'tonga':
-			Article.tongaArticlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);
-			break;
-		case 'vanuatu':
-			Article.vanuatuArticlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);
-			break;
-		}
-};

@@ -19,6 +19,7 @@ aside .site-title{
   position: fixed;
   left: 0;
   right: 0;
+  top: 0;
   overflow-y: auto;
   overflow-x: auto;
   background: #902A07;

@@ -4,12 +4,12 @@ var ArticlesSchema = new Schema({
 	title: String,
 	author: String,
 	views: {type: Number, index: true},
-	publisher: String,
+	publisher: {type: String},
 	pubdate: String,
 	link: String,
 	uuid: Number,
 	description: String,
-	category: String,
+	category: {type: Array},
 	source: String
 });
 module.exports.articlesSchema = new Schema({
@@ -24,8 +24,10 @@ module.exports.articlesSchema = new Schema({
 	category: String,
 	source: String
 });
-module.exports.nauruArticlesModel = mongoose.model('NauruArticle', ArticlesSchema,'nauruarticles');
-module.exports.pngArticlesModel = mongoose.model('PNGArticle', ArticlesSchema,'pngarticles');
-module.exports.samoaArticlesModel = mongoose.model('SamoaArticle', ArticlesSchema,'samoaarticles');
-module.exports.tongaArticlesModel = mongoose.model('TongaArticle', ArticlesSchema,'tongaarticles');
-module.exports.vanuatuArticlesModel = mongoose.model('VanuatuArticle', ArticlesSchema,'vanuatuarticles');
+// module.exports.articlesModel = mongoose.model('Article', ArticlesSchema);
+module.exports.nauruArticlesModel = mongoose.model('NauruArticle', ArticlesSchema);
+module.exports.pngArticlesModel = mongoose.model('PNGArticle', ArticlesSchema);
+module.exports.samoaArticlesModel = mongoose.model('SamoaArticle', ArticlesSchema);
+module.exports.tongaArticlesModel = mongoose.model('TongaArticle', ArticlesSchema);
+module.exports.vanuatuArticlesModel = mongoose.model('VanuatuArticle', ArticlesSchema);
+

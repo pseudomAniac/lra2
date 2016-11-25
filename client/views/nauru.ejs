@@ -1,25 +1,10 @@
 <!DOCTYPE html>
 <html ng-app="NauruArticlesListing" data-country="nauru">
-<head>
-	<title>Loop Reporting App</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<% include partials/stylesheets %>
-</head>
+<%include ./partials/head %>
 <body class="container full-width" >
-	<% include ../js/fb-appconfig %>
-	<div ng-controller="topArticlesController">
-		<aside class="col-xs-12 col-md-9 col-md-offset-3" id="top">
-			<section class="row text-center">
-				<div class="container col-md-12 col-sm-12" style="padding-top: 1em;"><% include partials/top-5-text-layout %></div>
-			</section>
-		</aside>
-	</div>
-	<div ng-controller="articlesController">
-		<% include partials/lsb %>
-		<% include partials/mainContainer %>
-	</div>
-<% include partials/scripts/standard-scripts %>
-<% include partials/scripts/additional-scripts %>
-<script src="/client/js/controllers/articles-client-controller.js"></script>
+	<% include partials/contentContainer %>
+	<% include partials/scripts/standard-scripts %>
+	<% include partials/scripts/additional-scripts %>
+	<script src="/client/js/controllers/articles-client-controller.js"></script>
 </body>
 </html>

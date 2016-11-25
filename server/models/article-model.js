@@ -31,3 +31,18 @@ module.exports.samoaArticlesModel = mongoose.model('SamoaArticle', ArticlesSchem
 module.exports.tongaArticlesModel = mongoose.model('TongaArticle', ArticlesSchema);
 module.exports.vanuatuArticlesModel = mongoose.model('VanuatuArticle', ArticlesSchema);
 
+var pngArticlesModel = mongoose.model('PNGArticle', ArticlesSchema);
+var articlesModel = mongoose.model('Article', ArticlesSchema);
+
+pngArticlesModel.find({"category": new RegExp('(taxonomy-)','i')}, function(err,docs) {
+	if (err) console.log(err);
+	if (docs) {
+		docs.forEach(function(doc) {
+			pngArticlesModel.findByIdAndUpdate(doc._id, function(article) {
+				console.log(article.title);
+			})
+		})
+		// console.log(docs.typeOf);
+	}
+	// return null;
+})

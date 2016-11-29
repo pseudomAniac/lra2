@@ -165,7 +165,7 @@ function retrieve(country,pagesToScan,startScanAt) {
 						var nodeID = data.uuid.split("/");
 						data.uuid = nodeID[nodeID.length-1];
 						// clean before saving: category
-						data.category = data.category.split("taxonomy-").reverse().shift();
+						data.category = data.category.split("taxonomy-").reverse().shift().replace('-',' ');
 						// clean before saving: date published
 						var tmpPubDate = data.pubdate.slice(data.pubdate.search(",") + 2, 100),
 							cleaned = tmpPubDate.slice(0, tmpPubDate.search(",") + 6);

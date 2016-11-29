@@ -36,7 +36,7 @@
 						<td ng-if="article.author === NULL">Unspecified</td>
 						<td ng-if="article.author != NULL">{{article.author}}</td>
 						<td class="check-element animate-show" ng-show="showColumnViews">{{ article.views }}</td>
-						<td class="check-element animate-show" ng-show="showColumnCategory"><span ng-repeat="category in article.category">{{ category }} &middot; </span></td>
+						<td class="check-element animate-show" ng-show="showColumnCategory"><span ng-repeat="category in article.category">{{ category }}</span></td>
 						<!-- <td class="td-last"><a href="http://deeplink.me/{{article.link}}/?uuid={{ article.uuid }}" target="_blank" >http://deeplink.me/{{article.link}}/?uuid={{ article.uuid }}</a></td> -->
 					</tr>
 				</tbody>

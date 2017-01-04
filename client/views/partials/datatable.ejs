@@ -1,22 +1,24 @@
-<p class="h3">All Data</p>
-<section class="row">
+<section class="row hidden-xs hidden-sm hidden-md">
+	<p class="h3">All Data</p>
 	<div class="clearfix">
-		<form class="form-group-static">
-			<label><input type="radio" checked name="toggle-view" value="category">Category</label>
-			<label><input type="radio" name="toggle-view" value="views"></input>Views</label>
+		<form class="form-group">
+			<label class="control-label" for="form-article-category">Category</label>
+			<input type="radio" checked name="toggle-view" value="category" id="form-article-category" class="form-cotrol">
+			<label class="control-label" for="form-article-views">Views</label>
+			<input type="radio" name="toggle-view" value="views" id="form-article-views" class="form-cotrol"></input>
 		</form>
 	</div>
 </section>
-<table class="table table-striped">
+<table class="table table-striped" id="datatable">
 	<thead class="text-left bg-primary text-uppercase alert">
-		<td><strong>DATE</strong></td>
+		<td><strong ng-click="sortBy('date')">DATE</strong></td>
 		<td><strong>TITLE</strong></td>
 		<!-- <td><strong>LINK</strong></td> -->
-		<td><strong>AUTHOR</strong></td>
+		<td><strong ng-click="sortBy('author')">AUTHOR</strong></td>
 		<!-- <td><strong>FREELANCE</strong></td> -->
-		<td class="text-center"><strong>VIEWS</strong></td>
-		<!-- <td><strong>CATEGORY</strong></td> -->
-		<!-- <td><strong>PUBLISHER</strong></td> -->
+		<td><strong>CATEGORY</strong></td>
+		<td class="text-center"><strong ng-click="sortBy('views')">VIEWS</strong></td>
+		<!-- <td><strong>DEEP LINK</strong></td> -->
 	</thead>
 	<tbody>
 		<tr class="text-left" ng-repeat="article in articles|orderBy:'views':'descending'|filter:searchStringName" id="{{article._id}}">
@@ -24,14 +26,12 @@
 			<td><a href="{{article.link}}" target="_blank" data-toggle="tooltip" title="{{article.title}}" class="reset clearfix article-title">{{ article.title }}</a></td>
 			<!-- <td>{{ article.title }}</td> -->
 			<!-- <td>{{ article.link }}</td> -->
-			<td ng-if="article.author === NULL && article.source === NULL || article.source === ' ' ">Unspecified</td>
-			<td ng-if="article.author === NULL && article.source != NULL">{{article.source}}</td>
-			<td ng-if="article.source === NULL && article.author != NULL">{{article.author}}</td>
-			<td ng-if="article.source != NULL && article.author != NULL">{{ article.author }}</td>
+			<td ng-if="article.author === NULL">Unspecified</td>
+			<td ng-if="article.author != NULL">{{article.author}}</td>
 			<!-- <td>NO</td> -->
+			<td>{{ article.category }}</td>
 			<td>{{ article.views }}</td>
-			<!-- <td>{{ article.category }}</td> -->
-			<!-- <td class="td-last">{{ article.publisher }}</td> -->
+			<!-- <td class="td-last"><a href="http://deeplink.me/{{article.link}}/?uuid={{ article.uuid }}" target="_blank" >http://deeplink.me/{{article.link}}/?uuid={{ article.uuid }}</a></td> -->
 		</tr>
 	</tbody>
 </table>

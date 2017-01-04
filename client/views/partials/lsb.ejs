@@ -4,7 +4,7 @@
 		  <div id="datepicker-counter">
 			<div class="full-width gutter-narrow text-center">
 			  <div class="col-xs-9"><% include datepicker %></div>
-			  <div class="col-xs-3"><button id="export-btn" class="btn btn-success btn-block" data-export="export"><i class="glyphicon glyphicon-send"></i></button></div>
+			  <div class="col-xs-3"><button id="table-export-btn" class="btn btn-success btn-block" data-export="export"><i class="glyphicon glyphicon-send"></i></button></div>
 			</div>
 			<div class="clearfix col-md-12 text-center" id="count">
 			  <h1 class="circle">{{articles.length}}</h1>
@@ -32,9 +32,12 @@
 			  <li class="nav-item">
 				<a href="/populate" class="nav-link" title="populate content">POP<!-- <span><img class="img-responsive" src="/img/home.png" title="POPULATE"></img></span> --></a>
 			  </li>
+			  <li class="nav-item">
+				<a href="/deeplink-me" class="nav-link" title="deeplink me">DeL<!-- <span><img class="img-responsive" src="/img/home.png" title="DEEPLINK"></img></span> --></a>
+			  </li>
 			</ul>
 		  </div>
-		  <div id="delete-country">
+		  <div id="delete-country" class="hidden">
 			<button class="btn btn-info text-default bg-primary mark full-width text-center">Delete</button>
 			<ul class="nav nav-pills bg-default text-uppercase" id="delete-content">
 			  <li class="nav-item">

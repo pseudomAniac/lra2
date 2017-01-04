@@ -1,0 +1,46 @@
+<aside ng-controller="topArticlesController">
+	<aside class="col-xs-12 col-md-9 col-md-offset-3" id="top">
+		<section class="row text-center">
+			<div class="container col-md-12 col-sm-12" style="padding-top: 1em;"><% include ./top-5-text-layout %></div>
+		</section>
+	</aside>
+</aside>
+<main class="col-xs-12 col-md-9 col-md-offset-3" id="top" ng-controller="articlesController">
+	<% include ./lsb %>
+	<section class="row text-right">
+	   <form class="form-inline">
+			<div class="btn-group">
+				<div class="checkbox btn btn-warning"><label><input ng-model="showColumnViews" type="checkbox" aria-label="Toggle ngHide" checked> Views</label></div>
+				<div class="checkbox btn btn-warning"><label><input ng-model="showColumnCategory" type="checkbox" aria-label="Toggle ngHide"> Category</label></div>
+				<!-- <div class="checkbox btn btn-warning"><label><input type="checkbox"> Description</label></div> -->
+			</div>
+	   </form>
+	</section>
+	<section class="row text-center">
+		<div class="row table-responsive">
+			<table class="table table-striped" id="datatable">
+				<thead class="text-left bg-primary text-uppercase alert">
+					<td class="strong" ng-click="sortBy('date')"><div class="btn btn-block btn-primary">DATE</div></td>
+					<td class="strong" ng-click="sortBy('title')"><div class="btn btn-block btn-primary">TITLE</div></td>
+					<!-- <td><div>LINK</div></td> -->
+					<td class="strong" ng-click="sortBy('author')"><div class="btn btn-block btn-primary">AUTHOR</div></td>
+					<!-- <td><div>FREELANCE</div></td> -->
+					<td class="strong check-element animate-show" ng-click="sortBy('views')" ng-show="showColumnViews"><div class="btn btn-block btn-primary">VIEWS</div></td>
+					<td class="strong check-element animate-show" ng-click="sortBy('category')" ng-show="showColumnCategory"><div class="btn btn-block btn-primary">CATEGORY</div></td>
+					<!-- <td><div>DEEP LINK</div></td> -->
+				</thead>
+				<tbody>
+					<tr class="text-left" ng-repeat="article in articles|orderBy:propertyName:reverse|filter:searchStringName" id="{{article._id}}">
+						<td><a href="/export/png/{{article.pubdate}}">{{ article.pubdate }}</a></td>
+						<td><a href="{{article.link}}" target="_blank" title="{{article.title}}" class="reset clearfix article-title">{{ article.title }}</a></td>
+						<td ng-if="article.author === NULL">Unspecified</td>
+						<td ng-if="article.author != NULL">{{article.author}}</td>
+						<td class="check-element animate-show" ng-show="showColumnViews">{{ article.views }}</td>
+						<td class="check-element animate-show" ng-show="showColumnCategory"><span ng-repeat="category in article.category">{{ category }}</span></td>
+						<!-- <td class="td-last"><a href="http://deeplink.me/{{article.link}}/?uuid={{ article.uuid }}" target="_blank" >http://deeplink.me/{{article.link}}/?uuid={{ article.uuid }}</a></td> -->
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+</main>

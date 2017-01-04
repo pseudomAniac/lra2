@@ -1,40 +1,54 @@
 <!DOCTYPE html>
-<html ng-app="PNGArticlesListing" data-country="png">
+<html ng-app="dashboardAppModule" data-country="png">
 <head>
-	<title>Populate Contents | Loop Reporting App</title>
+	<title>Content Populator | Loop Pacific Count App</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta property="og:url"           content="https://looppacificcount.herokuapp.com/populate" />
+	<meta property="og:type"          content="website" />
+	<meta property="og:title"         content="Content Retriever | Loop Pacific Count" />
+	<meta property="og:description"   content="Use this app's page to generate content for daily reporting." />
+	<meta property="og:image"         content="https://looppacificcount.herokuapp.com/img/home.png" />
+	<meta property="fb:app_id" content="178270979235562" />
+	<meta property="fb:admins" content="100000898434640" />
 	<% include partials/stylesheets %>
 </head>
-<body class="container full-width" ng-controller="articlesController">
-<% include partials/lsb %>
+<body class="container full-width" ng-controller="dashboardController">
+<% include ../js/fb-appconfig %>
+<% include partials/rsb %>
 <main class="col-xs-12 col-md-9 col-md-offset-3" id="top">
-	<section class="row text-center">
-		<h3>Content Population Form</h3>
-		<form class="form-inline" id="populate-content-form" action="/populate/content/" >
-			<section class="form-group">
-				<label for="num-pages" >Country</label>
-				<select class="form-control" name="country" id="country-list">
-					<option>Nauru</option>
-					<option>PNG</option>
-					<option>Samoa</option>
-					<option>Tonga</option>
-					<option>Vanuatu</option>
-				</select>
-			</section>
-			<section class="form-group">
-				<label for="num-pages" >Pages</label>
-				<input type="number" name="pages" id="num-pages" class="form-control" min="1" max="50" />
-			</section>
-			<section class="form-group">
-				<label for="num-pages" >Starting at</label>
-				<input type="number" name="counter" id="starting-page" class="form-control" min="0" max="9999" />
-			</section>
-			<button class="btn btn-success form-control" type="submit">Submit</button>
-		</form>
-	</section>
+	<div class="row">
+		<section class="col-md-12">
+		</section>
+		<section class="col-md-6">
+			<h3>Content Population Form</h3>
+			<div class="text-muted small">Use this app's page to generate content for daily reporting</div>
+			<form class="form-horizontal" id="populate-content-form" action="/populate/content/" >
+				<section class="form-group">
+					<label for="country-list" >Country</label>
+					<select class="form-control" name="country" id="country-list">
+						<option>Nauru</option>
+						<option>PNG</option>
+						<option>Samoa</option>
+						<option>Tonga</option>
+						<option>Vanuatu</option>
+					</select>
+				</section>
+				<section class="form-group">
+					<label for="num-pages" >Pages</label>
+					<input class="form-control" type="number" name="pages" id="num-pages" min="1" max="50" />
+				</section>
+				<section class="form-group">
+					<label for="starting-page" >Starting at</label>
+					<input class="form-control" type="number" name="counter" id="starting-page" min="0" max="9999" />
+				</section>
+				<button class="btn btn-success form-control" type="submit">Submit</button>
+			</form>
+		</section>
+	</div>
 </main>
-<% include partials/scripts %>
+<% include partials/scripts/standard-scripts %>
+<% include partials/scripts/additional-scripts %>
 <% include partials/graphs %>
-<script src="/client/js/controllers/articles-client-controller.js"></script>
+<script src="/client/js/controllers/dashboard-controller.js"></script>
 </body>
 </html>

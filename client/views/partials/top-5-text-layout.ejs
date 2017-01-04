@@ -1,6 +1,6 @@
 <p class="h3 pill">Trending Top 5</p>
-<p class="text-left panel" ng-repeat="article in articles" id="{{article._id}}">
-	<strong>{{ article.title }}<!--  - <small class="text-muted">{{ article.views }}</small> --></strong><br />
+<p class="text-left panel col-sm-6" ng-repeat="article in articles" id="{{article._id}}">
+	<strong>{{ article.title }}</strong> &middot; <span class="text-muted">{{ article.views }}</span><br />
 	<a href="{{ article.link }}" title="">{{ article.link }}</a><br />
 	<span>{{ article.description }}</span>
 </p>

@@ -19,6 +19,7 @@ aside .site-title{
   position: fixed;
   left: 0;
   right: 0;
+  top: 0;
   overflow-y: auto;
   overflow-x: auto;
   background: #902A07;
@@ -155,4 +156,14 @@ form.add-author {
 }
 .hidden-sm {
   display: none;
+}
+
+#deeplink-me > section.form-group {
+  width: 100%
+}
+#deeplink-me > section.form-group > input {
+  width: 100%
+}
+#deeplink-link {
+  word-wrap: break-word;
 }

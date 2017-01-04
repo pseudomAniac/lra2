@@ -37,7 +37,7 @@ $('#lsbMobileMenu i.glyphicon-chevron-right').on('click', function() {
 	// $('[data-toggle="popover"]').popover(); 
 	$('[data-toggle="tooltip"]').tooltip(); 
 	$('circle.tooltip').tooltip();
-	$("#export-btn").click(function(){
-	  $("table").tableToCSV();
+	$("#table-export-btn").click(function(){
+	  $("#datatable").tableToCSV();
 	});
 });

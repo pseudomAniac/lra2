@@ -54,11 +54,11 @@ app.get('/', function(req, res) {
 app.get('/home', function(req, res) {
 	res.render(__dirname + '/client/views/index');
 });
-// setInterval(function() {
-// 	// call fx to check for recent updates to the story links array
-// 	retriever.getUpdate();
-// 	console.log("getUpdate() executed - ",moment(new Date()).format('LLL'));
-// }, (1000*60*1));
+setInterval(function() {
+	// call fx to check for recent updates to the story links array
+	retriever.getUpdate();
+	console.log("getUpdate() executed - ",moment(new Date()).format('LLL'));
+}, (1000*60*1));
 
 // app.use & app.set codes
 app.set('views',__dirname + '/client/views');

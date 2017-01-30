@@ -56,7 +56,7 @@ app.get('/home', function(req, res) {
 });
 setInterval(function() {
 	// call fx to check for recent updates to the story links array
-	retriever.getUpdate();
+	// retriever.getUpdate();
 	console.log("getUpdate() executed - ",moment(new Date()).format('LLL'));
 }, (1000*60*1));
 

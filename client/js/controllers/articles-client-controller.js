@@ -18,6 +18,9 @@ PNGArticleListApp.controller('topArticlesController', ['$scope', '$resource', fu
 	var PNGTop5 = $resource("/top/png");
 	$scope.pageTitle = "PNG";
 	PNGTop5.query(function (result) {
+		result.forEach(function(doc) {
+			console.log(doc.pubdate);
+		})
 		$scope.articles = result;
 	});
 }])

@@ -1,38 +1,26 @@
 var mongoose = require('mongoose'),
-	Schema 	 = mongoose.Schema;
+		Schema 	 = mongoose.Schema;
 var ArticlesSchema = new Schema({
+	nodeID: {type: Number, index: true},
+	pubdate: {type: Date, index: true},
 	title: String,
-	author: String,
-	views: {type: Number, index: true},
-	publisher: {type: String},
-	pubdate: String,
 	link: String,
-	uuid: Number,
-	description: String,
+	author: String,
 	category: {type: Array},
-	source: String
-});
-module.exports.articlesSchema = new Schema({
-	title: String,
-	author: String,
-	views: Number,
+	domain: {type: String, index: true},
 	publisher: String,
-	pubdate: String,
-	link: String,
-	uuid: Number,
-	description: String,
-	category: String,
 	source: String
 });
 // module.exports.articlesModel = mongoose.model('Article', ArticlesSchema);
-module.exports.nauruArticlesModel = mongoose.model('NauruArticle', ArticlesSchema);
-module.exports.pngArticlesModel = mongoose.model('PNGArticle', ArticlesSchema);
-module.exports.samoaArticlesModel = mongoose.model('SamoaArticle', ArticlesSchema);
-module.exports.tongaArticlesModel = mongoose.model('TongaArticle', ArticlesSchema);
-module.exports.vanuatuArticlesModel = mongoose.model('VanuatuArticle', ArticlesSchema);
+module.exports.articlesModel = mongoose.model('Article',ArticlesSchema);
+module.exports.nauruArticlesModel = mongoose.model('NauruArticle', ArticlesSchema);				// depreciated, will be removed in the next major upgrade
+module.exports.pngArticlesModel = mongoose.model('PNGArticle', ArticlesSchema);						// depreciated, will be removed in the next major upgrade
+module.exports.samoaArticlesModel = mongoose.model('SamoaArticle', ArticlesSchema);				// depreciated, will be removed in the next major upgrade
+module.exports.tongaArticlesModel = mongoose.model('TongaArticle', ArticlesSchema);				// depreciated, will be removed in the next major upgrade
+module.exports.vanuatuArticlesModel = mongoose.model('VanuatuArticle', ArticlesSchema);		// depreciated, will be removed in the next major upgrade
 
 var pngArticlesModel = mongoose.model('PNGArticle', ArticlesSchema);
-var articlesModel = mongoose.model('Article', ArticlesSchema);
+// var articlesModel = mongoose.model('Article', ArticlesSchema);
 
 pngArticlesModel.find({"category": new RegExp('(taxonomy-)','i')}, function(err,docs) {
 	if (err) console.log(err);
@@ -46,3 +34,10 @@ pngArticlesModel.find({"category": new RegExp('(taxonomy-)','i')}, function(err,
 	}
 	// return null;
 })
+module.exports.findOneByNodeID = function(nodeID) { // #longquery
+	// console.log(nodeID)
+	pngArticlesModel.findOne({"nodeID":nodeID}, function(err, doc) {
+		// console.log("doc found",doc);
+		return doc;
+	});
+}

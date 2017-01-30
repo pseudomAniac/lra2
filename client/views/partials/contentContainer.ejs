@@ -31,7 +31,7 @@
 				</thead>
 				<tbody>
 					<tr class="text-left" ng-repeat="article in articles|orderBy:propertyName:reverse|filter:searchStringName" id="{{article._id}}">
-						<td><a href="/export/png/{{article.pubdate}}">{{ article.pubdate }}</a></td>
+						<td><a href="/export/png/{{article.pubdate}}" class="publication-date">{{ article.pubdate }}</a></td>
 						<td><a href="{{article.link}}" target="_blank" title="{{article.title}}" class="reset clearfix article-title">{{ article.title }}</a></td>
 						<td ng-if="article.author === NULL">Unspecified</td>
 						<td ng-if="article.author != NULL">{{article.author}}</td>

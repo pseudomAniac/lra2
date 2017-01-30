@@ -3,7 +3,7 @@
 	<div class="clearfix">
 		<form class="form-group">
 			<label class="control-label" for="form-article-category">Category</label>
-			<input type="radio" checked name="toggle-view" value="category" id="form-article-category" class="form-cotrol">
+			<input type="radio" checked="true" name="toggle-view" value="category" id="form-article-category" class="form-cotrol">
 			<label class="control-label" for="form-article-views">Views</label>
 			<input type="radio" name="toggle-view" value="views" id="form-article-views" class="form-cotrol"></input>
 		</form>
@@ -22,7 +22,7 @@
 	</thead>
 	<tbody>
 		<tr class="text-left" ng-repeat="article in articles|orderBy:'views':'descending'|filter:searchStringName" id="{{article._id}}">
-			<td><a href="/export/png/{{article.pubdate}}">{{ article.pubdate }}</a></td>
+			<td><a href="/export/png/{{article.pubdate}}" class="publication-date">{{ dateConverter | article.pubdate : longDate : +10 }}</a></td>
 			<td><a href="{{article.link}}" target="_blank" data-toggle="tooltip" title="{{article.title}}" class="reset clearfix article-title">{{ article.title }}</a></td>
 			<!-- <td>{{ article.title }}</td> -->
 			<!-- <td>{{ article.link }}</td> -->

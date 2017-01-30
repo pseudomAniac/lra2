@@ -23,7 +23,7 @@
 			<h3>Content Population Form</h3>
 			<div class="text-muted small">Use this app's page to generate content for daily reporting</div>
 			<form class="form-horizontal" id="populate-content-form" action="/populate/content/" >
-				<section class="form-group">
+				<section class="form-group col-md-12">
 					<label for="country-list" >Country</label>
 					<select class="form-control" name="country" id="country-list">
 						<option>Nauru</option>
@@ -33,13 +33,13 @@
 						<option>Vanuatu</option>
 					</select>
 				</section>
-				<section class="form-group">
-					<label for="num-pages" >Pages</label>
-					<input class="form-control" type="number" name="pages" id="num-pages" min="1" max="50" />
+				<section class="form-group col-md-6">
+					<label for="num-pages">Pages to Scan</label>
+					<input class="form-control circular-input-number" placeholder="0" type="number" name="pages" id="num-pages" min="1" max="50" />
 				</section>
-				<section class="form-group">
-					<label for="starting-page" >Starting at</label>
-					<input class="form-control" type="number" name="counter" id="starting-page" min="0" max="9999" />
+				<section class="form-group col-md-6">
+					<label for="starting-page">Starting at</label>
+					<input class="form-control circular-input-number" placeholder="0" type="number" name="counter" id="starting-page" min="0" max="9999" />
 				</section>
 				<button class="btn btn-success form-control" type="submit">Submit</button>
 			</form>

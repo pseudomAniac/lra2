@@ -1,105 +1,121 @@
-// var csv 		= require('express-csv');
-var Article = require('../models/article-model');
-var myConf 	= require("../../app/my-conf.js");
-
+var Article = require('../models/article-model'),
+		moment	= require('moment'),
+		Q 			= require('q');
 module.exports.listArticles = function (req, res) {
 	var country = req.params.country;
-	switch (country) {
-		case 'png':
-			Article.pngArticlesModel.find({}, function (err, result) { res.json(result); });
-			break;
-		case 'nauru':
-			Article.nauruArticlesModel.find({}, function (err, result) { res.json(result); });
-			break;
-		case 'samoa':
-			Article.samoaArticlesModel.find({}, function (err, result) { res.json(result); });
-			break;
-		case 'tonga':
-			Article.tongaArticlesModel.find({}, function (err, result) { res.json(result); });
-			break;
-		case 'vanuatu':
-			Article.vanuatuArticlesModel.find({}, function (err, result) { res.json(result); });
-			break;
-		}
-};
+	Article.articlesModel.find({"domain":country}, function (err, result) { res.json(result); });
+	// switch (country) {
+	// 	case 'png':
+	// 		Article.articlesModel.find({""}, function (err, result) { res.json(result); });
+	// 		break;
+	// 	case 'nauru':
+	// 		Article.articlesModel.find({""}, function (err, result) { res.json(result); });
+	// 		break;
+	// 	case 'samoa':
+	// 		Article.articlesModel.find({""}, function (err, result) { res.json(result); });
+	// 		break;
+	// 	case 'tonga':
+	// 		Article.articlesModel.find({""}, function (err, result) { res.json(result); });
+	// 		break;
+	// 	case 'vanuatu':
+	// 		Article.articlesModel.find({""}, function (err, result) { res.json(result); });
+	// 		break;
+	// 	}
+}
 module.exports.top5 = function (req,res) {
 	var country = req.params.country, 
-		dte 	= myConf.getToday(); 
-	// console.log("from 'top5' - "+dte);
-	switch (country) {
-		case 'png':
-			Article.pngArticlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);
-			break;
-		case 'nauru':
-			Article.nauruArticlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);
-			break;
-		case 'samoa':
-			Article.samoaArticlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);
-			break;
-		case 'tonga':
-			Article.tongaArticlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);
-			break;
-		case 'vanuatu':
-			Article.vanuatuArticlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);
-			break;
-		}
-};
+			dte 		= moment().startOf('today').format("DDDD MM YYYY") 
+	Article.articlesModel.find({"pubdate":dte, "domain":country}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);
+	// switch (country) {
+	// 	case 'png':
+	// 		Article.articlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);
+	// 		break;
+	// 	case 'nauru':
+	// 		Article.articlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);
+	// 		break;
+	// 	case 'samoa':
+	// 		Article.articlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);
+	// 		break;
+	// 	case 'tonga':
+	// 		Article.articlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);
+	// 		break;
+	// 	case 'vanuatu':
+	// 		Article.articlesModel.find({"pubdate":dte}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);
+	// 		break;
+	// 	}
+}
 module.exports.exportArticles = function (req, res) {
 	var country 	= req.params.country,
 		startDate 	= req.params.startDate;
 		// endDate		= req.params.endDate;
 	// console.log(startDate + " - " + country);
-	switch (country) {
-		case 'png':
-			if (typeof(startDate) != undefined) {
-					Article.pngArticlesModel.find({"pubdate":startDate},
-						function (err, result) { res.render('export', {"result":result}); }
-					).sort({"views":"-1"});
-					break;
-				// if (endDate) { // both start date and end date is supplied with the query
-				}
-			else {
-				Article.pngArticlesModel.find({},
-					function (err, result) { res.render('export', {'result':result}); });
-				break;
-			}
-		case 'nauru':
-			if (typeof(startDate) != undefined) {
-				Article.nauruArticlesModel.find({'pubdate':startDate},
-					function (err, result) { res.render('export', {'result':result}); }
-					).sort({'views':'-1'});
-			}
-			Article.nauruArticlesModel.find({},
-				function (err, result) { res.render('export', {'result':result}); });
-			break;
-		case 'samoa':
-			if (typeof(startDate) != undefined) {
-				Article.samoaArticlesModel.find({'pubdate':startDate},
-					function (err, result) { res.render('export', {'result':result}); }
-					).sort({'views':'-1'});
-			}
-			Article.samoaArticlesModel.find({},
-				function (err, result) { res.render('export', {'result':result}); });
-			break;
-		case 'tonga':
-			if (typeof(startDate) != undefined) {
-				Article.tongaArticlesModel.find({'pubdate':startDate},
-					function (err, result) { res.render('export', {'result':result}); }
-					).sort({'views':'-1'});
-			}
-			Article.tongaArticlesModel.find({},
-				function (err, result) { res.render('export', {'result':result}); });
-			break;
-		case 'vanuatu':
-			if (typeof(startDate) != undefined) {
-				Article.vanuatuArticlesModel.find({'pubdate':startDate},
-					function (err, result) { res.render('export', {'result':result}); }
-					).sort({'views':'-1'});
-			}
-			Article.vanuatuArticlesModel.find({},
-				function (err, result) { res.render('export', {'result':result}); });
-			break;
-		default:
-			break;
+	if (typeof(startDate) != undefined) {
+			Article.articlesModel.find({"pubdate":startDate, "domain":country},
+				function (err, result) { res.render('export', {"result":result}); }
+			).sort({"views":"-1"});
+		// if (endDate) { // both start date and end date is supplied with the query
 		}
+	else {
+		Article.articlesModel.find({"domain":country},
+			function (err, result) { res.render('export', {'result':result}); });
+	}
+	// switch (country) {
+	// 	case 'png':
+	// 		if (typeof(startDate) != undefined) {
+	// 				Article.articlesModel.find({"pubdate":startDate},
+	// 					function (err, result) { res.render('export', {"result":result}); }
+	// 				).sort({"views":"-1"});
+	// 				break;
+	// 			// if (endDate) { // both start date and end date is supplied with the query
+	// 			}
+	// 		else {
+	// 			Article.articlesModel.find({},
+	// 				function (err, result) { res.render('export', {'result':result}); });
+	// 			break;
+	// 		}
+	// 	case 'nauru':
+	// 		if (typeof(startDate) != undefined) {
+	// 			Article.articlesModel.find({'pubdate':startDate},
+	// 				function (err, result) { res.render('export', {'result':result}); }
+	// 				).sort({'views':'-1'});
+	// 		}
+	// 		Article.articlesModel.find({},
+	// 			function (err, result) { res.render('export', {'result':result}); });
+	// 		break;
+	// 	case 'samoa':
+	// 		if (typeof(startDate) != undefined) {
+	// 			Article.articlesModel.find({'pubdate':startDate},
+	// 				function (err, result) { res.render('export', {'result':result}); }
+	// 				).sort({'views':'-1'});
+	// 		}
+	// 		Article.articlesModel.find({},
+	// 			function (err, result) { res.render('export', {'result':result}); });
+	// 		break;
+	// 	case 'tonga':
+	// 		if (typeof(startDate) != undefined) {
+	// 			Article.articlesModel.find({'pubdate':startDate},
+	// 				function (err, result) { res.render('export', {'result':result}); }
+	// 				).sort({'views':'-1'});
+	// 		}
+	// 		Article.articlesModel.find({},
+	// 			function (err, result) { res.render('export', {'result':result}); });
+	// 		break;
+	// 	case 'vanuatu':
+	// 		if (typeof(startDate) != undefined) {
+	// 			Article.articlesModel.find({'pubdate':startDate},
+	// 				function (err, result) { res.render('export', {'result':result}); }
+	// 				).sort({'views':'-1'});
+	// 		}
+	// 		Article.articlesModel.find({},
+	// 			function (err, result) { res.render('export', {'result':result}); });
+	// 		break;
+	// 	default:
+	// 		break;
+	// 	}
+}
+module.exports.findOneArticle = function(nodeID) { // #longquery
+	// console.log(nodeID);
+	Article.findOneByNodeID(nodeID, function(err, result) {
+		return result;
+	})
 }

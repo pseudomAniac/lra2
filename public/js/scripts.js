@@ -40,4 +40,20 @@ $('#lsbMobileMenu i.glyphicon-chevron-right').on('click', function() {
 	$("#table-export-btn").click(function(){
 	  $("#datatable").tableToCSV();
 	});
+	$(".publication-date")
+		.toArray()
+		.forEach((dte,i)=>{
+			// console.log(dte.text);
+			var nd = new Date(dte.text)
+			$(".publication-date:nth-child("+i+")")
+				.text(() => {
+					return nd.getMonth()+", "+nd.getFullYear()+", "+nd.getDate();
+					// console.log(nd)
+				})
+			})
+	// var nd = $(".publication-date")
+	// 				.toArray()
+	// 				.forEach(function(dte,i) {
+	// 					$(".publication-date:nth-child("+i+")").text(new Date(dte.text))
+	// 				})
 });

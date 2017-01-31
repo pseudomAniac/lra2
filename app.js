@@ -1,17 +1,15 @@
 var express  = require('express'),
-	compression = require("compression"),
 	x = require('x-ray')(),
-	articlesController 	= require('./server/controllers/articles-server-controller'),
-	bodyParser = require('body-parser'),
 	moment = require('moment'),
 	q = require('q'),
+	articlesController 	= require('./server/controllers/articles-server-controller'),
+	retriever = require("./lib/retriever"),
+	compression = require("compression"),
 	serveStatic = require("serve-static"),
-	db = require('./lib/db-confg.js'),
-	retriever = require('./lib/retriever.js'),
+	bodyParser = require('body-parser'),
 	cookieSession = require('cookie-session'),
 	cookieParser = require('cookie-parser'),
 	app = express();
-
 app.post("/", function(req, res) {
 	res.redirect("/populate");
 });
@@ -39,26 +37,33 @@ app.get("/populate", function(req, res) {
 });
 app.get("/populate/content/", function(req, res) {
 	var country = req.query.country.toLowerCase(), pagesToScan = req.query.pages, startScanAt = req.query.counter;
-	retriever.getArticles(country, pagesToScan, startScanAt);
+	retriever.getArticles(country,pagesToScan,startScanAt);
 	res.redirect("/page/"+country);
-});
-app.get("/force-update", function(req,res) {
-	console.log("force update executed!")
-	retriever.getUpdate();
-	res.render(__dirname + "/client/views/populate")
 });
 app.get('/', function(req, res) {
 	console.log(moment(new Date()).format('LLL'));
-	res.render(__dirname + '/client/views/png');
+	res.render(__dirname + '/client/views/articles');
 });
-app.get('/home', function(req, res) {
+app.get('/dashboard', function(req, res) {
 	res.render(__dirname + '/client/views/index');
+});
+app.get("/force-update/", function(req,res) {
+	var country = req.query.country.toLowerCase()
+	console.log("force update executed!",country);
+	retriever.getUpdate(country);
+	res.redirect('/');
+	// res.render(__dirname + "/client/views/articles");
 });
 setInterval(function() {
 	// call fx to check for recent updates to the story links array
-	// retriever.getUpdate();
-	console.log("getUpdate() executed - ",moment(new Date()).format('LLL'));
-}, (1000*60*1));
+	retriever.getUpdate("png");
+	// console.log("getUpdate() executed - ",moment(new Date()).format('LLL'));
+}, (1000*60*30));
+setInterval(function() {
+	// call fx to check for recent updates to the story links array
+	retriever.getUpdate("pacific");
+	// console.log("getUpdate() executed - ",moment(new Date()).format('LLL'));
+}, (1000*60*60*2));
 
 // app.use & app.set codes
 app.set('views',__dirname + '/client/views');

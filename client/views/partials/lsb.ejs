@@ -2,64 +2,41 @@
 	<div class="container-fluid">
 		<h1 class="site-title text-center">{{pageTitle}}</h1>
 		  <div id="datepicker-counter">
-			<div class="full-width gutter-narrow text-center">
-			  <div class="col-xs-9"><% include datepicker %></div>
-			  <div class="col-xs-3"><button id="table-export-btn" class="btn btn-success btn-block" data-export="export"><i class="glyphicon glyphicon-send"></i></button></div>
-			</div>
-			<div class="clearfix col-md-12 text-center" id="count">
-			  <h1 class="circle">{{articles.length}}</h1>
-			  <p class="text-uppercase" style="color: black; font-size: 1.25em;">total</p>
-			</div>
+				<div class="full-width gutter-narrow text-center">
+				  <div class="col-xs-9"><% include datepicker %></div>
+				  <div class="col-xs-3"><button id="table-export-btn" class="btn btn-success btn-block" data-export="export"><i class="glyphicon glyphicon-send"></i></button></div>
+				</div>
+				<div class="clearfix col-md-12 text-center" id="count">
+				  <h1 class="circle">{{articles.length}}</h1>
+				  <p class="text-uppercase" style="color: black; font-size: 1.25em;">total</p>
+				</div>
 		  </div>
 		  <div id="pageview-country">
-			<button class="btn btn-info text-default bg-primary mark full-width text-center">View</button>
-			<ul class="nav nav-pills bg-default text-uppercase" id="populate-content">
-			  <li class="nav-item">
-						<a href="/page/nauru" class="nav-link">NAU<!-- <span><img class="img-responsive" src="/img/nau.png" title="NAURU"></img></span> --></a>
-			  </li>
-			  <li class="nav-item">
-						<a href="/page/png" class="nav-link">PNG<!-- <span><img class="img-responsive" src="/img/png.png" title="PAPUA NEW GUINEA"></img></span> --></a>
-			  </li>
-			  <li class="nav-item">
-						<a href="/page/samoa" class="nav-link">SAM<!-- <span><img class="img-responsive" src="/img/sam.png" title="SAMOA"></img></span> --></a>
-			  </li>
-			  <li class="nav-item">
-						<a href="/page/tonga" class="nav-link">TON<!-- <span><img class="img-responsive" src="/img/ton.png" title="TONGA"></img></span> --></a>
-			  </li>
-			  <li class="nav-item">
-						<a href="/page/vanuatu" class="nav-link">VAN<!-- <span><img class="img-responsive" src="/img/van.png" title="VANUATU"></img></span> --></a>
-			  </li>
-			  <li class="nav-item">
-					<a href="/populate" class="nav-link" title="populate content">POP<!-- <span><img class="img-responsive" src="/img/home.png" title="POPULATE"></img></span> --></a>
-			  </li>
-			  <li class="nav-item">
-					<a href="/deeplink-me" class="nav-link" title="deeplink me">DeL<!-- <span><img class="img-responsive" src="/img/home.png" title="DEEPLINK"></img></span> --></a>
-			  </li>
-			</ul>
+				<button class="btn btn-info text-default bg-primary mark full-width text-center">View</button>
+				<ul class="nav nav-pills bg-default text-uppercase" id="populate-content">
+				  <li class="nav-item">
+						<a href="/" class="nav-link" title="HOME">HOM</a>
+				  </li>
+				  <li class="nav-item">
+							<a href="/page/nauru" class="nav-link">NAU</a>
+				  </li>
+				  <li class="nav-item">
+							<a href="/page/png" class="nav-link">PNG</a>
+				  </li>
+				  <li class="nav-item">
+							<a href="/page/samoa" class="nav-link">SAM</a>
+				  </li>
+				  <li class="nav-item">
+							<a href="/page/tonga" class="nav-link">TON</a>
+				  </li>
+				  <li class="nav-item">
+							<a href="/page/vanuatu" class="nav-link">VAN</a>
+				  </li>
+				  <li class="nav-item">
+						<a href="/populate" class="nav-link" title="populate content">POP</a>
+				  </li>
+				</ul>
 		  </div>
-		  <div id="delete-country" class="hidden">
-			<button class="btn btn-info text-default bg-primary mark full-width text-center">Delete</button>
-			<ul class="nav nav-pills bg-default text-uppercase" id="delete-content">
-			  <li class="nav-item">
-					<a href="/delete/nauru" class="nav-link">NAU<!-- <span><img class="img-responsive" src="/img/nau.png" title="NAURU"></img></span> --></a>
-			  </li>
-			  <li class="nav-item">
-					<a href="/delete/png" class="nav-link">PNG<!-- <span><img class="img-responsive" src="/img/png.png" title="PAPUA NEW GUINEA"></img></span> --></a>
-			  </li>
-			  <li class="nav-item">
-					<a href="/delete/samoa" class="nav-link">SAM<!-- <span><img class="img-responsive" src="/img/sam.png" title="SAMOA"></img></span> --></a>
-			  </li>
-			  <li class="nav-item">
-					<a href="/delete/tonga" class="nav-link">TON<!-- <span><img class="img-responsive" src="/img/ton.png" title="TONGA"></img></span> --></a>
-			  </li>
-			  <li class="nav-item">
-					<a href="/delete/vanuatu" class="nav-link">VAN<!-- <span><img class="img-responsive" src="/img/van.png" title="VANUATU"></img></span> --></a>
-			  </li>
-			  <li class="nav-item">
-					<a href="/delete/all" class="nav-link">ALL<!-- <span><img class="img-responsive" src="/img/home.png" title="ALL"></img></span> --></a>
-			  </li>
-			</ul>
-		  </div>
-	</div>
+		</div>
 	<div id="lsbMobileMenu" class="aside hidden-sm hidden-xs hidden-md col-xs-offset-11 btn btn-info"><i class="glyphicon glyphicon-chevron-left"></i></div>
 </aside>

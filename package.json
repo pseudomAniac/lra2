@@ -1,6 +1,6 @@
 {
   "name": "loopscraper",
-  "version": "1.7.7",
+  "version": "1.8.0",
   "description": "simple web application to be used to scrape data off the loop pacific website",
   "main": "app.js",
   "dependencies": {
@@ -17,10 +17,6 @@
     "moment": "^2.17.1",
     "mongoose": "^4.4.3",
     "morgan": "^1.7.0",
-    "orchestrate": "^0.8.0",
-    "passport": "^0.3.2",
-    "passport-facebook": "^2.1.1",
-    "passport-local": "^1.0.0",
     "q": "^1.4.1",
     "request": "2.*",
     "serve-static": "^1.11.1",

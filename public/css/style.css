@@ -167,3 +167,15 @@ form.add-author {
 #deeplink-link {
   word-wrap: break-word;
 }
+.circular-input-number {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    font-size: 6em;
+    text-align: center;
+    text-anchor: middle;
+    border: 5px solid #000;
+    background: #902A07;
+    color: white;
+    text-shadow: 4px 4px #003;
+}

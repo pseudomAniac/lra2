@@ -1,8 +1,8 @@
 var mongoose = require('mongoose'),
 	ArticlesModel = require('../models/article-model.js');
 
-exports.writetonga = 
+// exports.writetonga = 
 
-exports.writevanuatu = 
+// exports.writevanuatu = 
 
-exports.writepng = 
+// exports.writepng = 

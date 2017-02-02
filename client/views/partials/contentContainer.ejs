@@ -8,17 +8,20 @@
 <main class="col-xs-12 col-md-9 col-md-offset-3" id="top" ng-controller="articlesController" style="padding-top: 2em">
 	<% include ./lsb %>
 	<section class="row text-right text-uppercase">
-	  <div id="datepicker-counter" class="col-md-6 col-sm-7 col-xs-12">
+	  <div id="datepicker-counter" class="col-md-8 col-sm-7 col-xs-12">
 			<div class="full-width gutter-narrow text-center">
-			  <div class="col-xs-9"><% include datepicker %></div>
+			  <div class="col-xs-9">
+			  	<% include datepicker %>
+		  	</div>
 			  <div class="col-xs-3"><button id="table-export-btn" class="btn btn-success btn-block" data-export="export"><i class="fa fa-upload"></i></button></div>
 			</div>
 	  </div>
-	  <div class="col-md-6 col-sm-5 col-xs-12">
+	  <div class="col-md-4 col-sm-5 col-xs-12">
 		  <form class="form-inline">
 				<div class="btn-group form-group">
-					<div class="checkbox btn btn-info"><label><input ng-model="showColumnDomain" type="checkbox" aria-label="Toggle ngHide"> Domain</label></div>
-					<div class="checkbox btn btn-info"><label><input ng-model="showColumnPublisher" type="checkbox" aria-label="Toggle ngHide"> PACIFIC STRINGER</label></div>
+					<div class="checkbox btn btn-info"><label><input ng-model="showColumnDomain" type="checkbox" aria-label="Toggle ngHide"> Country</label></div>
+					<div class="checkbox btn btn-info"><label><input ng-model="showColumnPublisher" type="checkbox" aria-label="Toggle ngHide"> Stringer</label></div>
+					<div class="checkbox btn btn-info"><label><input ng-model="showColumnViews" type="checkbox" aria-label="Toggle ngHide"> Views</label></div>
 				</div>
 			</form>
 		</div>
@@ -33,16 +36,18 @@
 					<td class="strong" ng-click="sortBy('category')"><div class="btn btn-block btn-primary">CATEGORY</div></td>
 					<td class="strong check-element animate-show" ng-click="sortBy('domain')" ng-show="showColumnDomain"><div class="btn btn-block btn-primary">DOMAIN</div></td>
 					<td class="strong check-element animate-show" ng-click="sortBy('publisher')" ng-show="showColumnPublisher"><div class="btn btn-block btn-primary">PACIFIC STRINGER</div></td>
+					<td class="strong check-element animate-show" ng-click="sortBy('views')" ng-show="showColumnViews"><div class="btn btn-block btn-primary">VIEWS</div></td>
 				</thead>
 				<tbody>
-					<tr class="text-left" ng-repeat="article in articles|orderBy:propertyName:reverse|filter:searchStringName" id="{{article._id}}">
+					<tr class="text-left" ng-repeat="article in articles|orderBy:propertyName:reverse|filter:datefilter|filter:userfilter" id="{{article._id}}">
 						<td><a href="/export/png/{{article.pubdate}}" class="publication-date">{{ article.pubdate }}</a></td>
-						<td><a href="{{article.link}}" target="_blank" title="{{article.title}}" class="reset clearfix article-title">{{ article.title }} - {{ article.views }}</a></td>
+						<td><a href="{{article.link}}" target="_blank" title="{{article.title}}" class="reset clearfix article-title">{{ article.title }}</a></td>
 						<td ng-if="article.author === NULL">Unspecified</td>
 						<td ng-if="article.author != NULL">{{article.author}}</td>
 						<td><span ng-repeat="category in article.category">{{ category }}</span></td>
 						<td class="check-element animate-show" ng-show="showColumnDomain">{{ article.domain }}</td>
 						<td class="check-element animate-show" ng-show="showColumnPublisher">{{ article.publisher }}</td>
+						<td class="check-element animate-show" ng-show="showColumnViews">{{ article.views }}</td>
 						<!-- <td class="check-element animate-show" ng-show="showColumnSource">{{ article.source }}</td> -->
 					</tr>
 				</tbody>

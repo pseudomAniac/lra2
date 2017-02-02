@@ -1,6 +1,10 @@
 <form class="input-group form form-group" method="GET" action="/export/png/">
 	<span class="input-group-btn">
-		<button class="btn btn-primary datepicker"><i class="fa fa-calendar"></i></button>
+		<p class="btn btn-primary"><i class="fa fa-calendar"></i></p>
 	</span>
-	<input id="datepicker" type="text" placeholder="pick a date" class="form-group-item input form-control col-md-3 text-center datepicker" ng-model="searchStringName" name="startDate"></input>
+	<input id="primary-filter" type="text" placeholder="pick a date" class="form-group-item input form-control col-md-3 text-center datepicker" ng-model="datefilter" name="datefilter"></input>
+	<span class="input-group-btn">
+		<p class="btn btn-primary"><i class="fa fa-user"></i></p>
+	</span>
+	<input id="secondary-filter" type="text" placeholder="type a word" class="form-group-item input form-control col-md-3 text-center datepicker" ng-model="userfilter" name="userfilter"></input>
 </form>

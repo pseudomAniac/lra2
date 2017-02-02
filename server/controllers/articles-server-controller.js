@@ -18,13 +18,12 @@ module.exports.top5 = function (req,res) {
 			dte 		= moment().startOf('today').format();
 			// dte 		= new Date().toISOString();
 			// console.log(dte,"\t-\t",new Date());
-	Article.articlesModel.find({"pubdate": /February 02 2017/, "domain":country}, function (err, result) { console.log("top 5",result[0]); res.json(result); }).sort({"views":-1}).limit(5);
+	Article.articlesModel.find({"pubdate": /February/, "domain":country}, function (err, result) { console.log("top 5",result[0]); res.json(result); }).sort({"views":-1}).limit(5);
 }
 module.exports.exportArticles = function (req, res) {
 	var country 	= req.params.country,
 		startDate 	= req.params.startDate;
 		// endDate		= req.params.endDate;
-	// console.log(startDate + " - " + country);
 	if (typeof(startDate) != undefined) {
 			Article.articlesModel.find({"pubdate":startDate, "domain":country},
 				function (err, result) { res.render('export', {"result":result}); }

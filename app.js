@@ -41,7 +41,6 @@ app.get("/populate/content/", function(req, res) {
 	res.redirect("/page/"+country);
 });
 app.get('/', function(req, res) {
-	console.log(moment(new Date()).format('LLL'));
 	res.render(__dirname + '/client/views/articles');
 });
 app.get('/dashboard', function(req, res) {
@@ -49,7 +48,6 @@ app.get('/dashboard', function(req, res) {
 });
 app.get("/force-update/", function(req,res) {
 	var country = req.query.country.toLowerCase()
-	console.log("force update executed!",country);
 	retriever.getUpdate(country);
 	res.redirect('/');
 	// res.render(__dirname + "/client/views/articles");
@@ -57,17 +55,16 @@ app.get("/force-update/", function(req,res) {
 setInterval(function() {
 	// call fx to check for recent updates to the story links array
 	retriever.getUpdate("png");
-	// console.log("getUpdate() executed - ",moment(new Date()).format('LLL'));
 }, (1000*60*30));
 setInterval(function() {
 	// call fx to check for recent updates to the story links array
 	retriever.getUpdate("pacific");
-	// console.log("getUpdate() executed - ",moment(new Date()).format('LLL'));
 }, (1000*60*60*2));
 
 // app.use & app.set codes
 app.set('views',__dirname + '/client/views');
 app.set("view engine",'ejs');
+app.use('/fonts', express.static(__dirname + '/public/fonts'));
 app.use('/css', express.static(__dirname + '/public/css'));
 app.use('/js', express.static(__dirname + '/public/js'));
 app.use('/img', express.static(__dirname + '/public/img'));
@@ -75,13 +72,14 @@ app.use('/client/js', express.static(__dirname + '/client/js'));
 app.use('/server/js', express.static(__dirname + '/server/js'));
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use(bodyParser.json());
-app.use(cookieParser());
-app.use(cookieSession({ secret: 'monobelle' }));
+// app.use(cookieParser());
+// app.use(cookieSession({ secret: 'monobelle' }));
 app.use(compression());
+app.use(serveStatic("/public/*/*"));
 app.use(serveStatic("/css/*.*"));
 app.use(serveStatic("/js/*.*"));
 app.use(serveStatic("/img/*.*"));
 app.use(serveStatic("/client/js/*.*"));
 app.use(serveStatic("/server/js/*.*"));
 app.set('port', (process.env.PORT || 3000));
-app.listen(app.get('port'), function() { console.log("app started at " + app.get('port')); });
+app.listen(app.get('port'), function() { console.log("app started at port " + app.get('port')); });

@@ -14,24 +14,14 @@ $(document).ready(function() {
 	}
 	};
 
-// animate on mobile screen devices
-$('#lsbMobileMenu').on('click', function() {
-	$('aside').removeClass('col-xs-offset-12');
-	$('#lsbMobileMenu').toggleClass('btn-info');
-	$('#lsbMobileMenu i').removeClass('glyphicon-chevron-left');
-	$('#lsbMobileMenu i').addClass('glyphicon-chevron-right');
-});
-
-$('#lsbMobileMenu i.glyphicon-chevron-right').on('click', function() {
-	$('aside').addClass('col-xs-offset-12');
-	$('#lsbMobileMenu').toggleClass('btn-info');
-	$('#lsbMobileMenu i').removeClass('glyphicon-chevron-right');
-	$('#lsbMobileMenu i').addClass('glyphicon-chevron-left');
-})
-	
+	// animate on mobile screen devices
+	$('#lsbMobileMenu').on('click', function() {
+		$('#sidebar-navigation').toggleClass('col-xs-offset-12');
+		$('#lsbMobileMenu i').toggleClass('fa-chevron-left').toggleClass('fa-chevron-right');
+	});
   $('li.dropdown:last').attr('style','margin-right:50px');
 	$('.datepicker').datepicker({
-		dateFormat: 'MM d yy',
+		dateFormat: 'MM dd yy',
 		showAnim: 'fade'
 	});
 	// $('[data-toggle="popover"]').popover(); 

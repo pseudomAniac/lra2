@@ -33,14 +33,16 @@
 						<option>Vanuatu</option>
 					</select>
 				</section>
-				<section class="form-group col-md-6">
-					<label for="num-pages">Pages to Scan</label>
-					<input class="form-control circular-input-number" placeholder="0" type="number" name="pages" id="num-pages" min="1" max="50" />
-				</section>
-				<section class="form-group col-md-6">
-					<label for="starting-page">Starting at</label>
-					<input class="form-control circular-input-number" placeholder="0" type="number" name="counter" id="starting-page" min="0" max="9999" />
-				</section>
+				<div class="row flex-center">
+					<section class="form-group col-xs-6">
+						<label for="num-pages">Pages to Scan</label>
+						<input class="form-control circular-input-number" placeholder="0" type="number" name="pages" id="num-pages" min="1" max="50" />
+					</section>
+					<section class="form-group col-xs-6">
+						<label for="starting-page">Starting at</label>
+						<input class="form-control circular-input-number" placeholder="0" type="number" name="counter" id="starting-page" min="0" max="9999" />
+					</section>
+				</div>
 				<button class="btn btn-success form-control" type="submit">Submit</button>
 			</form>
 		</section>

@@ -146,26 +146,9 @@ form.add-author {
 #lsbMobileMenu.aside.btn-info {
     position: fixed;
     float: left;
-    left: 5px;
-    top: 0px;
-    height: 100%;
-    padding-top: 55%;
-}
-.hidden-md {
-  display: none;
-}
-.hidden-sm {
-  display: none;
-}
-
-#deeplink-me > section.form-group {
-  width: 100%
-}
-#deeplink-me > section.form-group > input {
-  width: 100%
-}
-#deeplink-link {
-  word-wrap: break-word;
+    right: 3%;
+    bottom: 3%;
+    height: auto;
 }
 .circular-input-number {
     width: 200px;
@@ -178,4 +161,10 @@ form.add-author {
     background: #902A07;
     color: white;
     text-shadow: 4px 4px #003;
+}
+#pageview-country>ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
 }

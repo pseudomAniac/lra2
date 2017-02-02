@@ -15,8 +15,10 @@ module.exports.listArticles = function (req, res) {
 }
 module.exports.top5 = function (req,res) {
 	var country = req.params.country, 
-			dte 		= moment().startOf('today').format("DDDD MM YYYY") 
-	Article.articlesModel.find({"pubdate":dte, "domain":country}, function (err, result) { res.json(result); }).sort({"views":-1}).limit(5);
+			dte 		= moment().startOf('today').format();
+			// dte 		= new Date().toISOString();
+			// console.log(dte,"\t-\t",new Date());
+	Article.articlesModel.find({"pubdate": /February 02 2017/, "domain":country}, function (err, result) { console.log("top 5",result[0]); res.json(result); }).sort({"views":-1}).limit(5);
 }
 module.exports.exportArticles = function (req, res) {
 	var country 	= req.params.country,

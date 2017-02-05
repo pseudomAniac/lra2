@@ -168,3 +168,6 @@ form.add-author {
     justify-content: center;
     flex-wrap: wrap;
 }
+.form-inline .checkbox.btn {
+  margin-top: 0;
+}

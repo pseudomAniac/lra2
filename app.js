@@ -13,6 +13,9 @@ var express  = require('express'),
 app.post("/", function(req, res) {
 	res.redirect("/populate");
 });
+app.get('/', function(req, res) {
+	res.render(__dirname + '/client/views/articles');
+});
 app.get('/write/:country', function(req, res) {
   var country = req.params.country;
 	retriever.getArticles(country,8,0);
@@ -29,8 +32,7 @@ app.get("/top-5/:country", function(req, res) {
 	res.render(__dirname + "/client/views/" + req.params.country + "-top-5");
 });
 // api call to export stories 
-app.get('/export/:country/:startDate', articlesController.exportArticles);
-app.get('/export/:country', articlesController.exportArticles);
+app.get('/export/:country/', articlesController.exportArticles);
 // api call to populate stories
 app.get("/populate", function(req, res) {
 	res.render(__dirname + "/client/views/populate")
@@ -39,9 +41,6 @@ app.get("/populate/content/", function(req, res) {
 	var country = req.query.country.toLowerCase(), pagesToScan = req.query.pages, startScanAt = req.query.counter;
 	retriever.getArticles(country,pagesToScan,startScanAt);
 	res.redirect("/page/"+country);
-});
-app.get('/', function(req, res) {
-	res.render(__dirname + '/client/views/articles');
 });
 app.get('/dashboard', function(req, res) {
 	res.render(__dirname + '/client/views/index');
@@ -56,12 +55,12 @@ setInterval(function() {
 	// call fx to check for recent updates to the story links array
 	console.log('getUpdate("png")')
 	retriever.getUpdate("png");
-}, (1000*60*30));
+}, (1000*60*15));
 setInterval(function() {
 	// call fx to check for recent updates to the story links array
 	console.log('getUpdate("pacific")')
 	retriever.getUpdate("pacific");
-}, (1000*60*60*2));
+}, (1000*60*60*1));
 
 // app.use & app.set codes
 app.set('views',__dirname + '/client/views');

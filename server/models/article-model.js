@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
 var ArticlesSchema = new Schema({
 	domain: {type: String, index: true},
 	nodeID: {type: Number, index: true},
-	pubdate: {type: Date, index: true},
+	pubdate: {type: Number, index: true},
 	title: String,
 	views: Number,
 	link: String,

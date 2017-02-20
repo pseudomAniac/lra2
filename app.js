@@ -31,8 +31,11 @@ app.get('/top/:country', articlesController.top5);
 app.get("/top-5/:country", function(req, res) {
 	res.render(__dirname + "/client/views/" + req.params.country + "-top-5");
 });
-// api call to export stories 
-app.get('/export/:country/', articlesController.exportArticles);
+// api call to export stories
+app.get('/export/:country/:startDate', articlesController.exportArticles);
+app.get('/export/:country', articlesController.exportArticles);
+// app.get('/export/', articlesController.exportArticles);
+app.get('/query/', articlesController.queryArticles);
 // api call to populate stories
 app.get("/populate", function(req, res) {
 	res.render(__dirname + "/client/views/populate")
@@ -84,3 +87,5 @@ app.use(serveStatic("/client/js/*.*"));
 app.use(serveStatic("/server/js/*.*"));
 app.set('port', (process.env.PORT || 3000));
 app.listen(app.get('port'), function() { console.log("app started at port " + app.get('port')); });
+
+// module.export = express;

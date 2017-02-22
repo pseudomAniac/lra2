@@ -1,38 +1,6 @@
 <aside id="sidebar-navigation" class="text-uppercase col-xs-offset-12 col-md-offset-0 col-md-3">
 	<div id="lsbMobileMenu" class="aside btn btn-info hidden-md hidden-lg"><i class="fa fa-chevron-left"></i></div>
-  <div id="view-country" class="clearfix">
-		<ul class="nav nav-pills bg-default text-uppercase" id="country-list">
-		  <li class="nav-item">
-				<a href="/" class="nav-link" title="HOME">HOM</a>
-		  </li>
-		  <li class="nav-item">
-					<a href="/page/nauru" class="nav-link">NAU</a>
-		  </li>
-		  <li class="nav-item">
-					<a href="/page/png" class="nav-link">PNG</a>
-		  </li>
-		  <li class="nav-item">
-					<a href="/page/samoa" class="nav-link">SAM</a>
-		  </li>
-		  <li class="nav-item">
-					<a href="/page/tonga" class="nav-link">TON</a>
-		  </li>
-		  <li class="nav-item">
-					<a href="/page/vanuatu" class="nav-link">VAN</a>
-		  </li>
-		  <li class="nav-item">
-				<a href="/populate" class="nav-link" title="populate content">POP</a>
-		  </li>
-		</ul>
-  </div>
-	<div class="container-fluid">
-		<section class="text-center">
-			<div class="clearfix col-sm-8">
-				<h1 class="site-title text-center">{{pageTitle}}</h1>
-			</div>
-			<div class="clearfix col-sm-4" id="count">
-			  <h1 class="circle">{{articles.length}}</h1>
-			</div>
-		</section>
-	</div>
+  <% include ./nav-items %>
+  <hr>
+	<% include ./search-form %>
 </aside>

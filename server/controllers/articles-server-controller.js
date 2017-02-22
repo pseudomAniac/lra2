@@ -35,52 +35,39 @@ exports.exportArticles = function (req, res) {
 	}
 }
 exports.queryArticles = function(req,res) {
+	console.log("queryArticles - ",req.query);
 	var country = req.query.country,
-			category = req.query.category,
-			qdate = req.query.qdate;
-	console.log(req.query)
-	if (country) {
-		// executes if all query params are present
-		if (category) {
-			// executes if only category are present
-			if (qdate) {
-				// executes if only country is present
-				console.log(country,category,qdate)
-				Article.articlesModel.find({"domain":country,"category":category,"pubdate":qdate}, function(err, result) {
-					res.json(result)
-				})
-			}
-			else {
-				console.log(country,category)
-				Article.articlesModel.find({"domain":country,"category":category}, function(err, result) {
-					res.json(result)
-				})
-			}
-		}
-		else if (qdate) {
-			// executes if only country and qdate are present
-			console.log(category, qdate)
-			Article.articlesModel.find({"domain":country,"pubdate":qdate}, function(err, result) {
-				res.json(result)
-			})
-		}
-		else {
-			console.log(category)
-			Article.articlesModel.find({"domain":country}, function(err, result) {
-				res.json(result)
-			})
-		}
-	}
-	else {
-		Article.articlesModel
-		.find({}, function(err, result) {
+		category = req.query.category,
+		sdate = req.query.sdate,
+		edate = req.query.edate;
+		console.log("sdate - ",sdate,"\nedate - ",edate);
+	qopt_builder(country, category, sdate, edate, function(callback) {
+		console.log(callback);
+		Article.articlesModel.find(callback, function(err, result) {
+			console.log(result.length)
 			res.json(result);
 		})
-		.limit(25);
-	}
+	})
+}
+// query options builder
+function qopt_builder(country,category,sdate,edate,callback) {
+	var opts = {};
+	if (country != undefined) opts.domain = country;
+	if (category != undefined) opts.category = category;
+	if (sdate != undefined) {
+		opts.pubdate = {};
+		if (edate != undefined) {
+			opts.pubdate.$lte = moment(moment(new Date(edate)), "MMMM DD YYYY").unix();
+			opts.pubdate.$gte = moment(moment(new Date(sdate)), "MMMM DD YYYY").unix()
+		} else {
+			opts.pubdate.$gte = moment(moment(new Date(sdate)), "MMMM DD YYYY").unix()
+			opts.pubdate.$lt = moment(moment(new Date(sdate)).add(1,"day"), "MMMM DD YYYY").unix()
+			// opts.pubdate.$lt = moment(moment(new Date(sdate)), "MMMM DD YYYY").unix()
+		}
+	};
+	callback(opts);
 }
 exports.findOneArticle = function(nodeID) { // #longquery
-	// console.log(nodeID);
 	Article.findOneByNodeID(nodeID, function(err, result) {
 		return result;
 	})

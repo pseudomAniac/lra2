@@ -29,11 +29,47 @@ ArticleListApp.controller('topArticlesController', ['$scope', '$resource', funct
 	var PNGTop5 = $resource("/top/all");
 	$scope.pageTitle = "ALL";
 	PNGTop5.query(function (result) {
-		result.forEach(function(doc) {
-		})
 		$scope.articles = result;
 	});
 }])
+
+ArticleListApp.controller('queryArticlesController', ['$scope', '$resource', '$location', 'moment', function ($scope, $resource, $location, moment) {
+	var searchParams = $location.search();
+	console.log(searchParams);
+	var country = searchParams.country,
+		category = searchParams.category,
+		sdate = searchParams.sdate,
+		edate = searchParams.edate;
+
+	qparams_builder(country.toLowerCase(), category, sdate, edate, function(queryparamerter) {
+		console.log("queryparamerter - ",queryparamerter)
+		$resource(queryparamerter).query((result) => {
+			console.log("result - ",result)
+			result.forEach((doc,i)=>{
+				result[i].pubdate = moment.unix(doc.pubdate).format("MMMM DD YYYY");
+			})
+			$scope.articles = result;
+		})
+		$scope.pageTitle = "Results";
+		$scope.propertyName = "_id";
+		$scope.reverse = true;
+		$scope.sortBy = function(propertyName) {
+			$scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+			$scope.propertyName = propertyName;
+		}
+		$scope.showColumn = function(columnName) {
+			$scope.reverse = ($scope.columnName === columnName) ? !$scope.reverse : false;
+		}
+	})
+}])
+function qparams_builder(country, category, sdate, edate, callback) {
+	var params = '/query/?';
+	if (country != undefined && country != '') params += 'country='+country;
+	if (category != undefined && category != '') params += '&category='+category;
+	if (sdate != undefined && sdate != '') params += '&sdate='+sdate;
+	if (edate != undefined && edate != '') params += '&edate='+edate;
+	callback(params)
+}
 
 PNGArticleListApp.controller('articlesController', ['$scope', '$resource', 'moment', function ($scope, $resource, moment) {
 	var PNGArticle = $resource("/articles/png");

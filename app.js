@@ -14,7 +14,7 @@ app.post("/", function(req, res) {
 	res.redirect("/populate");
 });
 app.get('/', function(req, res) {
-	res.render(__dirname + '/client/views/articles');
+	res.render('articles');
 });
 app.get('/write/:country', function(req, res) {
   var country = req.params.country;
@@ -23,30 +23,25 @@ app.get('/write/:country', function(req, res) {
 });
 // api call to get stories
 app.get('/articles/:country', articlesController.listArticles);
-app.get('/page/:country', function(req, res){
-	res.render(__dirname + '/client/views/'+req.params.country);
-});
+app.get('/page/:country', function(req, res){res.render(req.params.country)});
 // uri call to get top 5 stories
 app.get('/top/:country', articlesController.top5);
-app.get("/top-5/:country", function(req, res) {
-	res.render(__dirname + "/client/views/" + req.params.country + "-top-5");
-});
+app.get("/top-5/:country", function(req, res) {res.render(req.params.country + "-top-5")});
 // api call to export stories
 app.get('/export/:country/:startDate', articlesController.exportArticles);
 app.get('/export/:country', articlesController.exportArticles);
-// app.get('/export/', articlesController.exportArticles);
+app.get('/search', (req, res) => {res.render("search")});
 app.get('/query/', articlesController.queryArticles);
+app.get('/api/query/', (req,res) => {res.render('query')});
 // api call to populate stories
-app.get("/populate", function(req, res) {
-	res.render(__dirname + "/client/views/populate")
-});
+app.get("/populate", (req, res) => {res.render('populate')});
 app.get("/populate/content/", function(req, res) {
 	var country = req.query.country.toLowerCase(), pagesToScan = req.query.pages, startScanAt = req.query.counter;
 	retriever.getArticles(country,pagesToScan,startScanAt);
 	res.redirect("/page/"+country);
 });
 app.get('/dashboard', function(req, res) {
-	res.render(__dirname + '/client/views/index');
+	res.render('index');
 });
 app.get("/force-update/", function(req,res) {
 	var country = req.query.country.toLowerCase()

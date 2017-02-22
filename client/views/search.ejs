@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html ng-app="dashboardAppModule" data-country="png">
+<head>
+	<title>Content Search Form | Loop Pacific Count App</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta property="og:url"           content="https://looppacificcount.herokuapp.com/search" />
+	<meta property="og:type"          content="website" />
+	<meta property="og:title"         content="Content Search Form | Loop Pacific Count" />
+	<meta property="og:description"   content="Use this app's page to search content for articles." />
+	<meta property="og:image"         content="https://looppacificcount.herokuapp.com/img/home.png" />
+	<meta property="fb:app_id" content="178270979235562" />
+	<meta property="fb:admins" content="100000898434640" />
+	<% include partials/stylesheets %>
+</head>
+<body class="container full-width" ng-controller="searchFormController">
+<% include ../js/fb-appconfig %>
+<% include partials/rsb %>
+<main class="col-xs-12 col-md-9 col-md-offset-3" id="top">
+	<div class="row">
+		<section class="col-md-12">
+			<h3>Content Search Form</h3>
+			<div class="text-muted small">Use this form to query for content.</div>
+			<!-- <form class="form-horizontal" id="populate-content-form" action="/query#/"> -->
+				<section class="form-group">
+					<label for="country-list" class="control-label"></label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+						<select class="form-control" name="country" ng-model="country" id="country-list">
+							<option>Nauru</option>
+							<option>PNG</option>
+							<option>Samoa</option>
+							<option>Tonga</option>
+							<option>Vanuatu</option>
+						</select>
+					</div>
+					<label for="category" class="control-label"></label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-send"></i></span>
+						<input class="form-control" type="text" name="category" ng-model="category" id="category" placeholder="Category">
+					</div>
+					<label for="sdate" class="control-label"></label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						<input class="datepicker form-control" type="text" name="sdate" ng-model="sdate" id="start-date" placeholder="Start Date">
+					</div>
+					<label for="edate" class="control-label" ></label>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						<input class="datepicker form-control" type="text" name="edate" ng-model="edate" id="end-date" placeholder="End Date">
+					</div>
+				</section>
+				<section class="form-group col-md-12">
+				</section>
+				<button class="btn btn-success form-control" type="submit"><a href="/api/query#/?country={{country}}&category={{category}}&sdate={{sdate}}&edate={{edate}}">SEARCH</a></button>
+			<!-- </form> -->
+		</section>
+	</div>
+</main>
+<% include partials/scripts/standard-scripts %>
+<% include partials/scripts/additional-scripts %>
+<script src="/client/js/controllers/dashboard-controller.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<section class="col-md-12">
+	<h3 class="text-info">Search Form</h3>
+	<!-- <form class="form-horizontal" id="populate-content-form" action="/query#/"> -->
+		<section class="form-group">
+			<label for="country-list" class="control-label"></label>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+				<select class="form-control" name="country" ng-model="country" id="country-list">
+					<option selected="true">Nauru</option>
+					<option>PNG</option>
+					<option>Samoa</option>
+					<option>Tonga</option>
+					<option>Vanuatu</option>
+				</select>
+			</div>
+			<label for="category" class="control-label"></label>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="fa fa-send"></i></span>
+				<input class="form-control" type="text" name="category" ng-model="category" id="category" placeholder="Category">
+			</div>
+			<label for="sdate" class="control-label"></label>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+				<input class="datepicker form-control" type="text" name="sdate" ng-model="sdate" id="start-date" placeholder="Start Date">
+			</div>
+			<label for="edate" class="control-label" ></label>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+				<input class="datepicker form-control" type="text" name="edate" ng-model="edate" id="end-date" placeholder="End Date">
+			</div>
+		</section>
+		<section class="form-group col-md-12">
+		</section>
+		<button class="btn btn-success form-control" type="submit"><a href="/api/query#/?country={{country}}&category={{category}}&sdate={{sdate}}&edate={{edate}}">SEARCH</a></button>
+	<!-- </form> -->
+</section>

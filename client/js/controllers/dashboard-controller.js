@@ -1,4 +1,5 @@
 dashboardApp.controller('dashboardController', ['$scope','$resource', function ($scope, $resource){
+	$scope.pageTitle = "Populate"
 	$scope.getURL = function(event) {
 		var url = event.clipboardData.items[0];
 		url.getAsString(function (data) {
@@ -9,4 +10,9 @@ dashboardApp.controller('dashboardController', ['$scope','$resource', function (
 			})
 		})
 	}
-}]);
+}])
+
+dashboardApp.controller('searchFormController', ['$scope','$resource','$location', function($scope, $resource, $location) {
+	$scope.pageTitle = "Search"
+}])
+

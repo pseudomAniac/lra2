@@ -1,54 +1,10 @@
 <!DOCTYPE html>
-<html ng-app="PNGArticlesListing" data-country="png">
-<head>
-	<title>Loop Reporting App</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<% include partials/stylesheets %>
-</head>
-<body class="container full-width">
-<!-- main navigation inclusion from .ejs file -->
-<main class="col-xs-12 col-md-9 col-md-offset-3" id="top">
-	<section class="row">
-		<div class="table-responsive">
-			<table class="table table-striped">
-				<thead class="text-left bg-primary text-uppercase alert">
-					<tr>
-						<th>Title <button id="export-btn" class="btn btn-success" data-export="export"><i class="glyphicon glyphicon-send"></i></button> </th>
-						<th>Author</th>
-						<!-- <th>Freelance</th> -->
-						<th>Category</th>
-						<th>Pageviews</th>
-					</tr>
-				</thead>
-				<tbody>
-				<% result.map(function(data) { %>
-					<tr>
-						<td><%= data.title %></td>
-					<% if (data.author) { %>
-						<td><%= data.author %></td>
-					<% } else if (data.source) { %>
-						<td><%= data.source %></td>
-					<% } else { %>
-						<td>Unspecified</td>
-					<% } %>
-						<!-- <td>NO</td> -->
-						<td><%= data.category %></td>
-						<td><%= data.views %></td>
-					</tr>
-				<% }); %>
-				</tbody>
-			</table>
-		</div>
-	</section>
-</main>
-<div ng-controller="articlesController">
-	<% include partials/rsb %>
-</div>
-<!-- scripts inclusion from .ejs file -->
-<% include partials/scripts/standard-scripts %>
-<% include partials/scripts/additional-scripts %>
-<!-- graphs inclusion from .ejs file  -->
-<% include partials/graphs %>
-<script src="/client/js/controllers/articles-client-controller.js"></script>
+<html ng-app="ArticlesListing" data-country="png">
+<%include ./partials/head %>
+<body class="container-fluid full-width" >
+	<% include partials/contentContainer %>
+	<% include partials/scripts/standard-scripts %>
+	<% include partials/scripts/additional-scripts %>
+	<script src="/client/js/controllers/articles-client-controller.js"></script>
 </body>
 </html>

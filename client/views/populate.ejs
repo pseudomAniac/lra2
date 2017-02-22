@@ -26,21 +26,23 @@
 				<section class="form-group col-md-12">
 					<label for="country-list" >Country</label>
 					<select class="form-control" name="country" id="country-list">
-						<option>Nauru</option>
+						<option selected="true">Nauru</option>
 						<option>PNG</option>
 						<option>Samoa</option>
 						<option>Tonga</option>
 						<option>Vanuatu</option>
 					</select>
 				</section>
-				<section class="form-group col-md-6">
-					<label for="num-pages">Pages to Scan</label>
-					<input class="form-control circular-input-number" placeholder="0" type="number" name="pages" id="num-pages" min="1" max="50" />
-				</section>
-				<section class="form-group col-md-6">
-					<label for="starting-page">Starting at</label>
-					<input class="form-control circular-input-number" placeholder="0" type="number" name="counter" id="starting-page" min="0" max="9999" />
-				</section>
+				<div class="row flex-center">
+					<section class="form-group col-xs-6">
+						<label for="num-pages">Pages to Scan</label>
+						<input class="form-control circular-input-number" placeholder="0" type="number" name="pages" id="num-pages" min="1" max="50" />
+					</section>
+					<section class="form-group col-xs-6">
+						<label for="starting-page">Starting at</label>
+						<input class="form-control circular-input-number" placeholder="0" type="number" name="counter" id="starting-page" min="0" max="9999" />
+					</section>
+				</div>
 				<button class="btn btn-success form-control" type="submit">Submit</button>
 			</form>
 		</section>
@@ -48,7 +50,6 @@
 </main>
 <% include partials/scripts/standard-scripts %>
 <% include partials/scripts/additional-scripts %>
-<% include partials/graphs %>
 <script src="/client/js/controllers/dashboard-controller.js"></script>
 </body>
 </html>

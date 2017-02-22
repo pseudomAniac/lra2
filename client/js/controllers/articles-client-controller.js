@@ -35,16 +35,16 @@ ArticleListApp.controller('topArticlesController', ['$scope', '$resource', funct
 
 ArticleListApp.controller('queryArticlesController', ['$scope', '$resource', '$location', 'moment', function ($scope, $resource, $location, moment) {
 	var searchParams = $location.search();
-	console.log(searchParams);
+	// console.log(searchParams);
 	var country = searchParams.country,
 		category = searchParams.category,
 		sdate = searchParams.sdate,
 		edate = searchParams.edate;
 
 	qparams_builder(country.toLowerCase(), category, sdate, edate, function(queryparamerter) {
-		console.log("queryparamerter - ",queryparamerter)
+		// console.log("queryparamerter - ",queryparamerter)
 		$resource(queryparamerter).query((result) => {
-			console.log("result - ",result)
+			// console.log("result - ",result)
 			result.forEach((doc,i)=>{
 				result[i].pubdate = moment.unix(doc.pubdate).format("MMMM DD YYYY");
 			})

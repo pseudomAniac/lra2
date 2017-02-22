@@ -51,12 +51,12 @@ app.get("/force-update/", function(req,res) {
 });
 setInterval(function() {
 	// call fx to check for recent updates to the story links array
-	console.log('getUpdate("png")')
+	// console.log('getUpdate("png")')
 	retriever.getUpdate("png");
 }, (1000*60*15));
 setInterval(function() {
 	// call fx to check for recent updates to the story links array
-	console.log('getUpdate("pacific")')
+	// console.log('getUpdate("pacific")')
 	retriever.getUpdate("pacific");
 }, (1000*60*60*1));
 

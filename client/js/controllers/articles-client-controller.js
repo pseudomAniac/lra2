@@ -10,7 +10,7 @@ ArticleListApp.controller('articlesController', ['$scope', '$resource', 'moment'
 	$scope.pageTitle = "ALL";
 	Article.query((result) => {
 		result.forEach((doc,i)=>{
-			result[i].pubdate = moment.unix(doc.pubdate).format("MMMM DD YYYY - HH:MM");
+			result[i].pubdate = moment.unix(doc.pubdate).format("MMMM DD YYYY");
 		})
 		$scope.articles = result;
 	});
@@ -46,7 +46,7 @@ ArticleListApp.controller('queryArticlesController', ['$scope', '$resource', '$l
 		$resource(queryparamerter).query((result) => {
 			// console.log("result - ",result)
 			result.forEach((doc,i)=>{
-				result[i].pubdate = moment.unix(doc.pubdate).format("MMMM DD YYYY - HH:MM");
+				result[i].pubdate = moment.unix(doc.pubdate).format("MMMM DD YYYY");
 			})
 			$scope.articles = result;
 		})
@@ -76,7 +76,7 @@ PNGArticleListApp.controller('articlesController', ['$scope', '$resource', 'mome
 	$scope.pageTitle = "PNG";
 	PNGArticle.query((result) => { 
 		result.forEach((doc,i)=>{
-			result[i].pubdate = moment.unix(doc.pubdate).format("MMMM DD YYYY - HH:MM");
+			result[i].pubdate = moment.unix(doc.pubdate).format("MMMM DD YYYY");
 		})
 		$scope.articles = result;
 	});

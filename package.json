@@ -1,6 +1,6 @@
 {
   "name": "loopscraper",
-  "version": "1.9.2",
+  "version": "1.9.3",
   "description": "simple web application to be used to scrape data off the loop pacific website",
   "main": "app.js",
   "dependencies": {
@@ -20,7 +20,7 @@
     "q": "^1.4.1",
     "request": "2.*",
     "serve-static": "^1.11.1",
-    "x-ray": "^2.0.3"
+    "x-ray": "2.3.2"
   },
   "scripts": {
     "test": "gulp",

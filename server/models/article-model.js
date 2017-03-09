@@ -6,7 +6,7 @@ var ArticlesSchema = new Schema({
 	pubdate: {type: Number, index: true},
 	title: String,
 	views: Number,
-	link: String,
+	link: {type: String, index: true},
 	author: String,
 	category: {type: Array},
 	publisher: String,

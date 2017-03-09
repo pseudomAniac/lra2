@@ -37,7 +37,7 @@ app.get('/api/query/', (req,res) => {res.render('query')});
 app.get("/populate", (req, res) => {res.render('populate')});
 app.get("/populate/content/", function(req, res) {
 	var country = req.query.country.toLowerCase(), pagesToScan = req.query.pages, startScanAt = req.query.counter;
-	retriever.getArticles(country,pagesToScan,startScanAt);
+	retriever.automateDataRetrieval(country,pagesToScan,startScanAt);
 	res.redirect("/page/"+country);
 });
 app.get('/dashboard', function(req, res) {

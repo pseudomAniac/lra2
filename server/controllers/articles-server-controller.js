@@ -62,7 +62,6 @@ function qopt_builder(country,category,sdate,edate,callback) {
 		} else {
 			opts.pubdate.$gte = moment(moment(new Date(sdate)), "MMMM DD YYYY").unix()
 			opts.pubdate.$lt = moment(moment(new Date(sdate)).add(1,"day"), "MMMM DD YYYY").unix()
-			// opts.pubdate.$lt = moment(moment(new Date(sdate)), "MMMM DD YYYY").unix()
 		}
 	};
 	callback(opts);

@@ -5,10 +5,10 @@ var Article = require('../models/article-model'),
 exports.listArticles = function (req, res) {
 	var country = req.params.country;
 	if (country!='all') {
-		Article.articlesModel.find({"domain":country}, function (err, result) { res.json(result); });
+		Article.articlesModel.find({"domain":country}, function (err, result) { res.json(result); }).limit(25);
 	}
 	else {
-		Article.articlesModel.find({}, function (err, result) { res.json(result); });
+		Article.articlesModel.find({}, function (err, result) { res.json(result); }).limit(25);
 	}
 }
 exports.top5 = function (req,res) {
@@ -62,7 +62,6 @@ function qopt_builder(country,category,sdate,edate,callback) {
 		} else {
 			opts.pubdate.$gte = moment(moment(new Date(sdate)), "MMMM DD YYYY").unix()
 			opts.pubdate.$lt = moment(moment(new Date(sdate)).add(1,"day"), "MMMM DD YYYY").unix()
-			// opts.pubdate.$lt = moment(moment(new Date(sdate)), "MMMM DD YYYY").unix()
 		}
 	};
 	callback(opts);

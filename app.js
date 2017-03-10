@@ -9,6 +9,7 @@ var express  = require('express'),
 	bodyParser = require('body-parser'),
 	cookieSession = require('cookie-session'),
 	cookieParser = require('cookie-parser'),
+	globalCounter = 165,
 	app = express();
 app.post("/", function(req, res) {
 	res.redirect("/populate");
@@ -50,7 +51,6 @@ app.get("/force-update/", function(req,res) {
 	// res.render(__dirname + "/client/views/articles");
 });
 setInterval(()=>{
-	if (!globalCounter)	var globalCounter = app.get('POP_COUNTER');
 	if(globalCounter<1000) {
 		retriever.automateDataRetrieval("png",1,globalCounter);
 		globalCounter++;
@@ -69,7 +69,6 @@ setInterval(()=>{
 }, (1000*59*59*2));
 
 // app.use & app.set codes
-// app.set('POP_COUNTER',200);
 app.set('views',__dirname + '/client/views');
 app.set("view engine",'ejs');
 app.use('/fonts', express.static(__dirname + '/public/fonts'));

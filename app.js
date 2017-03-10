@@ -9,7 +9,7 @@ var express  = require('express'),
 	bodyParser = require('body-parser'),
 	cookieSession = require('cookie-session'),
 	cookieParser = require('cookie-parser'),
-	globalCounter = 0,
+	globalCounter = 40,
 	app = express();
 app.post("/", function(req, res) {
 	res.redirect("/populate");
@@ -54,19 +54,19 @@ setInterval(()=>{
 	if(globalCounter<1000) {
 		retriever.automateDataRetrieval("png",1,globalCounter);
 		globalCounter++;
-		console.log(globalCounter,"- png")
+		console.log("PNG",globalCounter)
 	} else { console.log("end reached.")}
-},(1000*30))
+},(1000*15))
 setInterval(()=>{
 	// call fx to check for recent updates to the story links array
-	// console.log('getUpdate("png")')
+	console.log('getUpdate("png")')
 	retriever.getUpdate("png");
-}, (1000*60*15));
+}, (1000*59*15));
 setInterval(()=>{
 	// call fx to check for recent updates to the story links array
-	// console.log('getUpdate("pacific")')
+	console.log('getUpdate("pacific")')
 	retriever.getUpdate("pacific");
-}, (1000*60*60*2));
+}, (1000*59*59*2));
 
 // app.use & app.set codes
 app.set('views',__dirname + '/client/views');

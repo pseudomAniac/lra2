@@ -9,8 +9,9 @@ var express  = require('express'),
 	bodyParser = require('body-parser'),
 	cookieSession = require('cookie-session'),
 	cookieParser = require('cookie-parser'),
+	globalLimit = 50,
 	globalCounter = 0,
-	globalCountry = "nauru",
+	globalCountry = "png",
 	app = express();
 app.post("/", function(req, res) {
 	res.redirect("/populate");
@@ -43,6 +44,8 @@ app.get("/populate/content/", function(req, res) {
 	res.redirect("/page/"+country);
 });
 app.get("/populate/auto", (req, res) => {
+	console.log(req.query)
+	globalLimit = req.query.limit;
 	globalCountry = req.query.country;
 	globalCounter = Number.parseInt(req.query.counter);
 	res.redirect('/populate');
@@ -57,11 +60,11 @@ app.get("/populate/auto", (req, res) => {
 // 	// res.render(__dirname + "/client/views/articles");
 // });
 setInterval(()=>{
-	if(globalCounter<200) {
+	if(globalCounter<globalLimit) {
 		retriever.automateDataRetrieval(globalCountry,1,globalCounter);
 		globalCounter++;
-		console.log(globalCountry,globalCounter)
-	} else { console.log("end reached.")}
+		console.log(globalCountry,globalCounter,globalLimit)
+	} else { console.log(globalCounter,"end reached.")}
 },(1000*15))
 // setInterval(()=>{
 // 	// call fx to check for recent updates to the story links array

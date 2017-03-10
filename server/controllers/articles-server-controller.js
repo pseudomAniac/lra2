@@ -32,16 +32,12 @@ exports.exportArticles = function (req, res) {
 	})
 }
 exports.queryArticles = function(req,res) {
-	// console.log("queryArticles - ",req.query);
 	var country = req.query.country,
 		category = req.query.category,
 		sdate = req.query.sdate,
 		edate = req.query.edate;
-		// console.log("sdate - ",sdate,"\nedate - ",edate);
 	qopt_builder(country, category, sdate, edate, function(callback) {
-		// console.log(callback);
 		Article.articlesModel.find(callback, function(err, result) {
-			// console.log(result.length)
 			res.json(result);
 		})
 		.sort({"pubdate":"-1"})

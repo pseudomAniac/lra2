@@ -9,7 +9,8 @@ var express  = require('express'),
 	bodyParser = require('body-parser'),
 	cookieSession = require('cookie-session'),
 	cookieParser = require('cookie-parser'),
-	globalCounter = 165,
+	globalCounter = 0,
+	globalCountry = "nauru",
 	app = express();
 app.post("/", function(req, res) {
 	res.redirect("/populate");
@@ -41,32 +42,37 @@ app.get("/populate/content/", function(req, res) {
 	retriever.getArticles(country,pagesToScan,startScanAt);
 	res.redirect("/page/"+country);
 });
-app.get('/dashboard', function(req, res) {
-	res.render('index');
+app.get("/populate/auto", (req, res) => {
+	globalCountry = req.query.country;
+	globalCounter = Number.parseInt(req.query.counter);
+	res.redirect('/populate');
 });
-app.get("/force-update/", function(req,res) {
-	var country = req.query.country.toLowerCase()
-	retriever.getUpdate(country);
-	res.redirect('/');
-	// res.render(__dirname + "/client/views/articles");
-});
+// app.get('/dashboard', function(req, res) {
+// 	res.render('index');
+// });
+// app.get("/force-update/", function(req,res) {
+// 	var country = req.query.country.toLowerCase()
+// 	retriever.getUpdate(country);
+// 	res.redirect('/');
+// 	// res.render(__dirname + "/client/views/articles");
+// });
 setInterval(()=>{
-	if(globalCounter<1000) {
-		retriever.automateDataRetrieval("png",1,globalCounter);
+	if(globalCounter<200) {
+		retriever.automateDataRetrieval(globalCountry,1,globalCounter);
 		globalCounter++;
-		console.log("PNG",globalCounter)
+		console.log(globalCountry,globalCounter)
 	} else { console.log("end reached.")}
 },(1000*15))
-setInterval(()=>{
-	// call fx to check for recent updates to the story links array
-	console.log('getUpdate("png")')
-	retriever.getUpdate("png");
-}, (1000*59*15));
-setInterval(()=>{
-	// call fx to check for recent updates to the story links array
-	console.log('getUpdate("pacific")')
-	retriever.getUpdate("pacific");
-}, (1000*59*59*2));
+// setInterval(()=>{
+// 	// call fx to check for recent updates to the story links array
+// 	console.log('getUpdate("png")')
+// 	retriever.getUpdate("png");
+// }, (1000*59*15));
+// setInterval(()=>{
+// 	// call fx to check for recent updates to the story links array
+// 	console.log('getUpdate("pacific")')
+// 	retriever.getUpdate("pacific");
+// }, (1000*59*59*2));
 
 // app.use & app.set codes
 app.set('views',__dirname + '/client/views');

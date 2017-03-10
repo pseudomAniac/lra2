@@ -9,6 +9,7 @@ var express  = require('express'),
 	bodyParser = require('body-parser'),
 	cookieSession = require('cookie-session'),
 	cookieParser = require('cookie-parser'),
+	globalCounter = 0,
 	app = express();
 app.post("/", function(req, res) {
 	res.redirect("/populate");
@@ -16,11 +17,11 @@ app.post("/", function(req, res) {
 app.get('/', function(req, res) {
 	res.render('articles');
 });
-// app.get('/write/:country', function(req, res) {
-//   var country = req.params.country;
-// 	retriever.getArticles(country,8,0);
-// 	res.redirect('/page/'+country);
-// });
+app.get('/write/:country', function(req, res) {
+  var country = req.params.country;
+	retriever.getArticles(country,8,0);
+	res.redirect('/page/'+country);
+});
 // api call to get stories
 app.get('/articles/:country', articlesController.listArticles);
 app.get('/page/:country', function(req, res){res.render(req.params.country)});
@@ -49,12 +50,19 @@ app.get("/force-update/", function(req,res) {
 	res.redirect('/');
 	// res.render(__dirname + "/client/views/articles");
 });
-setInterval(function() {
+setInterval(()=>{
+	if(globalCounter<1000) {
+		retriever.automateDataRetrieval("png",1,globalCounter);
+		globalCounter++;
+		console.log(globalCounter,"- png")
+	} else { console.log("end reached.")}
+},(1000*30))
+setInterval(()=>{
 	// call fx to check for recent updates to the story links array
 	// console.log('getUpdate("png")')
 	retriever.getUpdate("png");
 }, (1000*60*15));
-setInterval(function() {
+setInterval(()=>{
 	// call fx to check for recent updates to the story links array
 	// console.log('getUpdate("pacific")')
 	retriever.getUpdate("pacific");

@@ -43,7 +43,7 @@ app.get("/populate/content/", function(req, res) {
 	retriever.getArticles(country,pagesToScan,startScanAt);
 	res.redirect("/page/"+country);
 });
-app.get("/populate/auto", (req, res) => {
+app.get("/populate/auto/", (req, res) => {
 	console.log(req.query)
 	globalLimit = req.query.limit;
 	globalCountry = req.query.country;

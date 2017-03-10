@@ -16,11 +16,11 @@ app.post("/", function(req, res) {
 app.get('/', function(req, res) {
 	res.render('articles');
 });
-app.get('/write/:country', function(req, res) {
-  var country = req.params.country;
-	retriever.getArticles(country,8,0);
-	res.redirect('/page/'+country);
-});
+// app.get('/write/:country', function(req, res) {
+//   var country = req.params.country;
+// 	retriever.getArticles(country,8,0);
+// 	res.redirect('/page/'+country);
+// });
 // api call to get stories
 app.get('/articles/:country', articlesController.listArticles);
 app.get('/page/:country', function(req, res){res.render(req.params.country)});
@@ -37,7 +37,7 @@ app.get('/api/query/', (req,res) => {res.render('query')});
 app.get("/populate", (req, res) => {res.render('populate')});
 app.get("/populate/content/", function(req, res) {
 	var country = req.query.country.toLowerCase(), pagesToScan = req.query.pages, startScanAt = req.query.counter;
-	retriever.automateDataRetrieval(country,pagesToScan,startScanAt);
+	retriever.getArticles(country,pagesToScan,startScanAt);
 	res.redirect("/page/"+country);
 });
 app.get('/dashboard', function(req, res) {
@@ -58,7 +58,7 @@ setInterval(function() {
 	// call fx to check for recent updates to the story links array
 	// console.log('getUpdate("pacific")')
 	retriever.getUpdate("pacific");
-}, (1000*60*60*1));
+}, (1000*60*60*2));
 
 // app.use & app.set codes
 app.set('views',__dirname + '/client/views');

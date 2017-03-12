@@ -48,7 +48,7 @@ app.get("/populate/auto/", (req, res) => {
 	globalLimit = req.query.limit;
 	globalCountry = req.query.country;
 	globalCounter = Number.parseInt(req.query.counter);
-	res.redirect('/populate');
+	res.redirect('/page/'+globalCountry);
 });
 // app.get('/dashboard', function(req, res) {
 // 	res.render('index');
@@ -59,23 +59,23 @@ app.get("/populate/auto/", (req, res) => {
 // 	res.redirect('/');
 // 	// res.render(__dirname + "/client/views/articles");
 // });
-setInterval(()=>{
+var dataRet = setInterval(()=>{
 	if(globalCounter<globalLimit) {
 		retriever.automateDataRetrieval(globalCountry,1,globalCounter);
 		globalCounter++;
 		console.log(globalCountry,globalCounter,globalLimit)
-	} else { console.log(globalCounter,"end reached.")}
+	} else { console.log(globalCounter,"end reached."); clearInterval(dataRet); }
 },(1000*15))
-// setInterval(()=>{
-// 	// call fx to check for recent updates to the story links array
-// 	console.log('getUpdate("png")')
-// 	retriever.getUpdate("png");
-// }, (1000*59*15));
-// setInterval(()=>{
-// 	// call fx to check for recent updates to the story links array
-// 	console.log('getUpdate("pacific")')
-// 	retriever.getUpdate("pacific");
-// }, (1000*59*59*2));
+setInterval(()=>{
+	// call fx to check for recent updates to the story links array
+	console.log('getUpdate("png")')
+	retriever.getUpdate("png");
+}, (1000*60*15));
+setInterval(()=>{
+	// call fx to check for recent updates to the story links array
+	console.log('getUpdate("pacific")')
+	retriever.getUpdate("pacific");
+}, (1000*60*60*2));
 
 // app.use & app.set codes
 app.set('views',__dirname + '/client/views');

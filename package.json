@@ -1,7 +1,7 @@
 {
-  "name": "loopscraper",
-  "version": "1.9.3",
-  "description": "simple web application to be used to scrape data off the loop pacific website",
+  "name": "looppacificcount",
+  "version": "1.9.7",
+  "description": "loop pacific website scraper",
   "main": "app.js",
   "dependencies": {
     "body-parser": "^1.14.2",

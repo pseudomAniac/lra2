@@ -9,7 +9,7 @@ var express  = require('express'),
 	bodyParser = require('body-parser'),
 	cookieSession = require('cookie-session'),
 	cookieParser = require('cookie-parser'),
-	globalLimit = 50,
+	globalLimit = 5,
 	globalCounter = 0,
 	globalCountry = "png",
 	app = express();
@@ -64,18 +64,21 @@ var dataRet = setInterval(()=>{
 		retriever.automateDataRetrieval(globalCountry,1,globalCounter);
 		globalCounter++;
 		console.log(globalCountry,globalCounter,globalLimit)
-	} else { console.log(globalCounter,"end reached."); clearInterval(dataRet); }
+	} else { 
+		console.log(globalCounter,"end reached.");
+		clearInterval(dataRet);
+		// setInterval(()=>{
+		// 	// call fx to check for recent updates to the story links array
+		// 	console.log('getUpdate("png")')
+		// 	retriever.getUpdate("png");
+		// }, (1000*60*15));
+		// setInterval(()=>{
+		// 	// call fx to check for recent updates to the story links array
+		// 	console.log('getUpdate("pacific")')
+		// 	retriever.getUpdate("pacific");
+		// }, (1000*60*60*2));
+	}
 },(1000*15))
-setInterval(()=>{
-	// call fx to check for recent updates to the story links array
-	console.log('getUpdate("png")')
-	retriever.getUpdate("png");
-}, (1000*60*15));
-setInterval(()=>{
-	// call fx to check for recent updates to the story links array
-	console.log('getUpdate("pacific")')
-	retriever.getUpdate("pacific");
-}, (1000*60*60*2));
 
 // app.use & app.set codes
 app.set('views',__dirname + '/client/views');

@@ -13,6 +13,28 @@ var express  = require('express'),
 	globalCounter = 0,
 	globalCountry = "png",
 	app = express();
+	
+var dataRet = setInterval(()=>{
+	if(globalCounter<globalLimit) {
+		retriever.automateDataRetrieval(globalCountry,1,globalCounter);
+		globalCounter++;
+		console.log(globalCountry,globalCounter,globalLimit)
+	} else { 
+		console.log(globalCounter,"end reached.");
+		clearInterval(dataRet);
+		// setInterval(()=>{
+		// 	// call fx to check for recent updates to the story links array
+		// 	console.log('getUpdate("png")')
+		// 	retriever.getUpdate("png");
+		// }, (1000*60*15));
+		// setInterval(()=>{
+		// 	// call fx to check for recent updates to the story links array
+		// 	console.log('getUpdate("pacific")')
+		// 	retriever.getUpdate("pacific");
+		// }, (1000*60*60*2));
+	}
+},(1000*15))
+
 app.post("/", function(req, res) {
 	res.redirect("/populate");
 });
@@ -44,7 +66,8 @@ app.get("/populate/content/", function(req, res) {
 	res.redirect("/page/"+country);
 });
 app.get("/populate/auto/", (req, res) => {
-	console.log(req.query)
+	console.log(req.query);
+	dataRet;
 	globalLimit = req.query.limit;
 	globalCountry = req.query.country;
 	globalCounter = Number.parseInt(req.query.counter);
@@ -59,26 +82,6 @@ app.get("/populate/auto/", (req, res) => {
 // 	res.redirect('/');
 // 	// res.render(__dirname + "/client/views/articles");
 // });
-var dataRet = setInterval(()=>{
-	if(globalCounter<globalLimit) {
-		retriever.automateDataRetrieval(globalCountry,1,globalCounter);
-		globalCounter++;
-		console.log(globalCountry,globalCounter,globalLimit)
-	} else { 
-		console.log(globalCounter,"end reached.");
-		clearInterval(dataRet);
-		// setInterval(()=>{
-		// 	// call fx to check for recent updates to the story links array
-		// 	console.log('getUpdate("png")')
-		// 	retriever.getUpdate("png");
-		// }, (1000*60*15));
-		// setInterval(()=>{
-		// 	// call fx to check for recent updates to the story links array
-		// 	console.log('getUpdate("pacific")')
-		// 	retriever.getUpdate("pacific");
-		// }, (1000*60*60*2));
-	}
-},(1000*15))
 
 // app.use & app.set codes
 app.set('views',__dirname + '/client/views');

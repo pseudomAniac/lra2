@@ -4,36 +4,34 @@ var express  = require('express'),
 	q = require('q'),
 	articlesController 	= require('./server/controllers/articles-server-controller'),
 	retriever = require("./lib/retriever"),
+	timeout = require("./lib/timeouts"),
 	compression = require("compression"),
 	serveStatic = require("serve-static"),
 	bodyParser = require('body-parser'),
 	cookieSession = require('cookie-session'),
 	cookieParser = require('cookie-parser'),
-	globalLimit = 5,
-	globalCounter = 0,
-	globalCountry = "png",
 	app = express();
-	
-var dataRet = setInterval(()=>{
-	if(globalCounter<globalLimit) {
-		retriever.automateDataRetrieval(globalCountry,1,globalCounter);
-		globalCounter++;
-		console.log(globalCountry,globalCounter,globalLimit)
-	} else { 
-		console.log(globalCounter,"end reached.");
-		clearInterval(dataRet);
-		// setInterval(()=>{
-		// 	// call fx to check for recent updates to the story links array
-		// 	console.log('getUpdate("png")')
-		// 	retriever.getUpdate("png");
-		// }, (1000*60*15));
-		// setInterval(()=>{
-		// 	// call fx to check for recent updates to the story links array
-		// 	console.log('getUpdate("pacific")')
-		// 	retriever.getUpdate("pacific");
-		// }, (1000*60*60*2));
-	}
-},(1000*15))
+
+// var dataRet = setInterval(()=>{
+// 	if(globalCounter<globalLimit) {
+// 		retriever.automateDataRetrieval(globalCountry,1,globalCounter);
+// 		globalCounter++;
+// 		console.log(globalCountry,globalCounter,globalLimit)
+// 	} else { 
+// 		console.log(globalCounter,"end reached.");
+// 		clearInterval(dataRet);
+// 		// setInterval(()=>{
+// 		// 	// call fx to check for recent updates to the story links array
+// 		// 	console.log('getUpdate("png")')
+// 		// 	retriever.getUpdate("png");
+// 		// }, (1000*60*15));
+// 		// setInterval(()=>{
+// 		// 	// call fx to check for recent updates to the story links array
+// 		// 	console.log('getUpdate("pacific")')
+// 		// 	retriever.getUpdate("pacific");
+// 		// }, (1000*60*60*2));
+// 	}
+// },(1000*15))
 
 app.post("/", function(req, res) {
 	res.redirect("/populate");
@@ -67,11 +65,11 @@ app.get("/populate/content/", function(req, res) {
 });
 app.get("/populate/auto/", (req, res) => {
 	console.log(req.query);
-	dataRet;
-	globalLimit = req.query.limit;
-	globalCountry = req.query.country;
-	globalCounter = Number.parseInt(req.query.counter);
-	res.redirect('/page/'+globalCountry);
+	var li = req.query.limit,
+	cy = req.query.country,
+	cr = Number.parseInt(req.query.counter);
+	timeout.activateRetrieval(cy,cr,li);
+	res.redirect('/page/'+cy);
 });
 // app.get('/dashboard', function(req, res) {
 // 	res.render('index');

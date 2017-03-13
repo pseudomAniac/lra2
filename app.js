@@ -37,7 +37,7 @@ app.post("/", function(req, res) {
 	res.redirect("/populate");
 });
 app.get('/', function(req, res) {
-	console.log(app.get("POP_COUNTER - ",POP_COUNTER));
+	console.log(app.get("POP_COUNTER - ",process.env.POP_COUNTER));
 	res.render('articles');
 });
 app.get('/write/:country', function(req, res) {

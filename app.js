@@ -11,10 +11,18 @@ var express  = require('express'),
 	cookieSession = require('cookie-session'),
 	cookieParser = require('cookie-parser'),
 	app = express();
-
-var	mongoose = require('mongoose');
-		// dbUri = 'mongodb://127.0.0.1:27017/lra2'; // local - dev
-
+// routes
+var testRouter1 = express.Router();
+testRouter1.get('/test', (req,res)=>{
+	res.send('test 1 succeeded');
+})
+app.use('/test1',testRouter1);
+var testRouter2 = express.Router();
+testRouter2.get('/test', (req,res)=>{
+	res.send('test 2 succeeded');
+})
+app.use('/test2',testRouter2);
+// http requests
 app.post("/", function(req, res) {
 	res.redirect("/populate");
 });
@@ -53,9 +61,6 @@ app.get("/populate/auto/", (req, res) => {
 	timeout.activateRetrieval(cy,cr,li);
 	res.redirect('/page/'+cy);
 });
-// routes
-var router = express.Router();
-app.use('/test-route',router)
 // app.use & app.set codes
 app.set('views',__dirname + '/client/views');
 app.set("view engine",'ejs');

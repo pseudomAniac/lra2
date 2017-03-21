@@ -6,9 +6,9 @@ exports.listArticles = function (req, res) {
 	var country = req.params.country;
 	var qdate = moment(moment().subtract(1,"day"),"MMMM DD YYYY").unix();
 	if (country!='all') {
-		Article.articlesModel.find({"domain":country,"pubdate":{"$gte":qdate}}, function (err, result) { res.json(result); }).limit(25);
+		Article.articlesModel.find({"domain":country}, function (err, result) { res.json(result); }).sort({"pubdate":-1}).limit(25);
 	}	else {
-		Article.articlesModel.find({"pubdate":{"$gte":qdate}}, function (err, result) { res.json(result); }).limit(25);
+		Article.articlesModel.find({"pubdate":{"$gte":qdate}}, function (err, result) { res.json(result); }).sort({"pubdate":-1}).limit(25);
 	}
 }
 exports.top5 = function (req,res) {

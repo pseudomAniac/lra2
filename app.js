@@ -16,8 +16,8 @@ var google = require('googleapis'),
 	ga = google.analytics({version:'v3'});
 var opts = { tokens: {} };
 	// auth: JWT
-var authS2S = require('./node_modules/lra2-1e61de3b4a18.json'),
-	jwtClient = new google.auth.JWT(
+// var authS2S = require('./node_modules/lra2-1e61de3b4a18.json');
+var jwtClient = new google.auth.JWT(
 		process.env.JWT_CLIENT_EMAIL || authS2S.client_email,
 		null,
 		process.env.JWT_PRIVATE_KEY || authS2S.private_key,

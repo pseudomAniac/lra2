@@ -18,10 +18,10 @@ var opts = { tokens: {} };
 	// auth: JWT
 // var authS2S = require('./node_modules/lra2-1e61de3b4a18.json');
 var jwtClient = new google.auth.JWT(
-		process.env.JWT_CLIENT_EMAIL || authS2S.client_email,
+		process.env.JWT_CLIENT_EMAIL,// || authS2S.client_email,
 		null,
-		process.env.JWT_PRIVATE_KEY || authS2S.private_key,
-		process.env.JWT_SCOPE || authS2S.scope,
+		process.env.JWT_PRIVATE_KEY,// || authS2S.private_key,
+		process.env.JWT_SCOPE,// || authS2S.scope,
 		null
 	);
 jwtClient.authorize(function(err,tokens) {
@@ -39,7 +39,7 @@ jwtClient.authorize(function(err,tokens) {
 function queryData(analytics) {
   analytics.data.ga.get({
     'auth': jwtClient,
-    'ids': process.env.JWT_VIEW_ID || authS2S.view_id,
+    'ids': process.env.JWT_VIEW_ID,// || authS2S.view_id,
     'metrics': 'ga:pageviews',
     'dimensions': 'ga:pagePath',
     'start-date': '7daysAgo',

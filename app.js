@@ -41,8 +41,6 @@ jwtClient.authorize(function(err,tokens) {
 	} else {
 		jwtClient.setCredentials(tokens);
 	}
-	// console.log('jwtClient',jwtClient);
-	// queryData(ga)
 })
 // raw functions
 function queryData(analytics) {

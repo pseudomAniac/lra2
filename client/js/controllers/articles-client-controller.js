@@ -5,12 +5,14 @@ SamoaArticleListApp.constant('moment',moment);
 TongaArticleListApp.constant('moment',moment);
 VanuatuArticleListApp.constant('moment',moment);
 
+var datetimeformat = "MMMM DD YYYY - HH:mm:ss";
+
 ArticleListApp.controller('articlesController', ['$scope', '$resource', 'moment', function ($scope, $resource, moment) {
 	var Article = $resource("/articles/all");
 	$scope.pageTitle = "ALL";
 	Article.query((result) => {
 		result.forEach((doc,i)=>{
-			result[i].pubdate = moment.unix(doc.pubdate).format("LLLL");
+			result[i].pubdate = moment.unix(doc.pubdate).format(datetimeformat);
 		})
 		$scope.articles = result;
 	});
@@ -46,7 +48,7 @@ ArticleListApp.controller('queryArticlesController', ['$scope', '$resource', '$l
 		$resource(queryparamerter).query((result) => {
 			console.log("result - ",result)
 			result.forEach((doc,i)=>{
-				result[i].pubdate = moment.unix(doc.pubdate).format("LLLL");
+				result[i].pubdate = moment.unix(doc.pubdate).format(datetimeformat);
 			})
 			$scope.articles = result;
 		})
@@ -76,7 +78,7 @@ PNGArticleListApp.controller('articlesController', ['$scope', '$resource', 'mome
 	$scope.pageTitle = "PNG";
 	PNGArticle.query((result) => { 
 		result.forEach((doc,i)=>{
-			result[i].pubdate = moment.unix(doc.pubdate).format("LLLL");
+			result[i].pubdate = moment.unix(doc.pubdate).format(datetimeformat);
 		})
 		$scope.articles = result;
 	});
@@ -106,7 +108,7 @@ NauruArticleListApp.controller('articlesController', ['$scope', '$resource', 'mo
 	$scope.pageTitle = "Nauru";
 	NauruArticle.query(function (result) {
 		result.forEach((doc,i)=>{
-			result[i].pubdate = moment.unix(doc.pubdate).format("LLLL");
+			result[i].pubdate = moment.unix(doc.pubdate).format(datetimeformat);
 		})
 		$scope.articles = result;
 	})
@@ -129,7 +131,7 @@ SamoaArticleListApp.controller('articlesController', ['$scope', '$resource', 'mo
 	$scope.pageTitle = "Samoa";
 	SamoaArticle.query(function (result) {
 		result.forEach((doc,i)=>{
-			result[i].pubdate = moment.unix(doc.pubdate).format("LLLL");
+			result[i].pubdate = moment.unix(doc.pubdate).format(datetimeformat);
 		})
 		$scope.articles = result;
 	})
@@ -152,7 +154,7 @@ TongaArticleListApp.controller('articlesController', ['$scope', '$resource', 'mo
 	$scope.pageTitle = "Tonga";
 	TongaArticle.query(function (result) {
 		result.forEach((doc,i)=>{
-			result[i].pubdate = moment.unix(doc.pubdate).format("LLLL");
+			result[i].pubdate = moment.unix(doc.pubdate).format(datetimeformat);
 		})
 		$scope.articles = result;
 	})
@@ -175,7 +177,7 @@ VanuatuArticleListApp.controller('articlesController', ['$scope', '$resource', '
 	$scope.pageTitle = "Vanuatu";
 	VanuatuArticle.query(function (result) {
 		result.forEach((doc,i)=>{
-			result[i].pubdate = moment.unix(doc.pubdate).format("LLLL");
+			result[i].pubdate = moment.unix(doc.pubdate).format(datetimeformat);
 		})
 		$scope.articles = result;
 	})

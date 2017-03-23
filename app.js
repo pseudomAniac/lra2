@@ -12,10 +12,10 @@ var express  = require('express'),
 	cookieParser = require('cookie-parser'),
 	fs = require('fs'),
 	P12toPEM = require('google-p12-pem'),
-	nPEM = new P12toPEM,
+	// nPEM = new P12toPEM,
 	app = express();
 	// google apis, auths & tokens
-nPEM.getPem('./lib/lra2-81167be3844b.p12',(function(err,obj){
+P12toPEM('./lib/lra2-81167be3844b.p12',(function(err,obj){
 		if(!err) {
 			fs.writeFile(__dirname+'/lib/key.pem',obj, (err)=>{
 				if (!err) console.log("key.pem saved in 'lib' directory");

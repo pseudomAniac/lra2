@@ -27,7 +27,6 @@ var express  = require('express'),
 var google = require('googleapis'),
 	ga = google.analytics('v3');
 // var authS2S = require('./node_modules/lra2-1e61de3b4a18.json');
-// var authS2S = require('./lib/key.pem');
 var jwtClient = new google.auth.JWT(
 		process.env.JWT_CLIENT_EMAIL,// || authS2S.client_email,
 		'./lib/key.pem',

@@ -10,8 +10,20 @@ var express  = require('express'),
 	bodyParser = require('body-parser'),
 	cookieSession = require('cookie-session'),
 	cookieParser = require('cookie-parser'),
+	fs = require('fs'),
+	P12toPEM = require('google-p12-pem'),
+	nPEM = new P12toPEM,
 	app = express();
 	// google apis, auths & tokens
+nPEM.getPem('./lib/lra2-81167be3844b.p12',(function(err,obj){
+		if(!err) {
+			fs.writeFile(__dirname+'/lib/key.pem',obj, (err)=>{
+				if (!err) console.log("key.pem saved in 'lib' directory");
+				else console.log(err);
+			})
+		}
+		else console.log(err)
+	}))
 var google = require('googleapis'),
 	ga = google.analytics({version:'v3'});
 var opts = { tokens: {} };
@@ -19,7 +31,7 @@ var opts = { tokens: {} };
 // var authS2S = require('./node_modules/lra2-1e61de3b4a18.json');
 var jwtClient = new google.auth.JWT(
 		process.env.JWT_CLIENT_EMAIL,// || authS2S.client_email,
-		null,
+		'./lib/key.pem',
 		process.env.JWT_PRIVATE_KEY,// || authS2S.private_key,
 		process.env.JWT_SCOPE,// || authS2S.scope,
 		null

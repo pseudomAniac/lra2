@@ -5,7 +5,7 @@ SamoaArticleListApp.constant('moment',moment);
 TongaArticleListApp.constant('moment',moment);
 VanuatuArticleListApp.constant('moment',moment);
 
-var datetimeformat = "MMMM DD YYYY - HH:mm:ss";
+var datetimeformat = "MMMM DD YYYY";
 
 ArticleListApp.controller('articlesController', ['$scope', '$resource', 'moment', function ($scope, $resource, moment) {
 	var Article = $resource("/articles/all");

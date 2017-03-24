@@ -56,11 +56,13 @@ function qopt_builder(country,category,sdate,edate,callback) {
 	if (sdate != undefined) { // start date specified
 		opts.pubdate = {};
 		if (edate != undefined) { // end date specified
-			opts.pubdate.$gte = moment(moment(new Date(sdate)), "MMMM DD YYYY").unix();
-			opts.pubdate.$lte = moment(moment(new Date(edate)).add(1,"day"), "MMMM DD YYYY").unix();
+			var datetimeformat = "MMMM DD YYYY, hh:mm";
+			edate += ', 23:59';
+			opts.pubdate.$gte = moment(moment(sdate + ', 00:00', datetimeformat)).unix();
+			opts.pubdate.$lte = moment(moment(edate, datetimeformat)).unix();
 		} else {
-			opts.pubdate.$gte = moment(moment(new Date(sdate)), "MMMM DD YYYY").unix();
-			opts.pubdate.$lt = moment(moment(new Date(sdate)).add(1,"day"), "MMMM DD YYYY").unix();
+			opts.pubdate.$gte = moment(moment(sdate + ', 00:00', datetimeformat)).unix();
+			opts.pubdate.$lte = moment(moment(sdate + ', 23:59', datetimeformat)).unix();
 		}
 	};
 	callback(opts);

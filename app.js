@@ -8,24 +8,49 @@ var express  = require('express'),
 	compression = require('compression'),
 	serveStatic = require('serve-static'),
 	bodyParser = require('body-parser'),
-	cookieSession = require('cookie-session'),
-	cookieParser = require('cookie-parser'),
+	morgan = require('morgan'),
+	session = require('express-session'),
 	app = express();
-// routes: google analytics
-var gaRouter = express.Router();
-gaRouter.get('/oauthcallback?:code',(req,res)=>{
-	var code = req.params.code;
-	console.log('req.params',req.params);
-	queryData(ga);
-	console.log('authentic');
-	res.render('png');
-})
-gaRouter.get('/test', (req,res)=>{
-	console.log('/test route accessed.')
-	queryData(ga);
-	res.render('search')
-})
-app.use('/ga',gaRouter);
+// initializations
+app.use(morgan('dev'));
+app.use(session({
+	secret: "monobelle",
+	resave: false,
+	saveUninitialized: true,
+	cookie: {secure: true}
+}));
+app.set('views',__dirname + '/client/views');
+app.set('view engine','ejs');
+app.use('/fonts', express.static(__dirname + '/public/fonts'));
+app.use('/css', express.static(__dirname + '/public/css'));
+app.use('/js', express.static(__dirname + '/public/js'));
+app.use('/img', express.static(__dirname + '/public/img'));
+app.use('/client/js', express.static(__dirname + '/client/js'));
+app.use('/server/js', express.static(__dirname + '/server/js'));
+app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
+app.use(bodyParser.json());
+app.use(compression());
+app.use(serveStatic('/public/*/*'));
+app.use(serveStatic('/css/*.*'));
+app.use(serveStatic('/js/*.*'));
+app.use(serveStatic('/img/*.*'));
+app.use(serveStatic('/client/js/*.*'));
+app.use(serveStatic('/server/js/*.*'));
+// // routes: google analytics
+// var gaRouter = express.Router();
+// gaRouter.get('/oauthcallback?:code',(req,res)=>{
+// 	var code = req.params.code;
+// 	console.log('req.params',req.params);
+// 	// queryData(ga);
+// 	console.log('authentic');
+// 	res.render('png');
+// })
+// gaRouter.get('/test', (req,res)=>{
+// 	console.log('/test route accessed.')
+// 	// queryData(ga);
+// 	res.render('search')
+// })
+// app.use('/ga',gaRouter);
 // http requests
 app.post('/', function(req, res) {
 	res.redirect('/populate');
@@ -53,38 +78,18 @@ app.get('/api/query/', (req,res) => {res.render('query')});
 // api call to populate stories
 app.get('/populate', (req, res) => {res.render('populate')});
 app.get('/populate/content/', function(req, res) {
-	var country = req.query.country.toLowerCase(), pagesToScan = req.query.pages, startScanAt = req.query.counter;
-	retriever.getArticles(country,pagesToScan,startScanAt);
+	console.log(req.query);
+	var country = req.query.country.toLowerCase(), start = Number.parseInt(req.query.start), stop = Number.parseInt(req.query.stop);
+	retriever.getArticles(country,start,stop);
 	res.redirect('/page/'+country);
 });
 app.get('/populate/auto/', (req, res) => {
-	console.log(req.query);
-	var li = req.query.limit,
-	cy = req.query.country,
-	cr = Number.parseInt(req.query.counter);
-	timeout.activateRetrieval(cy,cr,li);
-	res.redirect('/page/'+cy);
+	var start = Number.parseInt(req.query.start),
+	stop = Number.parseInt(req.query.counter),
+	country = req.query.country.toLowerCase();
+	timeout.activateRetrieval(country,start,stop);
+	res.redirect('/page/'+country);
 });
-// app.use & app.set codes
-app.set('views',__dirname + '/client/views');
-app.set('view engine','ejs');
-app.use('/fonts', express.static(__dirname + '/public/fonts'));
-app.use('/css', express.static(__dirname + '/public/css'));
-app.use('/js', express.static(__dirname + '/public/js'));
-app.use('/img', express.static(__dirname + '/public/img'));
-app.use('/client/js', express.static(__dirname + '/client/js'));
-app.use('/server/js', express.static(__dirname + '/server/js'));
-app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
-app.use(bodyParser.json());
-// app.use(cookieParser());
-// app.use(cookieSession({ secret: 'monobelle' }));
-app.use(compression());
-app.use(serveStatic('/public/*/*'));
-app.use(serveStatic('/css/*.*'));
-app.use(serveStatic('/js/*.*'));
-app.use(serveStatic('/img/*.*'));
-app.use(serveStatic('/client/js/*.*'));
-app.use(serveStatic('/server/js/*.*'));
 app.set('port', (process.env.PORT || 3000));
 app.listen(app.get('port'), function() { console.log('app started at port ' + app.get('port')); });
 

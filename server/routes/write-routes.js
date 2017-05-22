@@ -6,3 +6,7 @@ var mongoose = require('mongoose'),
 // exports.writevanuatu = 
 
 // exports.writepng = 
+
+// exports.updatepng = function(opts,nodeid,callback){
+	
+// }

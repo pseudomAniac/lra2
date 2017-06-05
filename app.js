@@ -78,7 +78,6 @@ app.get('/api/query/', (req,res) => {res.render('query')});
 // api call to populate stories
 app.get('/populate', (req, res) => {res.render('populate')});
 app.get('/populate/content/', function(req, res) {
-	console.log(req.query);
 	var country = req.query.country.toLowerCase(), start = Number.parseInt(req.query.start), stop = Number.parseInt(req.query.stop);
 	retriever.getArticles(country,start,stop);
 	res.redirect('/page/'+country);

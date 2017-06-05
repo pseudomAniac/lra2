@@ -12,7 +12,7 @@ ArticleListApp.controller('articlesController', ['$scope', '$resource', 'moment'
 	$scope.pageTitle = "ALL";
 	Article.query((result) => {
 		result.forEach((doc,i)=>{
-			result[i].pubdate = moment(moment.unix(doc.pubdate)).format(datetimeformat);
+			result[i].pubdate = moment.utc(moment.unix(doc.pubdate)).format(datetimeformat);
 		})
 		$scope.articles = result;
 	});

@@ -1,6 +1,25 @@
-<p class="h3 pill">Trending</p>
-<p class="text-left panel col-sm-6" ng-repeat="article in articles" id="{{article._id}}">
-	<strong>{{ article.title }}</strong> &middot; <span class="text-muted">{{ article.views }}</span><br />
-	<a href="{{ article.link }}" title="">{{ article.link }}</a><br />
-	<span>{{ article.description }}</span>
-</p>
+<!-- Modal -->
+<div id="trendingModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content col-xs-12">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">TOP 5 TRENDING STORIES</h4>
+      </div>
+      <div class="modal-body">
+        <p class="text-left panel list" ng-repeat="article in articles" id="{{article._id}}">
+					<strong>{{ article.title }}</strong>&middot;<span class="badge">{{ article.views }} <i class="fa fa-eye"></i></span><br />
+					<a href="{{ article.link }}" title="{{article.title}}" target="_blank">{{ article.link }}</a><br />
+					<span>{{ article.description }}</span>
+				</p>
+      </div>
+      <div class="modal-footer">
+      	<!-- include like and share buttons -->
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

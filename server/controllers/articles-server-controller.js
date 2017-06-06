@@ -13,7 +13,7 @@ exports.listArticles = function (req, res) {
 }
 exports.top5 = function (req,res) {
 	var country = req.params.country;
-	var	today = moment(moment(), "MMMM DD YYYY").unix();
+	var	today = moment(moment().format("MMMM DD YYYY")).unix();
 	Article.articlesModel.find({"pubdate": {$gte:today}, "domain":country}, function (err, result) {
 		res.json(result);
 	})

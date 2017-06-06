@@ -8,12 +8,12 @@ exports.listArticles = function (req, res) {
 	if (country!='all') {
 		Article.articlesModel.find({"domain":country}, function (err, result) { res.json(result); }).sort({"pubdate":-1}).limit(25);
 	}	else {
-		Article.articlesModel.find({"pubdate":{"$gte":qdate}}, function (err, result) { res.json(result); }).sort({"pubdate":-1}).limit(25);
+		Article.articlesModel.find({}, function (err, result) { res.json(result); }).sort({"pubdate":-1}).limit(25);
 	}
 }
 exports.top5 = function (req,res) {
 	var country = req.params.country;
-	var	today = moment(moment(), "MMMM DD YYYY").unix();
+	var	today = moment(moment().format("MMMM DD YYYY")).unix();
 	Article.articlesModel.find({"pubdate": {$gte:today}, "domain":country}, function (err, result) {
 		res.json(result);
 	})

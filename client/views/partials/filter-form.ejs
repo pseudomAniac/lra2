@@ -1,0 +1,14 @@
+<button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">FILTER TABLE</button>
+<div class="collapse well" id="collapseFilter">
+  <form class="form col-xs-12">
+		<div class="btn-group form-group">
+			<label class="checkbox btn btn-info btn-block form-control"><input ng-model="showColumnCountry" type="checkbox" aria-label="Toggle ngHide"> Country</label>
+			<label class="checkbox btn btn-info btn-block form-control"><input ng-model="showColumnPublisher" type="checkbox" aria-label="Toggle ngHide"> Stringer</label>
+			<label class="checkbox btn btn-info btn-block form-control"><input ng-model="showColumnViews" type="checkbox" aria-label="Toggle ngHide"> Views</label>
+			<label class="checkbox btn btn-info btn-block form-control"><input ng-model="showColumnGAViews" type="checkbox" aria-label="Toggle ngHide"> Google Analytics</label>
+		</div>
+	</form>
+  <div id="datepicker-counter">
+		<% include datepicker %>
+  </div>
+</div>

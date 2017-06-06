@@ -2,5 +2,8 @@
 	<div id="lsbMobileMenu" class="aside btn btn-info hidden-md hidden-lg"><i class="fa fa-chevron-left"></i></div>
   <% include ./nav-items %>
   <hr>
-	<% include ./search-form %>
+  <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#trendingModal">TODAY'S TOP 5</button>
+  <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#searchModal">SEARCH ARTICLES</button>
+	<button id="table-export-btn" class="btn btn-success btn-block" data-export="export">EXPORT TABLE</button>
+  <% include ./filter-form %>
 </aside>

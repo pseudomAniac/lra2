@@ -16,4 +16,11 @@ $(document).ready(function() {
 	$("#table-export-btn").click(function(){
 	  $("#datatable").tableToCSV();
 	});
+	$('#shareTop5').on('click',function(){
+		FB.ui({
+	    method: 'share',
+	    display: 'popup',
+	    href: document.URL,
+	  }, function(response){});
+	})
 });

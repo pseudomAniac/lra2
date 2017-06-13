@@ -74,7 +74,7 @@ app.get('/export/:country/:startDate', articlesController.exportArticles);
 app.get('/export/:country', articlesController.exportArticles);
 app.get('/search', (req, res) => {res.render('search')});
 app.get('/query/', articlesController.queryArticles);
-app.get('/api/query/', (req,res) => {res.render('articles')});
+app.get('/api/query/', (req,res) => {res.render('query')});
 // api call to populate stories
 app.get('/populate', (req, res) => {res.render('populate')});
 app.get('/populate/content/', function(req, res) {

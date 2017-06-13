@@ -52,6 +52,7 @@ ArticleListApp.controller('queryArticlesController', ['$scope', '$resource', '$l
 			})
 			$scope.articles = result;
 		})
+		$scope.controller = 'queryArticlesController';
 		$scope.pageTitle = "Results";
 		$scope.propertyName = "_id";
 		$scope.reverse = true;
@@ -66,7 +67,7 @@ ArticleListApp.controller('queryArticlesController', ['$scope', '$resource', '$l
 }])
 function qparams_builder(country, category, sdate, edate, callback) {
 	var params = '/query/?';
-	if (country != undefined && country != '') params += 'country='+country;
+	if (country != undefined && country != '') params += 'country='+country; else params += 'country=png';
 	if (category != undefined && category != '') params += '&category='+category;
 	if (sdate != undefined && sdate != '') params += '&sdate='+sdate;
 	if (edate != undefined && edate != '') params += '&edate='+edate;
@@ -76,6 +77,9 @@ function qparams_builder(country, category, sdate, edate, callback) {
 PNGArticleListApp.controller('articlesController', ['$scope', '$resource', 'moment', function ($scope, $resource, moment) {
 	var PNGArticle = $resource("/articles/png");
 	$scope.pageTitle = "PNG";
+	$scope.copyTop5 = function() {
+		angular.copy()
+	}
 	PNGArticle.query((result) => { 
 		result.forEach((doc,i)=>{
 			result[i].pubdate = moment(moment.unix(doc.pubdate)).format(datetimeformat);

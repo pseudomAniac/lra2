@@ -6,11 +6,13 @@ var ArticlesSchema = new Schema({
 	pubdate: {type: Number, index: true},
 	title: String,
 	views: Number,
-	pageviews: {type: Number, index: true},
+	gaPageviews: {type: Number, index: true},
 	link: {type: String, index: false},
 	author: String,
 	category: {type: Array},
 	publisher: String,
-	source: String
+	source: String,
+	description: String,
+	comments: String,
 });
 exports.articlesModel = mongoose.model('Article', ArticlesSchema);

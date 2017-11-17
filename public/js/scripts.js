@@ -16,4 +16,13 @@ $(document).ready(function() {
 	$("#table-export-btn").click(function(){
 	  $("#datatable").tableToCSV();
 	});
+	var url = document.URL,
+	domain = url.split('/')[url.split('/').length-1];
+	$('#shareTop5').on('click',function(){
+		FB.ui({
+	    method: 'share',
+	    display: 'popup',
+	    href: "https://looppacificcount.herokuapp.com/top/"+domain,
+	  }, function(response){});
+	})
 });

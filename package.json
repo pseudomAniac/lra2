@@ -1,6 +1,6 @@
 {
   "name": "looppacificcount",
-  "version": "1.9.15",
+  "version": "1.9.18",
   "description": "loop pacific website scraper",
   "main": "app.js",
   "dependencies": {
